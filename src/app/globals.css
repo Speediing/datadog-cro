@@ -26,6 +26,8 @@
   --imessage-blue: #007aff;
   --imessage-gray: #e9e9eb;
   --phone: #111;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @theme inline {
@@ -38,7 +40,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   overflow-x: hidden;
   scroll-padding-top: 4.75rem;
   -webkit-text-size-adjust: 100%;
@@ -76,6 +77,199 @@ a {
 a:hover {
   text-decoration: none;
   -webkit-text-decoration: none;
+}
+
+button,
+.metric-card,
+.org-box,
+.job-more summary,
+.clip-rates button,
+.demo-tools button,
+.mobile-pc-toggle,
+.login-form button,
+.desk-monitor,
+.desk-done,
+.pc-screen-bar button,
+.gb-composer button,
+.imessage-account button,
+.gb-title-actions button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button,
+.metric-card,
+.org-box,
+.job-more summary,
+.clip-rates button,
+.demo-tools button,
+.mobile-pc-toggle,
+.login-form button,
+.desk-monitor,
+.desk-done,
+.pc-screen-bar button,
+.gb-composer button,
+.imessage-account button,
+.gb-title-actions button {
+  transition: transform 140ms var(--ease-out);
+}
+
+button:active:not(:focus-visible),
+.metric-card:active:not(:focus-visible),
+.org-box:active:not(:focus-visible),
+.job-more summary:active:not(:focus-visible),
+.clip-rates button:active:not(:focus-visible),
+.demo-tools button:active:not(:focus-visible),
+.mobile-pc-toggle:active:not(:focus-visible),
+.login-form button:active:not(:focus-visible),
+.desk-monitor:active:not(:focus-visible),
+.desk-done:active:not(:focus-visible),
+.pc-screen-bar button:active:not(:focus-visible),
+.gb-composer button:active:not(:focus-visible),
+.imessage-account button:active:not(:focus-visible),
+.gb-title-actions button:active:not(:focus-visible) {
+  transform: scale(0.97);
+}
+
+.text-button,
+.nav-brand {
+  transition: none;
+}
+
+.text-button:active,
+.nav-brand:active {
+  transform: none;
+}
+
+.metric-card {
+  animation: metric-enter 220ms var(--ease-out) backwards;
+}
+
+.metric-card:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.metric-card:nth-child(2) {
+  animation-delay: 40ms;
+}
+
+.metric-card:nth-child(3) {
+  animation-delay: 80ms;
+}
+
+.metric-card:nth-child(4) {
+  animation-delay: 120ms;
+}
+
+.metric-card:nth-child(5) {
+  animation-delay: 160ms;
+}
+
+.metric-card:nth-child(6) {
+  animation-delay: 200ms;
+}
+
+@keyframes metric-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.job-more-body {
+  margin-top: 1rem;
+  transform-origin: top left;
+  animation: more-enter 180ms var(--ease-out) both;
+}
+
+@keyframes more-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .text-button:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .metric-card:hover h2 {
+    color: var(--ink);
+  }
+
+  .org-box:hover {
+    border-color: var(--ink);
+    background: var(--paper);
+  }
+
+  .org-box:hover .org-name {
+    color: var(--ink);
+  }
+
+  .job-more summary:hover {
+    color: var(--ink);
+  }
+
+  .quote-source:hover,
+  .clip-used a:hover {
+    color: var(--ink);
+  }
+
+  .clip-rates button:hover,
+  .demo-tools button:hover,
+  .mobile-pc-toggle:hover {
+    border-color: var(--ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metric-card,
+  .job-more-body {
+    animation: none;
+  }
+
+  button,
+  .metric-card,
+  .org-box,
+  .job-more summary,
+  .clip-rates button,
+  .demo-tools button,
+  .mobile-pc-toggle,
+  .login-form button,
+  .desk-monitor,
+  .desk-done,
+  .pc-screen-bar button,
+  .gb-composer button,
+  .imessage-account button,
+  .gb-title-actions button {
+    transition: opacity 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+
+  button:active,
+  .metric-card:active,
+  .org-box:active,
+  .job-more summary:active,
+  .clip-rates button:active,
+  .demo-tools button:active,
+  .mobile-pc-toggle:active,
+  .login-form button:active,
+  .desk-monitor:active,
+  .desk-done:active,
+  .pc-screen-bar button:active,
+  .gb-composer button:active,
+  .imessage-account button:active,
+  .gb-title-actions button:active {
+    transform: none;
+  }
 }
 
 .band-inner,
@@ -172,10 +366,6 @@ a:hover {
   padding: 0;
   text-underline-offset: 3px;
   text-decoration: underline transparent;
-}
-
-.text-button:hover {
-  text-decoration-color: currentColor;
 }
 
 .nav-brand {
@@ -293,6 +483,7 @@ a:hover {
   min-height: 180px;
   padding: 28px 28px 34px 0;
   color: inherit;
+  cursor: pointer;
 }
 
 .metric-card + .metric-card {
@@ -503,10 +694,6 @@ a:hover {
 
 .job-more[open] summary::before {
   content: "▾ ";
-}
-
-.job-more-body {
-  margin-top: 1rem;
 }
 
 .chapter-payoff {
@@ -730,7 +917,8 @@ a:hover {
   padding: 0.55rem 0.6rem 0.5rem;
   background: #ffffff;
   color: #0a0a0a;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--line);
+  box-shadow: none;
 }
 
 .deck-tile.voice-them {
@@ -1391,7 +1579,7 @@ a:hover {
   width: 100%;
   height: auto;
   max-height: 22rem;
-  border-radius: 10px;
+  border-radius: 3px;
   background: #000;
 }
 
@@ -1676,7 +1864,7 @@ a:hover {
   height: 0.38rem;
   border-radius: 999px;
   background: #8e8e93;
-  animation: typing-dot 1.05s ease-in-out infinite;
+  animation: typing-dot 1.05s linear infinite;
 }
 
 .msg-bubble.typing span:nth-child(2) {
@@ -1921,10 +2109,6 @@ a:hover {
   text-decoration: none;
 }
 
-.clip-used a:hover {
-  color: var(--ink);
-}
-
 .gallery-grid.compact {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
@@ -2055,7 +2239,7 @@ a:hover {
   height: 0.42rem;
   border-radius: 999px;
   background: #8e8e93;
-  animation: typing-dot 1.05s ease-in-out infinite;
+  animation: typing-dot 1.05s linear infinite;
 }
 
 .imessage-bubble.typing span:nth-child(2) {
@@ -2506,10 +2690,6 @@ a:hover {
   font-weight: 500;
 }
 
-.quote-source:hover {
-  color: var(--ink);
-}
-
 .site-footer {
   display: flex;
   justify-content: space-between;
@@ -2555,7 +2735,7 @@ a:hover {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 3px;
-  box-shadow: 0 30px 90px #20231f14;
+  box-shadow: none;
 }
 
 .login-card .eyebrow {
@@ -2667,7 +2847,6 @@ a:hover {
   color: inherit;
   text-decoration: none;
   -webkit-text-decoration: none;
-  transition: border-color 0.15s ease;
 }
 
 .org-box.is-chief {
@@ -2705,14 +2884,12 @@ a:hover {
   letter-spacing: -0.01em;
 }
 
-.org-box:hover,
 .org-box:focus-visible {
   border-color: var(--ink);
   background: var(--paper);
   text-decoration: none;
 }
 
-.org-box:hover .org-name,
 .org-box:focus-visible .org-name {
   color: var(--ink);
   text-decoration: none;
@@ -2771,7 +2948,7 @@ a:hover {
 }
 
 .band-cream .gb-product {
-  box-shadow: 0 18px 50px rgba(10, 10, 10, 0.08);
+  box-shadow: none;
 }
 
 .band-cream .clip-used a:hover,
@@ -3014,7 +3191,7 @@ a:hover {
   height: 0.38rem;
   border-radius: 999px;
   background: #a1a1aa;
-  animation: typing-dot 1s infinite;
+  animation: typing-dot 1s linear infinite;
 }
 
 .gb-system {
@@ -3971,11 +4148,11 @@ a:hover {
     height: 20.5rem;
     max-height: 20.5rem;
     overflow: hidden;
-    border: 1px solid #e4e4e7;
-    border-radius: 0.75rem;
-    background: #fff;
-    color: #111;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: none;
   }
 
   .pc-phone .pc-screen-bar {
