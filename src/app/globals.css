@@ -325,26 +325,6 @@ a:hover {
   line-height: 1;
 }
 
-.night-rocket {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.night-rocket canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .night-rocket {
-    display: none;
-  }
-}
-
 .orbit-break {
   position: relative;
   height: auto;

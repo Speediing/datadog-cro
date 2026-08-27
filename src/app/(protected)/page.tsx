@@ -2,7 +2,6 @@ import { JobSection } from "@/components/JobSection";
 import { QuoteWall } from "@/components/QuoteWall";
 import { SiteNav } from "@/components/SiteNav";
 import { RosterChart } from "@/components/RosterChart";
-import { NightRocketMount } from "@/components/NightRocketMount";
 import { JOBS } from "@/data/jobs";
 
 export default function HomePage() {
@@ -15,7 +14,6 @@ export default function HomePage() {
           src="/brand/watercolor-pad.png"
           alt=""
         />
-        <NightRocketMount />
         <SiteNav />
       </div>
 
