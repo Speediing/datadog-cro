@@ -8,11 +8,16 @@ function participantMap(thread: DemoThread): Record<string, Participant> {
 
 function defaultDelay(message: DemoMessage, people: Record<string, Participant>) {
   if (message.delayMs) return message.delayMs;
-  if (message.kind === "draft" || message.artifact) return 1400;
-  if (people[message.from]?.role === "bot") return 950;
-  if (message.kind === "system" || message.kind === "routine") return 700;
-  return 450;
+  if (message.kind === "draft" || message.artifact) return 2800;
+  if (people[message.from]?.role === "bot") {
+    const chars = (message.body || "").length;
+    return Math.min(2200, Math.max(1600, 1400 + chars * 8));
+  }
+  if (message.kind === "system" || message.kind === "routine") return 1500;
+  return 1300;
 }
+
+const SETTLE_MS = 500;
 
 export function useDemoPlayback(thread: DemoThread) {
   const people = useMemo(() => participantMap(thread), [thread]);
@@ -53,14 +58,27 @@ export function useDemoPlayback(thread: DemoThread) {
       next.kind === "draft" ||
       next.kind === "handoff" ||
       next.kind === "routine";
-    if (showTyping) setTypingFrom(next.from);
-    else setTypingFrom(null);
     const wait = defaultDelay(next, people);
-    const timer = window.setTimeout(() => {
+    const timers: number[] = [];
+    if (showTyping) {
+      timers.push(
+        window.setTimeout(() => setTypingFrom(next.from), SETTLE_MS),
+      );
+      timers.push(
+        window.setTimeout(() => {
+          setTypingFrom(null);
+          setVisibleCount((count) => count + 1);
+        }, SETTLE_MS + wait),
+      );
+    } else {
       setTypingFrom(null);
-      setVisibleCount((count) => count + 1);
-    }, wait);
-    return () => window.clearTimeout(timer);
+      timers.push(
+        window.setTimeout(() => {
+          setVisibleCount((count) => count + 1);
+        }, wait),
+      );
+    }
+    return () => timers.forEach((id) => window.clearTimeout(id));
   }, [playing, done, visibleCount, messages, people]);
 
   function replay() {

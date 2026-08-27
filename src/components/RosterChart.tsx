@@ -1,4 +1,5 @@
 import { FLEET } from "@/data/fleet";
+import { JOBS } from "@/data/jobs";
 
 function bot(id: string) {
   const found = FLEET.find((item) => item.id === id);
@@ -32,10 +33,28 @@ export function RosterChart() {
   return (
     <section id="roster" className="roster">
       <h2>Example roster</h2>
-      <p className="section-lede">
+      <p className="section-lede roster-lede-desk">
         Chief of Staff at the top. Specialists underneath. SKO is a group chat.
         Click a name to open that job.
       </p>
+      <p className="section-lede roster-lede-phone">
+        Chief of Staff, then the five jobs. Tap a name to open that demo.
+      </p>
+
+      <ol className="roster-list">
+        <li>
+          <Cell href={`#${cos.jobId}`} title={cos.name} blurb={cos.blurb} />
+        </li>
+        {JOBS.map((job) => (
+          <li key={job.id}>
+            <Cell
+              href={`#${job.id}`}
+              title={job.title}
+              blurb={`Job ${job.number}`}
+            />
+          </li>
+        ))}
+      </ol>
 
       <div className="roster-chart">
         <div className="roster-row chief">

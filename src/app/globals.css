@@ -1233,16 +1233,51 @@ a {
 }
 
 .login-page {
+  position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
   min-height: 100vh;
   padding: 1.5rem;
+  overflow: hidden;
   background: #000;
+}
+
+.login-wash {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.login-wash img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 22% 58%;
+}
+
+.login-wash::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.42) 0%,
+      rgba(0, 0, 0, 0.58) 45%,
+      #000 100%
+    );
 }
 
 .login-card {
   width: min(420px, 100%);
   padding: 0;
+}
+
+.login-card > p {
+  margin: 0.85rem 0 0;
 }
 
 .login-form {
@@ -1290,8 +1325,9 @@ a {
 }
 
 .brand-lockup {
+  --dd-h: 36px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.4rem;
   min-width: 0;
 }
@@ -1306,29 +1342,32 @@ a {
   object-fit: contain;
 }
 
-.brand-lockup-sm .brand-dd {
-  height: 20px;
+.brand-dd {
+  height: var(--dd-h);
 }
 
-.brand-lockup-sm .brand-sxai {
-  height: 10px;
-  max-width: 80px;
+.brand-sxai {
+  /* SpaceXAI letters sit low in the SVG because of the swoosh.
+     Height and offset match DATADOG cap height, not Bits. */
+  height: calc(var(--dd-h) * 0.346);
+  max-width: calc(var(--dd-h) * 2.85);
+  margin-top: calc(var(--dd-h) * 0.256);
 }
 
-.brand-lockup-md .brand-dd,
-.brand-lockup-lg .brand-dd {
-  height: 36px;
+.brand-lockup-sm {
+  --dd-h: 20px;
 }
 
-.brand-lockup-md .brand-sxai,
-.brand-lockup-lg .brand-sxai {
-  height: 16px;
-  max-width: 120px;
+.brand-lockup-md,
+.brand-lockup-lg {
+  --dd-h: 36px;
 }
 
 .brand-times {
+  align-self: flex-start;
+  margin-top: calc(var(--dd-h) * 0.4);
   color: #a1a1aa;
-  font-size: 1.1em;
+  font-size: calc(var(--dd-h) * 0.28);
   font-weight: 300;
   line-height: 1;
 }
@@ -1406,6 +1445,27 @@ a {
   margin: 1rem 0 0;
   color: var(--ink-soft);
   font-size: 0.82rem;
+}
+
+.roster-list {
+  display: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.roster-list li {
+  border-bottom: 1px solid var(--line);
+}
+
+.roster-list .roster-cell {
+  border-right: 0;
+  padding: 0.95rem 0.1rem;
+}
+
+.roster-lede-phone {
+  display: none;
 }
 
 .gb-window {
@@ -2182,6 +2242,16 @@ a {
     padding: 0.9rem 0.15rem;
   }
 
+  .roster-chart,
+  .roster-lede-desk {
+    display: none;
+  }
+
+  .roster-list,
+  .roster-lede-phone {
+    display: block;
+  }
+
   .gb-titlebar {
     flex-wrap: wrap;
   }
@@ -2195,13 +2265,12 @@ a {
   }
 
   .login-page {
-    display: block;
+    display: grid;
     padding: 1.25rem;
   }
 
   .login-card {
     width: 100%;
-    padding-top: 2.5rem;
   }
 
   .orbit-break {
