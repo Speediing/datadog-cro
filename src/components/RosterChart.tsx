@@ -6,6 +6,24 @@ function bot(id: string) {
   return found;
 }
 
+function MonitorCue() {
+  return (
+    <svg className="org-monitor" viewBox="0 0 24 24" aria-hidden>
+      <rect
+        x="3"
+        y="4.5"
+        width="18"
+        height="12"
+        rx="2"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path d="M8 20h8M12 16.5V20" stroke="currentColor" strokeWidth="1.7" />
+    </svg>
+  );
+}
+
 function Box({
   href,
   title,
@@ -19,33 +37,57 @@ function Box({
 }) {
   return (
     <a className={chief ? "org-box is-chief" : "org-box"} href={href}>
-      <strong>{title}</strong>
+      <span className="org-name">
+        <MonitorCue />
+        <strong>{title}</strong>
+      </span>
       <span>{blurb}</span>
     </a>
   );
 }
 
-const SPECIALISTS = [
-  { id: "room", blurb: "Granola and Gong to the next pack" },
-  { id: "attach", blurb: "90-day land-2-expand map" },
-  { id: "desk", blurb: "EB, paper, champion gaps" },
-  { id: "chief", blurb: "SKO and Friday one-pager" },
-  { id: "coach", blurb: "Practice partner and first-90 kit" },
+const ROW_ONE = [
+  { id: "room", blurb: "Granola, Figma. Next pack." },
+  { id: "attach", blurb: "Gong to a 90-day map." },
+  { id: "expert", blurb: "Account usage, exec brief." },
+  { id: "desk", blurb: "Pipeline paste. Gaps upstairs." },
 ] as const;
+
+const ROW_TWO = [
+  { id: "chief", blurb: "SKO story, Friday one-pager." },
+  { id: "coach", blurb: "Practice partner, first-90 kit." },
+  { id: "eng", blurb: "Live product answer, Bugbot." },
+  { id: "prospect", blurb: "5x5. Gmail drafts only." },
+] as const;
+
+function Row({ ids }: { ids: typeof ROW_ONE | typeof ROW_TWO }) {
+  return (
+    <ul className="org-kids">
+      {ids.map((item) => {
+        const specialist = bot(item.id);
+        return (
+          <li key={item.id} className="org-kid">
+            <Box
+              href={`#${specialist.jobId}`}
+              title={specialist.name}
+              blurb={item.blurb}
+            />
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 export function RosterChart() {
   const cos = bot("cos");
-  const specialists = SPECIALISTS.map((item) => ({
-    ...bot(item.id),
-    blurb: item.blurb,
-  }));
 
   return (
     <section id="roster" className="roster">
-      <h2>Example roster</h2>
+      <h2>The bots</h2>
       <p className="section-lede">
-        Chief of Staff at the top. Five specialists underneath. Click a name to
-        open that job.
+        One app. A Chief. Specialists with their own computers. They message
+        each other.
       </p>
 
       <div className="org" role="tree">
@@ -53,29 +95,26 @@ export function RosterChart() {
           <Box
             href={`#${cos.jobId}`}
             title={cos.name}
-            blurb={cos.blurb}
+            blurb="Routes, group chats, one-offs."
             chief
           />
         </div>
-        <div className="org-connect" aria-hidden>
-          <i className="org-stem" />
-          <i className="org-bar" />
+        <div className="org-branch">
+          <div className="org-connect" aria-hidden>
+            <i className="org-stem" />
+            <i className="org-bar" />
+          </div>
+          <Row ids={ROW_ONE} />
+          <div className="org-connect org-wrap" aria-hidden>
+            <i className="org-stem" />
+            <i className="org-bar" />
+          </div>
+          <Row ids={ROW_TWO} />
         </div>
-        <ul className="org-kids">
-          {specialists.map((item) => (
-            <li key={item.id} className="org-kid">
-              <Box
-                href={`#${item.jobId}`}
-                title={item.name}
-                blurb={item.blurb}
-              />
-            </li>
-          ))}
-        </ul>
       </div>
 
       <p className="roster-note">
-        Grok Bot from SpaceXAI. Example fleet, not a live org.
+        You approve drafts. Nothing auto-sends. Example Datadog GTM fleet.
       </p>
     </section>
   );
