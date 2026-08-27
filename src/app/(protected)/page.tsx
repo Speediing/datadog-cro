@@ -16,7 +16,7 @@ export default function HomePage() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/watercolor-pad.png" alt="" />
         </div>
-        <BrandLockup size="lg" />
+        <BrandLockup size="md" />
         <p className="hero-line">Grok Bot for Datadog GTM</p>
       </header>
 

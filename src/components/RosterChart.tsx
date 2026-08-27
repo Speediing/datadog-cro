@@ -6,42 +6,50 @@ function bot(id: string) {
   return found;
 }
 
-function MonitorCue() {
-  return (
-    <svg className="org-monitor" viewBox="0 0 24 24" aria-hidden>
-      <rect
-        x="3"
-        y="4.5"
-        width="18"
-        height="12"
-        rx="2"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.7"
-      />
-      <path d="M8 20h8M12 16.5V20" stroke="currentColor" strokeWidth="1.7" />
-    </svg>
-  );
+function initials(name: string) {
+  const parts = name.split(/\s+/).filter(Boolean);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return parts
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() || "")
+    .join("");
+}
+
+function isLight(hex: string) {
+  if (!hex.startsWith("#") || hex.length < 7) return false;
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return (r * 299 + g * 587 + b * 114) / 1000 > 180;
 }
 
 function Box({
   href,
   title,
   blurb,
+  color,
   chief = false,
 }: {
   href: string;
   title: string;
   blurb: string;
+  color: string;
   chief?: boolean;
 }) {
   return (
     <a className={chief ? "org-box is-chief" : "org-box"} href={href}>
-      <span className="org-name">
-        <MonitorCue />
-        <strong>{title}</strong>
+      <span
+        className="org-avatar"
+        style={{
+          background: color,
+          color: isLight(color) ? "#111" : "#fff",
+        }}
+        aria-hidden
+      >
+        {initials(title)}
       </span>
-      <span>{blurb}</span>
+      <span className="org-name">{title}</span>
+      <span className="org-blurb">{blurb}</span>
     </a>
   );
 }
@@ -71,6 +79,7 @@ function Row({ ids }: { ids: typeof ROW_ONE | typeof ROW_TWO }) {
               href={`#${specialist.jobId}`}
               title={specialist.name}
               blurb={item.blurb}
+              color={specialist.color}
             />
           </li>
         );
@@ -99,6 +108,7 @@ export function RosterChart() {
             href={`#${cos.jobId}`}
             title={cos.name}
             blurb="Routes work, runs group chats, handles one-offs."
+            color={cos.color}
             chief
           />
         </div>
