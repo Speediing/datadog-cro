@@ -1,4 +1,5 @@
 import type { Artifact } from "@/data/types";
+import { DeckSlides } from "./DeckSlides";
 
 export function ArtifactCard({ artifact }: { artifact: Artifact }) {
   switch (artifact.kind) {
@@ -6,17 +7,7 @@ export function ArtifactCard({ artifact }: { artifact: Artifact }) {
       return (
         <div className="art art-slides">
           <p className="art-kicker">{artifact.title}</p>
-          <ol className="slide-deck">
-            {artifact.cards.map((card) => (
-              <li key={card.n} className="slide-card">
-                <span className="slide-n">{String(card.n).padStart(2, "0")}</span>
-                <div>
-                  <p className="slide-title">{card.title}</p>
-                  <p className="slide-body">{card.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <DeckSlides slides={artifact.cards} size="sm" />
         </div>
       );
     case "one-pager":

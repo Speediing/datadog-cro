@@ -27,10 +27,32 @@ export type Participant = {
 
 export type MessageKind = "text" | "draft" | "routine" | "handoff" | "system";
 
+export type SlideVoice = "them" | "us";
+
 export type SlideCard = {
   n: number;
   title: string;
   body: string;
+  kicker?: string;
+  voice?: SlideVoice;
+};
+
+export type StoryScene =
+  | "call"
+  | "demo"
+  | "voice"
+  | "notes"
+  | "deck"
+  | "map"
+  | "inspect"
+  | "launch"
+  | "drill"
+  | "send";
+
+export type StoryBeat = {
+  label: string;
+  scene: StoryScene;
+  slides?: SlideCard[];
 };
 
 export type Artifact =
@@ -136,7 +158,7 @@ export type CroJob = {
   title: string;
   problem: string;
   botJob: string;
-  storyboard: string[];
+  storyboard: StoryBeat[];
   unlock: string;
   outcome: string;
   clips: ClipId[];

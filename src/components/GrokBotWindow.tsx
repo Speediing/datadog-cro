@@ -201,6 +201,7 @@ export function GrokBotWindow({
 
   const streamRef = useRef<HTMLDivElement>(null);
   const [showComputer, setShowComputer] = useState(true);
+  const [showMobileComputer, setShowMobileComputer] = useState(false);
   const [pickedBot, setPickedBot] = useState<string | null>(null);
   const threadBots = liveThread.participants.filter((p) => p.role === "bot");
   const speakingId =
@@ -225,17 +226,6 @@ export function GrokBotWindow({
 
   return (
     <div className={`demo-stage${showComputer ? " is-split" : ""}`}>
-      <div className="pc-screen pc-phone">
-        <div className="pc-screen-bar">
-          <strong>Computer</strong>
-          <span className={`pc-live${working ? " is-on" : ""}`}>
-            <i />
-            {working ? "Working" : beat?.pill || "Ready"}
-          </span>
-        </div>
-        <BotComputer jobId={job.id} playback={playback} />
-      </div>
-
       <div className="gb-product" aria-label="Grok Bot">
         <div className="desk-bar">
           <span className="traffic" aria-hidden>
@@ -301,12 +291,12 @@ export function GrokBotWindow({
               </div>
               <button
                 type="button"
-                className={`ios-monitor${showComputer ? " is-on" : ""}`}
+                className={`ios-monitor${showMobileComputer ? " is-on" : ""}`}
                 aria-label={
-                  showComputer ? "Hide computer" : "Open computer"
+                  showMobileComputer ? "Hide computer" : "Open computer"
                 }
-                aria-pressed={showComputer}
-                onClick={() => setShowComputer((value) => !value)}
+                aria-pressed={showMobileComputer}
+                onClick={() => setShowMobileComputer((value) => !value)}
               >
                 <MonitorIcon />
               </button>
@@ -380,6 +370,28 @@ export function GrokBotWindow({
           ) : null}
         </div>
       </div>
+
+      <button
+        type="button"
+        className={`mobile-pc-toggle${showMobileComputer ? " is-on" : ""}`}
+        aria-pressed={showMobileComputer}
+        onClick={() => setShowMobileComputer((value) => !value)}
+      >
+        {showMobileComputer ? "Hide computer" : "Show computer"}
+      </button>
+
+      {showMobileComputer ? (
+        <div className="pc-screen pc-phone">
+          <div className="pc-screen-bar">
+            <strong>Computer</strong>
+            <span className={`pc-live${working ? " is-on" : ""}`}>
+              <i />
+              {working ? "Working" : beat?.pill || "Ready"}
+            </span>
+          </div>
+          <BotComputer jobId={job.id} playback={playback} />
+        </div>
+      ) : null}
 
       <div className="demo-tools">
         <button

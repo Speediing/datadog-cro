@@ -52,12 +52,12 @@ function Box({
 }
 
 const SPECIALISTS = [
-  { id: "room", blurb: "Turns Granola or Gong into the next pack." },
-  { id: "attach", blurb: "Builds the 90-day land-2-expand map." },
+  { id: "room", blurb: "Turns Granola into the next pack." },
+  { id: "attach", blurb: "90-day land-2-expand map." },
   { id: "expert", blurb: "Who is in the account and what they use." },
-  { id: "desk", blurb: "Pastes the pipeline and names the gaps." },
-  { id: "chief", blurb: "Turns a launch into what the field can say." },
-  { id: "coach", blurb: "Practice partner and the first-90 kit." },
+  { id: "desk", blurb: "Paste the pipeline. Names the gaps." },
+  { id: "chief", blurb: "Turns a launch into field language." },
+  { id: "coach", blurb: "Practice partner. First-90 kit." },
   { id: "eng", blurb: "Answers from the product. Bugbot when it breaks." },
   { id: "prospect", blurb: "Five by five. Gmail drafts only." },
 ] as const;
@@ -67,13 +67,11 @@ export function RosterChart() {
 
   return (
     <section id="roster" className="roster">
-      <h2>Your Grok Bot team</h2>
+      <h2>The team</h2>
       <p className="section-lede">
-        Message Bots like teammates. Each one has a job and its own computer, so
-        it can work in Salesforce, Gmail, Figma, Gong, the same tools you
-        already use. They keep going after you close the laptop, talk to each
-        other when the work overlaps, and come back when something needs your
-        sign-off. Drafts stay drafts until you send.
+        Each bot has a job and a computer in Salesforce, Gmail, Figma, Gong.
+        They keep working after you close the laptop. Drafts stay drafts until
+        you send.
       </p>
 
       <div className="org" role="tree">

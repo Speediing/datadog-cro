@@ -1,24 +1,59 @@
-import type { CroJob } from "./types";
+import type { CroJob, SlideCard } from "./types";
+
+export const ACME_TAIL_SLIDES: SlideCard[] = [
+  {
+    n: 4,
+    kicker: "They said",
+    voice: "them",
+    title: "The Sev-2",
+    body: "We cannot tell a Sev-2 story across APM and logs without stitching tools.",
+  },
+  {
+    n: 5,
+    kicker: "Datadog",
+    voice: "us",
+    title: "Land APM + Logs",
+    body: "Same squad that already feels the incident. That is land-2 this quarter.",
+  },
+  {
+    n: 6,
+    kicker: "They said",
+    voice: "them",
+    title: "The security bar",
+    body: "Security will not let another agent in without SSO and an audit trail.",
+  },
+  {
+    n: 7,
+    kicker: "Datadog",
+    voice: "us",
+    title: "SSO, then Bits AI",
+    body: "Named on this call. One squad. Bits AI after week-3 MTTR moves.",
+  },
+];
 
 export const JOBS: CroJob[] = [
   {
     id: "standardize-room",
     number: 1,
-    title: "Standardize the room, not the logo",
+    title: "The deck from this call",
     problem:
-      "Your problem is not that AEs need AI. The best reps already run the meeting in their head. Everyone else shows up with last quarter's deck and hopes the champion fills the gaps.",
+      "The best reps already run the meeting in their head. Everyone else walks in with last quarter's deck and hopes the champion fills the gaps.",
     botJob:
-      "Granola or Gong notes go into a Grok Bot mid-meeting. It drafts the next slides, the leave-behind, and a champion packet while you are still in the room.",
+      "Granola notes go in while you are still on. Room Ops writes the last slides in their words, plus the leave-behind and a champion packet.",
     storyboard: [
-      "AE is on a disco call",
-      "Cuts over to a demo",
-      "Prospect shares use cases",
-      "Agent pulls Granola, still on the call",
-      "Tail of the deck updates with those use cases and how Datadog aligns",
+      { label: "Disco call", scene: "call" },
+      { label: "Cut to the demo", scene: "demo" },
+      { label: "They name the use cases", scene: "voice" },
+      { label: "Granola, still on", scene: "notes" },
+      {
+        label: "Tuesday's slides",
+        scene: "deck",
+        slides: ACME_TAIL_SLIDES,
+      },
     ],
-    unlock: "Live deck tail",
-    outcome:
-      "Tailor and attach to a customer outcome. Personalize while you are still on the call.",
+    unlock:
+      "Four slides for Tuesday. Their Sev-2 and their security bar, then how Datadog maps to each.",
+    outcome: "The next meeting is about the incident they just named.",
     clips: ["03-slides-granola"],
     demo: {
       title: "Room Ops",
@@ -66,39 +101,8 @@ export const JOBS: CroJob[] = [
           draftLabel: "Live deck tail",
           artifact: {
             kind: "slides",
-            title: "Acme deck · tail updated live",
-            cards: [
-              {
-                n: 1,
-                title: "What we heard",
-                body: "Land-2 is APM + Logs in one squad. Security blocked on SSO and an audit trail. Soft yes on a Bits AI pilot if those two are named.",
-              },
-              {
-                n: 2,
-                title: "Security path",
-                body: "SSO + audit trail before any expand. Security lead from today's call is the co-owner, not a later intro.",
-              },
-              {
-                n: 3,
-                title: "Bits AI pilot",
-                body: "One squad only. Same squad that lands APM + Logs. No platform tour.",
-              },
-              {
-                n: 4,
-                title: "Use cases they just named",
-                body: "Sev-2 story across APM and logs without stitching tools. One squad that already feels the incident. Security will not let another agent in without SSO and an audit trail.",
-              },
-              {
-                n: 5,
-                title: "How Datadog aligns",
-                body: "Land-2 is APM + Logs in that squad. Bits AI is the weekly habit after week-3 MTTR moves. SSO + audit is the gate, named on this call, not a later intro.",
-              },
-              {
-                n: 6,
-                title: "The ask",
-                body: "Champion + security co-owner on Tuesday. Dated path for SSO and audit. Pilot scope in writing.",
-              },
-            ],
+            title: "Acme · next meeting",
+            cards: ACME_TAIL_SLIDES,
           },
         },
         {
@@ -187,20 +191,20 @@ export const JOBS: CroJob[] = [
   {
     id: "attach-engine",
     number: 2,
-    title: "Attach is the real quota engine",
+    title: "Attach after the first meeting",
     problem:
-      "Datadog lands in two products and expands toward six to nineteen. Net retention is still in the low-120%s. Fortune 500 median ARR is still small relative to the platform. Heads are not the lever. Attach is.",
+      "You land in two products and expand toward six to nineteen. Net retention is still in the low-120%s. Fortune 500 median ARR is small for the platform. Attach is how ACV moves.",
     botJob:
-      "After every first meeting, the bot spits a 90-day attach map. Who owns Bits AI, Cloud SIEM, Cost, and RUM. What the exact next meeting is. Raise ACV without adding heads.",
+      "After the first meeting, the bot writes a 90-day attach map: who owns Bits AI, Cloud SIEM, Cost, and RUM, and what the next meeting is.",
     storyboard: [
-      "First meeting lands APM + Logs",
-      "Security was in the room. Cost came up once",
-      "Bot writes the 90-day attach map",
-      "Bits AI, Cloud SIEM, Cost, RUM get owners and next meetings",
-      "Next invite parks as a draft",
+      { label: "Land APM + Logs", scene: "call" },
+      { label: "Security was in the room", scene: "voice" },
+      { label: "90-day attach map", scene: "map" },
+      { label: "Owners and next meetings", scene: "notes" },
+      { label: "Next invite, as a draft", scene: "send" },
     ],
-    unlock: "Attach is the quota engine",
-    outcome: "Raise ACV without adding heads.",
+    unlock: "Owners, windows, and the next invite parked as a draft.",
+    outcome: "Raise ACV with the book you already have.",
     clips: ["05-forecast-sfdc", "06-customer-expert"],
     demo: {
       title: "Attach Mapper",
@@ -338,20 +342,20 @@ export const JOBS: CroJob[] = [
   {
     id: "deal-inspection",
     number: 3,
-    title: "Deal inspection at his altitude",
+    title: "Deal inspection at altitude",
     problem:
-      "You cannot sit in every $1M+ deal. You still need the quarterback view your HP recs describe, applied to the whole book. Gaps show up late. Forecast language upstairs stays vague.",
+      "You cannot sit in every $1M+ deal. Gaps show up late. Forecast language upstairs stays vague.",
     botJob:
-      "Paste pipeline notes. Get EB gaps, paper-process risk, champion risk, Monday questions, and a one-paragraph forecast you can take upstairs.",
+      "Paste pipeline notes. The bot names EB, paper, champion, and SIEM gaps, writes Monday questions, and drafts the upstairs paragraph.",
     storyboard: [
-      "Paste a live $1M+ deal",
-      "Bot reads it at CRO altitude",
-      "EB, paper, champion, SIEM gaps",
-      "Monday questions for the AE",
-      "One paragraph you can take upstairs",
+      { label: "Paste a $1M+ deal", scene: "inspect" },
+      { label: "Read at altitude", scene: "notes" },
+      { label: "EB, paper, champion, SIEM", scene: "map" },
+      { label: "Monday questions", scene: "voice" },
+      { label: "Paragraph for upstairs", scene: "send" },
     ],
-    unlock: "Real attach, or a logo land",
-    outcome: "Know in one sitting, at your altitude.",
+    unlock: "Four gaps, three Monday questions, one paragraph for upstairs.",
+    outcome: "You can inspect a $1M+ deal in one sitting.",
     clips: ["05-forecast-sfdc", "07-customer-exec-brief"],
     demo: {
       title: "Deal Desk",
@@ -465,20 +469,20 @@ export const JOBS: CroJob[] = [
   {
     id: "sko-enablement",
     number: 4,
-    title: "SKO and weekly enablement that does not die in Slack",
+    title: "One story for SKO",
     problem:
-      "You already do mainstage SKO. The story still dies in a Slack channel by Friday. A global sales org needs one talk track, not nineteen versions of Bits AI.",
+      "You already do mainstage SKO. By Friday the story is a Slack thread. A global sales org needs one Bits AI talk track.",
     botJob:
-      "Point the bot at a launch (Bits AI, MCP, a competitive loss). Get three talk tracks and a Friday one-pager the field can actually use.",
+      "Point the bot at a launch or a competitive loss. It writes AE, SE, and manager lines plus a Friday one-pager.",
     storyboard: [
-      "Point the bot at a launch or a loss",
-      "Group chat routes one story",
-      "Three talk tracks. AE, SE, manager",
-      "Friday one-pager",
-      "Draft to the field. You send",
+      { label: "Launch or a loss", scene: "launch" },
+      { label: "One story in the group chat", scene: "voice" },
+      { label: "AE, SE, manager lines", scene: "notes" },
+      { label: "Friday one-pager", scene: "deck" },
+      { label: "Draft to the field", scene: "send" },
     ],
-    unlock: "One story the whole field can say",
-    outcome: "Not 19 Slack versions.",
+    unlock: "Three talk tracks and a Friday one-pager.",
+    outcome: "Monday the field says the same Bits AI story.",
     clips: ["08-chief-groupchat", "01-morning-inbox"],
     demo: {
       title: "Enablement Chief",
@@ -610,20 +614,20 @@ export const JOBS: CroJob[] = [
   {
     id: "ramp-compression",
     number: 5,
-    title: "New-hire and ramp compression",
+    title: "Ramp before a live cycle",
     problem:
-      "Enterprise sales at Datadog is a long interview loop. Pitch, MEDDPICC, OSS is good enough. Ramp that is shadow the whale AE for a quarter is too slow for the book you want.",
+      "Enterprise sales at Datadog is a long interview loop. Pitch, MEDDPICC, OSS is good enough. Shadowing the whale AE for a quarter is too slow for the book you want.",
     botJob:
-      "Bot as practice partner plus a first-90-day deal kit. Reps get reps before they burn a live Fortune 500 cycle.",
+      "The bot is a practice partner. Reps drill the OSS objection and leave with a first-90-day deal kit.",
     storyboard: [
-      "Drill the OSS objection",
-      "Skeptical buyer plays it cold",
-      "Coach scores the answer",
-      "Better answer you can say out loud",
-      "First-90 kit. Drafts only",
+      { label: "Drill the OSS objection", scene: "drill" },
+      { label: "Buyer plays it cold", scene: "voice" },
+      { label: "Coach scores it", scene: "inspect" },
+      { label: "Better answer", scene: "notes" },
+      { label: "First-90 kit", scene: "send" },
     ],
-    unlock: "Reps before a live Fortune 500 cycle",
-    outcome: "Ramp is not shadow the whale AE for a quarter.",
+    unlock: "A scored OSS drill and a first-90 kit.",
+    outcome: "New AEs get reps before they spend a Fortune 500 cycle.",
     clips: ["04-engineer-bugbot", "02-prospecting-pg"],
     demo: {
       title: "Ramp Coach",

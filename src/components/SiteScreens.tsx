@@ -1,6 +1,8 @@
-import type { Artifact, DemoMessage } from "@/data/types";
+import type { Artifact, DemoMessage, SlideCard } from "@/data/types";
 import type { ComputerBeat } from "@/data/screens";
 import { CLIPS } from "@/data/clips";
+import { ACME_TAIL_SLIDES } from "@/data/jobs";
+import { DeckSlides } from "./DeckSlides";
 
 function asSlides(artifact?: Artifact) {
   return artifact?.kind === "slides" ? artifact : null;
@@ -145,14 +147,7 @@ function FigmaScreen({
   const slides = asSlides(artifact);
   const packet = artifact?.kind === "packet" ? artifact : null;
   const pager = asOnePager(artifact);
-  const cards = slides?.cards ?? [
-    { n: 1, title: "What we heard", body: `${account} land-2 is APM + Logs.` },
-    { n: 2, title: "Security path", body: "SSO + audit trail." },
-    { n: 3, title: "Bits AI pilot", body: "One squad only." },
-    { n: 4, title: "Use cases they just named", body: "Sev-2 story. One squad." },
-    { n: 5, title: "How Datadog aligns", body: "Land-2, then Bits AI habit." },
-    { n: 6, title: "The ask", body: "Champion + security, Tuesday." },
-  ];
+  const cards: SlideCard[] = slides?.cards ?? ACME_TAIL_SLIDES;
 
   return (
     <div className="site site-figma">
@@ -189,15 +184,7 @@ function FigmaScreen({
             ))}
           </div>
         ) : (
-          <div className="figma-frames">
-            {cards.map((card) => (
-              <article key={card.n}>
-                <span>{String(card.n).padStart(2, "0")}</span>
-                <h4>{card.title}</h4>
-                <p>{card.body}</p>
-              </article>
-            ))}
-          </div>
+          <DeckSlides slides={cards} size="sm" account={account} />
         )}
       </div>
     </div>
