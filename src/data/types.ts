@@ -81,6 +81,20 @@ export type Artifact =
       rows: string[][];
     }
   | {
+      kind: "attach-map";
+      title: string;
+      days: number;
+      meeting: { when: string; who: string; agenda: string };
+      lanes: {
+        product: string;
+        owner: string;
+        from: number;
+        to: number;
+        move: string;
+        punch?: boolean;
+      }[];
+    }
+  | {
       kind: "talk-tracks";
       title: string;
       tracks: { seat: string; line: string }[];
@@ -90,6 +104,9 @@ export type Artifact =
       title: string;
       status: string;
       body: string;
+      account?: string;
+      amount?: string;
+      gaps?: { label: string; body: string }[];
     }
   | {
       kind: "gaps";
@@ -107,6 +124,7 @@ export type Artifact =
       score: string;
       notes: string[];
       betterAnswer: string;
+      weakLine?: string;
     }
   | {
       kind: "deal-kit";

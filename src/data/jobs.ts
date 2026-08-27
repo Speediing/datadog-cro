@@ -205,36 +205,44 @@ export const JOBS: CroJob[] = [
         label: "The 90-day attach map",
         scene: "map",
         artifact: {
-          kind: "table",
+          kind: "attach-map",
           title: "Acme 90-day attach",
-          caption:
-            "Next meeting. Tue 30 min with security lead + AE. Agenda is SIEM scope.",
-          columns: ["Product", "Owner", "Window", "Next move"],
-          rows: [
-            [
-              "Bits AI",
-              "Platform eng manager",
-              "Day 15 to 45",
-              "Pilot in the APM + Logs squad",
-            ],
-            [
-              "Cloud SIEM",
-              "Security lead from today's call",
-              "Day 15 to 45",
-              "Tue 30 min scoping with AE",
-            ],
-            [
-              "Cost",
-              "FinOps alias they mentioned",
-              "Day 45 to 90",
-              "Review after land-2 proof",
-            ],
-            [
-              "RUM",
-              "Frontend guild lead (not in room)",
-              "Day 45 to 90",
-              "Intro once APM is stable",
-            ],
+          days: 90,
+          meeting: {
+            when: "Tue · 30 min",
+            who: "Security lead + AE",
+            agenda: "SIEM scope. Not a product tour.",
+          },
+          lanes: [
+            {
+              product: "Bits AI",
+              owner: "Platform eng manager",
+              from: 15,
+              to: 45,
+              move: "Pilot in the APM + Logs squad",
+            },
+            {
+              product: "Cloud SIEM",
+              owner: "Security lead from today's call",
+              from: 15,
+              to: 45,
+              move: "Tue 30 min scoping with AE",
+              punch: true,
+            },
+            {
+              product: "Cost",
+              owner: "FinOps alias they mentioned",
+              from: 45,
+              to: 90,
+              move: "Review after land-2 proof",
+            },
+            {
+              product: "RUM",
+              owner: "Frontend guild lead",
+              from: 45,
+              to: 90,
+              move: "Intro once APM is stable",
+            },
           ],
         },
       },
@@ -394,8 +402,28 @@ export const JOBS: CroJob[] = [
         artifact: {
           kind: "forecast",
           title: "Take this upstairs",
+          account: "Acme",
+          amount: "$1.4M · stage 4",
           status: "Hold commit until EB is on the calendar",
           body: "Acme is a real this-quarter shot at $1.4M if we get an EB meeting in 10 days and a dated legal path. Champion is strong. Forecast risk is paper plus Cloud SIEM attach, not product fit. I am holding commit until EB is on the calendar.",
+          gaps: [
+            {
+              label: "EB",
+              body: "No meeting on the calendar.",
+            },
+            {
+              label: "Paper",
+              body: "Legal slow. No dated path.",
+            },
+            {
+              label: "Champion",
+              body: "Strong sentiment. Weak map.",
+            },
+            {
+              label: "SIEM",
+              body: "Comp unclear. Not in the story.",
+            },
+          ],
         },
       },
     ],
@@ -696,11 +724,13 @@ export const JOBS: CroJob[] = [
         artifact: {
           kind: "scorecard",
           title: "OSS objection · scored",
-          score: "6 / 10. Direction is right. Too abstract to win a live cycle.",
+          score: "6 / 10",
+          weakLine:
+            "Because when you stitch six tools the MTTR story falls apart across teams.",
           notes: [
-            "Kept Prometheus and Grafana in the frame. Good.",
+            "Kept Prometheus and Grafana in the frame.",
             "Stitching tools is true and still generic.",
-            "No incident pattern. No land-2. No Bits AI habit.",
+            "No incident. No land-2. No Bits AI habit.",
           ],
           betterAnswer:
             "Last quarter on-call jumped Prometheus, Grafana, and a log pile to explain one latency spike. Land APM + Logs in that squad this month. Bits AI attaches after that squad has a week-3 MTTR number, not after a platform tour.",

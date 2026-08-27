@@ -1,5 +1,6 @@
 import type { CroJob, JobId } from "@/data/types";
 import { Storyboard } from "./Storyboard";
+import { ChapterPayoff } from "./ChapterPayoff";
 import { JobMore } from "./JobMore";
 
 const JOB_ART: Record<JobId, string> = {
@@ -11,6 +12,9 @@ const JOB_ART: Record<JobId, string> = {
 };
 
 export function JobSection({ job }: { job: CroJob }) {
+  const lead = job.storyboard.slice(0, -1);
+  const payoff = job.storyboard[job.storyboard.length - 1];
+
   return (
     <section id={job.id} className="job">
       <div className="job-art" aria-hidden>
@@ -22,7 +26,10 @@ export function JobSection({ job }: { job: CroJob }) {
         <h2 className="job-title">{job.title}</h2>
         <p className="job-outcome">{job.outcome}</p>
       </header>
-      <Storyboard beats={job.storyboard} />
+      <Storyboard beats={lead} />
+      {payoff ? (
+        <ChapterPayoff beat={payoff} wash={JOB_ART[job.id]} />
+      ) : null}
       <JobMore job={job} />
     </section>
   );

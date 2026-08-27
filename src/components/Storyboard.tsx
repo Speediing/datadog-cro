@@ -1,6 +1,4 @@
-import type { Artifact, SlideCard, StoryBeat, StoryScene } from "@/data/types";
-import { ArtifactCard } from "./ArtifactCard";
-import { DeckSlides } from "./DeckSlides";
+import type { StoryBeat, StoryScene } from "@/data/types";
 
 function SceneIcon({ scene }: { scene: StoryScene }) {
   return (
@@ -158,11 +156,7 @@ function SceneIcon({ scene }: { scene: StoryScene }) {
       ) : null}
       {scene === "launch" ? (
         <>
-          <path
-            d="M7 22.5h18"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          />
+          <path d="M7 22.5h18" stroke="currentColor" strokeWidth="1.6" />
           <path
             d="M10 22.5 16 7l6 15.5"
             fill="none"
@@ -218,30 +212,17 @@ function SceneIcon({ scene }: { scene: StoryScene }) {
   );
 }
 
-function Join({ down = false }: { down?: boolean }) {
+function Join() {
   return (
-    <svg
-      className={down ? "story-join is-down" : "story-join"}
-      viewBox="0 0 28 36"
-      aria-hidden
-    >
-      {down ? (
-        <path
-          d="M14 2c0 10 0 14 0 22"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-      ) : (
-        <path
-          d="M2 18c8-9 16-9 24 0"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-      )}
+    <svg className="story-join" viewBox="0 0 28 36" aria-hidden>
       <path
-        d={down ? "M10 20l4 6 4-6" : "M20 12l6 6-6 6"}
+        d="M2 18c8-9 16-9 24 0"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M20 12l6 6-6 6"
         fill="none"
         stroke="currentColor"
         strokeWidth="1.5"
@@ -252,17 +233,10 @@ function Join({ down = false }: { down?: boolean }) {
 }
 
 export function Storyboard({ beats }: { beats: StoryBeat[] }) {
-  const lead = beats.slice(0, -1);
-  const payoff = beats[beats.length - 1];
-  const payoffSlides = (payoff?.slides || []) as SlideCard[];
-  const payoffArtifact = payoff?.artifact as Artifact | undefined;
-
-  if (!payoff) return null;
-
   return (
-    <div className="storyboard has-deck">
+    <div className="storyboard">
       <ol className="story-strip">
-        {lead.map((beat, index) => (
+        {beats.map((beat, index) => (
           <li key={`${beat.scene}-${beat.label}`} className="story-cell">
             {index > 0 ? <Join /> : null}
             <div className="story-frame">
@@ -275,25 +249,6 @@ export function Storyboard({ beats }: { beats: StoryBeat[] }) {
           </li>
         ))}
       </ol>
-      <div className="story-cell is-payoff">
-        <Join down />
-        <div className="story-frame is-payoff">
-          <div className="story-meta">
-            <span className="story-num">
-              {String(beats.length).padStart(2, "0")}
-            </span>
-            <SceneIcon scene={payoff.scene} />
-            <p>{payoff.label}</p>
-          </div>
-          {payoffSlides.length > 0 ? (
-            <DeckSlides slides={payoffSlides} size="md" />
-          ) : payoffArtifact ? (
-            <div className="chapter-payoff">
-              <ArtifactCard artifact={payoffArtifact} />
-            </div>
-          ) : null}
-        </div>
-      </div>
     </div>
   );
 }

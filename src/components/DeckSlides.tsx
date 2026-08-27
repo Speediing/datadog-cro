@@ -30,11 +30,9 @@ export function DeckSlides({
             <p className={voice === "them" ? "deck-quote" : "deck-map"}>
               {voice === "them" ? `“${slide.body}”` : slide.body}
             </p>
-            {size !== "sm" ? (
+            {size === "lg" ? (
               <footer className="deck-tile-foot">
-                <span>
-                  {account} / Datadog
-                </span>
+                <span>{account} / Datadog</span>
                 <span>Next meeting</span>
               </footer>
             ) : null}

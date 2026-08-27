@@ -168,6 +168,25 @@ export function ArtifactCard({ artifact }: { artifact: Artifact }) {
           <p className="slack-body">{artifact.body}</p>
         </div>
       );
+    case "attach-map":
+      return (
+        <div className="art art-sheet">
+          <p className="art-kicker">{artifact.title}</p>
+          <ul>
+            {artifact.lanes.map((lane) => (
+              <li key={lane.product}>
+                <p className="art-label">{lane.product}</p>
+                <p>
+                  Day {lane.from} to {lane.to}. {lane.move}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <p className="art-caption">
+            {artifact.meeting.when}. {artifact.meeting.agenda}
+          </p>
+        </div>
+      );
     default:
       return null;
   }
