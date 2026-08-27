@@ -39,30 +39,36 @@ export function BotComputer({
               <i />
               <i />
             </span>
-            <div className="chrome-tabs">
-              {beat.tabs.map((tab) => (
-                <span
-                  key={tab.id}
-                  className={tab.host === beat.host ? "is-active" : undefined}
-                >
-                  {tab.label}
-                </span>
-              ))}
+            <div className="chrome-url">
+              <span className="chrome-lock" aria-hidden />
+              <code>{url}</code>
             </div>
           </div>
-          <div className="chrome-url">
-            <span className="chrome-lock" aria-hidden />
-            <code>{url}</code>
-          </div>
         </div>
-        <p className="pc-pill">{beat.pill}</p>
-        <div className="pc-page">
-          <SiteScreen
-            beat={beat}
-            message={message}
-            account={playback.account}
-            sent={sent}
-          />
+        <div className="pc-body">
+          <div className="chrome-tabs" role="tablist" aria-label="Open sites">
+            {beat.tabs.map((tab) => (
+              <span
+                key={tab.id}
+                role="tab"
+                aria-selected={tab.host === beat.host}
+                className={tab.host === beat.host ? "is-active" : undefined}
+              >
+                {tab.label}
+              </span>
+            ))}
+          </div>
+          <div className="pc-main">
+            <p className="pc-pill">{beat.pill}</p>
+            <div className="pc-page">
+              <SiteScreen
+                beat={beat}
+                message={message}
+                account={playback.account}
+                sent={sent}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

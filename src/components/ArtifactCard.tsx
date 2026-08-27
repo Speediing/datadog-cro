@@ -172,7 +172,7 @@ export function ArtifactCard({ artifact }: { artifact: Artifact }) {
           <ul>
             {artifact.marks.map((mark) => (
               <li key={mark.text}>
-                <p className="art-label">{mark.take ? "Take" : "Hold"}</p>
+                <p className="art-label">{mark.take ? "Answer" : "Hold"}</p>
                 <p>{mark.note}</p>
               </li>
             ))}
@@ -180,23 +180,28 @@ export function ArtifactCard({ artifact }: { artifact: Artifact }) {
           <p className="art-caption">{artifact.reply.subject}</p>
         </div>
       );
-    case "attach-map":
+    case "linkedin":
       return (
-        <div className="art art-sheet">
-          <p className="art-kicker">{artifact.title}</p>
-          <ul>
-            {artifact.lanes.map((lane) => (
-              <li key={lane.product}>
-                <p className="art-label">{lane.product}</p>
-                <p>
-                  Day {lane.from} to {lane.to}. {lane.move}
-                </p>
-              </li>
-            ))}
-          </ul>
-          <p className="art-caption">
-            {artifact.meeting.when}. {artifact.meeting.agenda}
+        <div className="art art-gmail">
+          <p className="art-kicker">LinkedIn draft</p>
+          <p className="mail-row">
+            <span>To</span>
+            {artifact.to}
+            {artifact.role ? ` · ${artifact.role}` : ""}
           </p>
+          <p className="mail-body">{artifact.body}</p>
+        </div>
+      );
+    case "outbound":
+      return (
+        <div className="art art-doc">
+          <p className="art-kicker">{artifact.title}</p>
+          {artifact.hypothesis.map((item) => (
+            <div key={item.k} className="art-block">
+              <p className="art-label">{item.k}</p>
+              <p>{item.body}</p>
+            </div>
+          ))}
         </div>
       );
     default:

@@ -1,4 +1,4 @@
-import type { CroJob, SlideCard } from "./types";
+import type { Artifact, CroJob, SlideCard } from "./types";
 
 export const ACME_TAIL_SLIDES: SlideCard[] = [
   {
@@ -31,81 +31,193 @@ export const ACME_TAIL_SLIDES: SlideCard[] = [
   },
 ];
 
+export const ACME_PROCUREMENT: Extract<Artifact, { kind: "redlines" }> = {
+  kind: "redlines",
+  title: "Acme procurement · overnight invoices",
+  paperTitle: "Their questions",
+  from: "Jordan Hale, Acme procurement · 5:27am your time",
+  marks: [
+    {
+      text: "Why the $427.51 catch-up, and will it happen again?",
+      note: "Billing-system miss on our side, 1 July–17 July. INV-0081 is the one-time correction. Gap is closed.",
+      take: true,
+    },
+    {
+      text: "Can the admin portal be trusted? Any more retro charges?",
+      note: "Dashboard for usage. Invoices under Billing are the billed record. Flag anything from a closed period before it is billed.",
+      take: true,
+    },
+    {
+      text: "How was the $715.55 Teams invoice calculated?",
+      note: "Two mid-cycle adds, 19→20→21, not one full-year seat. Proration through 17 July 2027. Seat is $384/year.",
+      take: true,
+    },
+    {
+      text: "Spend caps, PO invoicing, per-user limits.",
+      note: "Team-wide monthly cap is on Teams. Per-user caps and annual PO are Enterprise. Do not re-trade that from this inbox.",
+      take: false,
+    },
+  ],
+  reply: {
+    to: "Jordan Hale, Acme procurement",
+    subject: "Acme invoices INV-0080 and INV-0081. Answers you can send today",
+    body: "Hi Jordan,\n\nINV-0081 ($427.51) is a one-time catch-up for usage 1–17 July that our billing system missed. Not new usage. Gap is closed. No further retros expected; I would flag any closed-period item before it billed.\n\nDashboard = usage. Billing invoices = what was billed. Those should now match. Send any line that does not.\n\nINV-0080 ($715.55) is two mid-cycle seat adds (19→21), not a full-year seat at $384. Renewal date does not change.\n\nTeam-wide spend cap is on Teams. Per-user caps and annual PO are Enterprise — that stays on the order form.\n\nHappy to jump on a call before these are processed.\n\nBest,",
+  },
+};
+
+export const ACME_OUTBOUND: Extract<Artifact, { kind: "outbound" }> = {
+  kind: "outbound",
+  title: "Acme outbound",
+  account: "Acme",
+  hypothesis: [
+    {
+      k: "Why us",
+      body: "On-call still stitches Prometheus, Grafana, and a log pile to name a Sev-2. APM + Logs is the start, not a catalog pitch.",
+    },
+    {
+      k: "Why now",
+      body: "Public incident 14 days ago. 47 minutes to name the failing service. Staff SRE JD asks for stitching APM and logs. The pain is current.",
+    },
+    {
+      k: "Why them",
+      body: "VP Eng owns time-to-fix. Platform director lives in that stitch. They are the ones who felt the last Sev-2.",
+    },
+  ],
+  evidence: [
+    {
+      source: "Status page · 14 days ago",
+      finding:
+        "Sev-2, 47 minutes to name the failing service. Postmortem language is still 'we jumped three tools.'",
+    },
+    {
+      source: "Careers · Staff SRE",
+      finding:
+        "JD asks for 'experience stitching APM and logs across teams.' Open role, posted this month.",
+    },
+    {
+      source: "Engineering blog",
+      finding:
+        "We outgrew homegrown dashboards. No named replacement. That is the gap.",
+    },
+  ],
+  targets: [
+    {
+      name: "Priya Shah",
+      role: "VP Engineering",
+      why: "Owns time-to-fix. Named in the SRE hiring chain.",
+    },
+    {
+      name: "Chris Okonkwo",
+      role: "Director, Platform",
+      why: "Team is the one stitching APM and logs today.",
+    },
+  ],
+  page: {
+    headline: "Acme's Sev-2 is a stitching problem",
+    body: "The last incident and the Staff SRE JD say the same thing. Start APM + Logs in the platform team. Bits AI after that team has a week-3 number. Not a product tour.",
+  },
+};
+
 export const JOBS: CroJob[] = [
   {
     id: "standardize-room",
     number: 1,
-    title: "The deck from this call",
+    title: "Update decks in real time",
+    trigger: "A customer call starts",
+    backgroundAction: "Listening to discovery + updating the open deck",
     problem:
-      "The best reps already run the meeting in their head. Everyone else walks in with last quarter's deck and hopes the inside contact fills the gaps.",
+      "A generic deck is a pitch they have already sat through. The wow is hearing their own discovery back, then seeing the next product named for their team, while they are still on.",
     botJob:
-      "Granola notes go in while you are still on. Room Ops writes the last slides in their words, plus a one-pager they can forward.",
+      "Granola is in while you are on. The last slides become their words and a product suggestion that fits this room. Not last quarter's story.",
     storyboard: [
       {
         when: "Minute 8",
-        label: "Still on the first call. They have not seen a slide.",
+        label: "The call starts. Grok is already listening — no prompt needed.",
         scene: "call",
+        visual: {
+          kind: "live-call",
+          title: "Acme discovery",
+          people: [
+            { initials: "JW", name: "You" },
+            { initials: "PS", name: "Priya" },
+            { initials: "CO", name: "Chris" },
+          ],
+        },
       },
       {
         when: "Minute 22",
-        label: "You switch to the product. They start saying how they actually work.",
+        label: "Their exact language lands in the transcript.",
         scene: "demo",
+        visual: {
+          kind: "live-transcript",
+          timestamp: "14:31",
+          speaker: "Priya",
+          quote: "We stitch APM and logs together every time there is a Sev-2.",
+          signals: ["Sev-2", "APM + Logs"],
+        },
       },
       {
         when: "Minute 31",
-        label: "Granola is already taking notes. You have not hung up.",
+        label: "Grok maps it to product and rewrites the open deck.",
         scene: "notes",
+        visual: {
+          kind: "deck-update",
+          eyebrow: "Their words",
+          headline: "A Sev-2 is a stitching problem",
+          product: "Start with APM + Logs",
+          status: "3 slides updated",
+        },
       },
       {
         when: "Minute 35",
-        label: "The last slides use their words. Next meeting, not last quarter.",
+        label: "Present the new slides before the call ends.",
         scene: "deck",
         slides: ACME_TAIL_SLIDES,
       },
     ],
     unlock:
-      "A recap slide in their words, plus how Datadog helps, while you are still on the call.",
+      "Hyper-personalized discovery on the slide, plus a tailored product next step, while they are still on.",
     outcome:
-      "You change the slides while you are still on the call. The next meeting is about SSO and a Bits AI trial in that team. Not another first meeting.",
+      "One live call becomes a customer-specific deck — before the call ends.",
     clips: ["03-slides-granola"],
     demo: {
       title: "Room Ops",
-      subtitle: "Granola live · rewriting the open deck",
+      subtitle: "Live discovery · slides in their words",
       participants: [
         { id: "you", name: "You", role: "you" },
         {
           id: "room",
           name: "Room Ops",
           role: "bot",
-          persona: "Turns live notes into the pack the room needs next",
+          persona: "Turns live discovery into slides that wow this room",
           color: "#34C759",
         },
         {
           id: "slides",
           name: "Slides",
           role: "bot",
-          persona: "Builds the next-meeting deck from the transcript",
+          persona: "Maps what they just said to a product suggestion for this team",
           color: "#007AFF",
         },
       ],
       messages: [
         {
           id: "m1",
-          from: "you",
-          kind: "text",
-          body: "Still on the first call. They have not seen a slide. Switching to the product. Stay on Granola. Do not start a new deck.",
+          from: "room",
+          kind: "routine",
+          body: "Customer call started. I am following Granola and watching for their language, blockers, and product signals. The open deck stays untouched until there is something worth changing.",
         },
         {
           id: "m2",
-          from: "you",
+          from: "room",
           kind: "text",
-          body: "They just named the Sev-2 and the security bar, in their words, on this demo. Pull Granola. We are still on. Rewrite the last slides of the open deck, not a recap after.",
+          body: "Priya just named the Sev-2 and the security bar in her words. Mapping both to the last slides now while the call is still live.",
         },
         {
           id: "m3",
           from: "room",
           kind: "text",
-          body: "Still on. Granola 14:31. Writing the What we heard slide from this call. Their Sev-2 and security bar, then how Datadog maps. Your contact can already hear themselves.",
+          body: "Still on. Granola 14:31. Their discovery is the slide. Sev-2 and the security bar in their words, then the product that fits this team. They should feel known, not pitched.",
         },
         {
           id: "m4",
@@ -204,135 +316,88 @@ export const JOBS: CroJob[] = [
   {
     id: "legal-redlines",
     number: 2,
-    title: "Redlines from Europe",
+    title: "Find product and internal answers fast",
+    trigger: "A customer question lands",
+    backgroundAction: "Searching product knowledge + internal company context",
     problem:
-      "Legal sits in Europe. You do not. Redlines land while you are asleep. Normally you wait another night for someone to even read the markups, and the deal goes quiet.",
+      "A customer question can turn into a week of Slack across product, billing, finance, and legal. The seller waits, the customer waits, and internal experts lose time repeating answers.",
     botJob:
-      "Grok Bot already read the email and the redlines overnight. A draft is waiting in the morning: what we can take, what we push back. Draft only. You approve.",
+      "Grok Bot watches for the question, searches product knowledge and internal company context, and drafts a sourced reply. The seller reviews instead of chasing teams.",
     storyboard: [
       {
-        when: "2:14am your time",
-        label: "Legal in Europe sends a marked-up paper. You are still asleep.",
+        when: "5:27am your time",
+        label: "Four questions land. Grok starts while you are asleep.",
         scene: "notes",
+        visual: {
+          kind: "procurement-email",
+          sender: "Jordan · Acme procurement",
+          subject: "Questions on INV-0080 + 0081",
+          questions: 4,
+        },
       },
       {
         when: "7:42am",
-        label: "You open the inbox. A pile of red ink landed overnight.",
+        label: "Grok has already found and checked every answer.",
         scene: "inspect",
-      },
-      {
-        when: "Still morning",
-        label: "Grok Bot already read the redlines. A draft is waiting.",
-        scene: "send",
-      },
-      {
-        when: "Before Europe logs off",
-        label: "What we take. What we push back. You can send today.",
-        scene: "send",
-        artifact: {
-          kind: "redlines",
-          title: "Acme paper · marked up overnight",
-          paperTitle: "Acme master agreement",
-          from: "Acme legal, Europe · 2:14am your time",
-          marks: [
-            {
-              text: "Datadog may use usage data to improve the service.",
-              note: "Strike. They want this gone.",
-              take: true,
-            },
-            {
-              text: "Liability cap: 12 months of fees.",
-              note: "They want 6 months. We hold 12.",
-              take: false,
-            },
-            {
-              text: "Security review in 10 business days.",
-              note: "They want 5. We can do 10 with a named owner.",
-              take: false,
-            },
-            {
-              text: "Auto-renew unless 90 days notice.",
-              note: "They want 30. Take 60 as the middle.",
-              take: true,
-            },
+        visual: {
+          kind: "answers-found",
+          sources: [
+            { name: "Billing", answer: "Catch-up explained" },
+            { name: "Finance", answer: "Proration checked" },
+            { name: "Packaging", answer: "Limits confirmed" },
           ],
-          reply: {
-            to: "Acme legal, your contact",
-            subject: "Acme paper. What we can take today",
-            body: "Thanks for the markup. We can take the usage-data strike and meet in the middle on auto-renew at 60 days notice. We hold the 12-month liability cap. Security review stays 10 business days, with a named owner on our side. Draft only until you tap Send.",
-          },
+          status: "4 / 4 answered",
+        },
+      },
+      {
+        when: "7:44am",
+        label: "A sourced reply is waiting for one-click approval.",
+        scene: "send",
+        visual: {
+          kind: "reply-ready",
+          to: "Jordan Hale",
+          subject: "INV-0080 + 0081 · answers",
+          status: "Ready to approve",
         },
       },
     ],
     unlock:
-      "A marked-up paper from Europe plus a reply waiting in the morning.",
+      "Invoice questions in. A sendable draft out. No week of internal delay.",
     outcome:
-      "Legal sits in Europe. The draft is waiting in the morning. Time zones stop being a week of delay.",
+      "Grok finds the product and internal context, then drafts the answer — no Slack chase and no seller time wasted.",
     clips: ["01-morning-inbox"],
     demo: {
       title: "Paper",
-      subtitle: "Europe redlines · draft waiting",
+      subtitle: "Procurement questions · draft waiting",
       participants: [
         { id: "you", name: "You", role: "you" },
         {
           id: "paper",
           name: "Paper",
           role: "bot",
-          persona: "Reads overnight redlines and drafts the morning reply",
+          persona: "Reads overnight procurement mail and drafts the reply so you do not chase billing",
           color: "#FF375F",
         },
       ],
       messages: [
         {
           id: "m1",
-          from: "you",
-          kind: "text",
-          body: "Legal in Europe dumped a marked-up Acme paper while I was asleep. Lots of redlines. Lots of comments. This usually waits another night just to get read.",
+          from: "paper",
+          kind: "routine",
+          body: "New Acme procurement thread detected at 5:27am. Two invoices, four questions. Checking billing, finance, and packaging while you are offline.",
         },
         {
           id: "m2",
           from: "paper",
           kind: "text",
-          body: "Already read it overnight. Fourteen comments. Four that move the deal. Draft is waiting in your morning. What we take, what we push back. Nothing sent.",
+          body: "Already read it overnight. Four questions. Draft is waiting. You do not need to ping billing, finance, or legal for this one. Nothing sent.",
         },
         {
           id: "m3",
           from: "paper",
           kind: "draft",
-          draftLabel: "Marked-up paper + reply",
-          artifact: {
-            kind: "redlines",
-            title: "Acme paper · marked up overnight",
-            paperTitle: "Acme master agreement",
-            from: "Acme legal, Europe · 2:14am your time",
-            marks: [
-              {
-                text: "Datadog may use usage data to improve the service.",
-                note: "Strike. They want this gone.",
-                take: true,
-              },
-              {
-                text: "Liability cap: 12 months of fees.",
-                note: "They want 6 months. We hold 12.",
-                take: false,
-              },
-              {
-                text: "Security review in 10 business days.",
-                note: "They want 5. We can do 10 with a named owner.",
-                take: false,
-              },
-              {
-                text: "Auto-renew unless 90 days notice.",
-                note: "They want 30. Take 60 as the middle.",
-                take: true,
-              },
-            ],
-            reply: {
-              to: "Acme legal, your contact",
-              subject: "Acme paper. What we can take today",
-              body: "Thanks for the markup. We can take the usage-data strike and meet in the middle on auto-renew at 60 days notice. We hold the 12-month liability cap. Security review stays 10 business days, with a named owner on our side. Draft only until you tap Send.",
-            },
-          },
+          draftLabel: "Questions + reply",
+          artifact: ACME_PROCUREMENT,
         },
         {
           id: "m4",
@@ -341,10 +406,10 @@ export const JOBS: CroJob[] = [
           draftLabel: "Gmail reply · not sent",
           artifact: {
             kind: "gmail",
-            title: "Reply to Acme legal",
-            to: "Acme legal, your contact",
-            subject: "Acme paper. What we can take today",
-            body: "Thanks for the markup. We can take the usage-data strike and meet in the middle on auto-renew at 60 days notice. We hold the 12-month liability cap. Security review stays 10 business days, with a named owner on our side. Nothing else moves today.",
+            title: "Reply to Acme procurement",
+            to: ACME_PROCUREMENT.reply.to,
+            subject: ACME_PROCUREMENT.reply.subject,
+            body: ACME_PROCUREMENT.reply.body,
           },
         },
         {
@@ -359,723 +424,185 @@ export const JOBS: CroJob[] = [
   {
     id: "attach-engine",
     number: 3,
-    title: "More products in the account",
+    title: "Pipeline generation is now easier than ever",
+    trigger: "A target account enters your list",
+    backgroundAction: "Researching signals + building personalized outreach",
     problem:
-      "You close APM and Logs. Then the deal stalls. Nobody owns the next product. The next meeting never gets a date.",
+      "Cold outbound is a generic sequence. No research, no hypothesis, no evidence, and a name from a list. Pipeline that lands starts with why this account, why now, and who would care.",
     botJob:
-      "After the first meeting, the bot writes a 90-day plan: who owns Bits AI, Cloud SIEM, Cost, and RUM, and what the next meeting is.",
+      "When an account enters your target list, Grok Bot researches it, writes a 3-why, finds evidence of the pain, names who cares, then drafts LinkedIn, email, and a page. Draft only. You send.",
     storyboard: [
       {
-        when: "Just hung up",
-        label: "First meeting just ended. They have APM and Logs.",
-        scene: "call",
+        when: "No meeting yet",
+        label: "Acme hits your target list. Grok starts without a prompt.",
+        scene: "inspect",
+        visual: {
+          kind: "account-research",
+          account: "Acme",
+          sources: ["Status page", "Careers", "Engineering"],
+          signal: "47-minute Sev-2",
+        },
       },
       {
-        when: "That afternoon",
-        label: "Security was in the room. Nobody booked the next talk.",
+        when: "90 seconds later",
+        label: "It turns public evidence into a sharp 3-why.",
         scene: "notes",
-      },
-      {
-        when: "Before you close the laptop",
-        label: "The 90-day plan is a draft. Tuesday is already on it.",
-        scene: "map",
-      },
-      {
-        when: "Tuesday",
-        label: "The next meeting has a date. Cloud SIEM, not another product tour.",
-        scene: "map",
-        artifact: {
-          kind: "attach-map",
-          title: "Acme next 90 days",
-          days: 90,
-          meeting: {
-            when: "Tue · 30 min",
-            who: "Security lead + you",
-            agenda: "Cloud SIEM scope. Not a product tour.",
-          },
-          lanes: [
-            {
-              product: "Bits AI",
-              owner: "Platform eng manager",
-              from: 15,
-              to: 45,
-              move: "Trial in the APM + Logs team",
-            },
-            {
-              product: "Cloud SIEM",
-              owner: "Security lead from today's call",
-              from: 15,
-              to: 45,
-              move: "Tue 30 min scoping with you",
-              punch: true,
-            },
-            {
-              product: "Cost",
-              owner: "FinOps alias they mentioned",
-              from: 45,
-              to: 90,
-              move: "Review after APM + Logs is live",
-            },
-            {
-              product: "RUM",
-              owner: "Frontend guild lead",
-              from: 45,
-              to: 90,
-              move: "Intro once APM is stable",
-            },
+        visual: {
+          kind: "three-why",
+          items: [
+            { label: "Why us", answer: "APM + Logs" },
+            { label: "Why now", answer: "Sev-2 · 14d ago" },
+            { label: "Why them", answer: "Own time-to-fix" },
           ],
         },
       },
+      {
+        when: "Campaign ready",
+        label: "The right buyer gets three personalized drafts.",
+        scene: "map",
+        visual: {
+          kind: "outreach-ready",
+          person: "Priya Shah · VP Engineering",
+          channels: ["LinkedIn", "Email", "Acme page"],
+          status: "3 drafts · 0 sent",
+        },
+      },
+      {
+        when: "Ready for your click",
+        label: "Research, message, and account page — all built from their business.",
+        scene: "send",
+        artifact: ACME_OUTBOUND,
+      },
     ],
-    unlock: "Owners, time windows, and the next invite parked as a draft.",
+    unlock:
+      "Research, a 3-why, evidence, named buyers, and sendable drafts. Nothing fires until you tap.",
     outcome:
-      "Sell more Datadog products to the same company, without adding people. The next meeting already has a date.",
-    clips: ["05-forecast-sfdc", "06-customer-expert"],
+      "One account in. Research, a 3-why, named buyers, and personalized outreach out.",
+    clips: ["02-prospecting-pg"],
     demo: {
-      title: "Account Mapper",
-      subtitle: "First close to a 90-day plan",
+      title: "Outbound",
+      subtitle: "Research to a first meeting",
       participants: [
         { id: "you", name: "You", role: "you" },
         {
           id: "attach",
-          name: "Account Mapper",
+          name: "Outbound",
           role: "bot",
-          persona: "Owns the next-products path after every first meeting",
+          persona: "Researches the account, writes the 3-why, and drafts the outreach",
           color: "#FF9500",
         },
-        {
-          id: "expert",
-          name: "Customer Expert",
-          role: "bot",
-          persona: "Names who can sign and who owns each product",
-          color: "#AF52DE",
-        },
       ],
       messages: [
         {
           id: "m1",
-          from: "you",
-          kind: "text",
-          body: "First meeting done. They have APM + Logs. Security lead was in the room. Cost came up once.",
+          from: "attach",
+          kind: "routine",
+          body: "Acme entered your target-account list. No meeting yet. Researching the account, building the 3-why, and finding the people who would feel the pain. Drafts only.",
         },
         {
           id: "m2",
           from: "attach",
           kind: "text",
-          body: "APM + Logs is in. Building the 90-day plan. Customer Expert is naming owners per product.",
+          body: "In the account. Careers, status page, engineering blog. Staff SRE JD is asking for stitching APM and logs. Status page still has a 47-minute Sev-2. Writing the 3-why from that, not from a persona.",
         },
         {
           id: "m3",
-          from: "expert",
-          kind: "handoff",
-          body: "The person who can sign was not on the call. Treat the security lead from today as the Cloud SIEM owner, not as the signer. Product owners I would confirm before week 2 are below, on the plan.",
-        },
-        {
-          id: "m4",
           from: "attach",
           kind: "draft",
-          draftLabel: "90-day plan",
-          artifact: {
-            kind: "table",
-            title: "Acme next 90 days",
-            caption:
-              "Next meeting. Tue 30 min with security lead + you. Agenda is Cloud SIEM scope, not a product tour.",
-            columns: ["Product", "Owner", "Window", "Next move"],
-            rows: [
-              [
-                "Bits AI",
-                "Platform eng manager",
-                "Day 15 to 45",
-                "Trial in the APM + Logs team",
-              ],
-              [
-                "Cloud SIEM",
-                "Security lead from today's call",
-                "Day 15 to 45",
-                "Tue 30 min scoping with you",
-              ],
-              [
-                "Cost",
-                "FinOps alias they mentioned",
-                "Day 45 to 90",
-                "Review after APM + Logs is live",
-              ],
-              [
-                "RUM",
-                "Frontend guild lead (not in room)",
-                "Day 45 to 90",
-                "Intro once APM is stable",
-              ],
-            ],
-          },
-        },
-        {
-          id: "m5",
-          from: "expert",
-          kind: "draft",
-          draftLabel: "Owner card",
+          draftLabel: "3-why hypothesis",
           artifact: {
             kind: "packet",
-            title: "Who owns the next products",
+            title: "Acme 3-why",
+            fields: ACME_OUTBOUND.hypothesis.map((item) => ({
+              label: item.k,
+              value: item.body,
+            })),
+          },
+        },
+        {
+          id: "m4",
+          from: "attach",
+          kind: "draft",
+          draftLabel: "Evidence + who cares",
+          artifact: {
+            kind: "packet",
+            title: "Proof, then the people",
             fields: [
-              {
-                label: "Who can sign",
-                value:
-                  "Not in the room. Do not let your contact stand in. Confirm a name before the Cloud SIEM meeting, or the plan is a wish list.",
-              },
-              {
-                label: "Bits AI",
-                value: "Platform eng manager. Same team as APM + Logs.",
-              },
-              {
-                label: "Cloud SIEM",
-                value: "Security lead who joined today. Co-owner on Tuesday.",
-              },
-              {
-                label: "Cost",
-                value: "FinOps alias from the one Cost mention. Not this week's meeting.",
-              },
-              {
-                label: "RUM",
-                value: "Frontend guild lead. Not in the room. Day 45 to 90.",
-              },
+              ...ACME_OUTBOUND.evidence.map((item) => ({
+                label: item.source,
+                value: item.finding,
+              })),
+              ...ACME_OUTBOUND.targets.map((person) => ({
+                label: `${person.name} · ${person.role}`,
+                value: person.why,
+              })),
             ],
+          },
+        },
+        {
+          id: "m5",
+          from: "attach",
+          kind: "draft",
+          draftLabel: "LinkedIn · not sent",
+          artifact: {
+            kind: "linkedin",
+            title: "LinkedIn to Priya Shah",
+            to: "Priya Shah",
+            role: "VP Engineering, Acme",
+            body: "Priya — your status page from 14 days ago and the Staff SRE JD say the same thing: on-call still stitches tools to name a Sev-2. 90 seconds on how APM + Logs in the platform team would have named that incident. Draft only. Nothing sent.",
           },
         },
         {
           id: "m6",
           from: "attach",
           kind: "draft",
-          draftLabel: "Gmail invite",
+          draftLabel: "Gmail · not sent",
           artifact: {
             kind: "gmail",
-            title: "Next meeting",
-            to: "Acme security lead, you",
-            subject: "Tue 30 min. Acme Cloud SIEM scope (APM + Logs already in)",
-            body: "Agenda. 1. SSO + audit trail status. 2. Cloud SIEM scope for the same team that started APM + Logs. 3. Whether Bits AI stays a one-team trial. Cost and RUM are not on this agenda.",
+            title: "Email to Priya Shah",
+            to: "Priya Shah, VP Engineering",
+            subject: "Acme's last Sev-2 and the Staff SRE JD",
+            body: "Priya — the 47-minute Sev-2 and the Staff SRE posting both point at stitching APM and logs. I put a one-page note on how Datadog would start in that platform team, not a product tour. Happy to walk Chris Okonkwo through it too. Nothing else in the ask. Draft only until you tap Send.",
           },
         },
         {
           id: "m7",
           from: "attach",
-          kind: "routine",
-          body: "After every first-meeting Gong, run this plan and park the next invite as a draft. You tap Send.",
-        },
-      ],
-    },
-  },
-  {
-    id: "deal-inspection",
-    number: 4,
-    title: "Check a big deal from your desk",
-    problem:
-      "You cannot sit in every $1M+ deal. Gaps show up late. The note you take to your boss stays vague.",
-    botJob:
-      "Paste pipeline notes. The bot names gaps: who can sign, the contract, your contact, and Cloud SIEM. It writes Monday questions and a note for your boss.",
-    storyboard: [
-      {
-        when: "You open the deal",
-        label: "You paste the $1.4M. You are not joining Monday's call.",
-        scene: "inspect",
-      },
-      {
-        when: "Twelve minutes in",
-        label: "Four gaps. No signer. Slow legal. A contact who cannot sell it inside.",
-        scene: "notes",
-      },
-      {
-        when: "You close the laptop",
-        label: "You are not calling this a sure thing. The note is for your boss.",
-        scene: "send",
-      },
-      {
-        when: "Forecast",
-        label: "The note for your boss. Wait until the signer is on the calendar.",
-        scene: "send",
-        artifact: {
-          kind: "forecast",
-          title: "Take this to your boss",
-          account: "Acme",
-          amount: "$1.4M · stage 4",
-          status: "Do not call this a sure thing until the signer is on the calendar",
-          body: "Acme is a real this-quarter shot at $1.4M if we get a meeting with the person who can sign in 10 days, and a dated path through legal. Your contact is strong. Forecast risk is the contract plus Cloud SIEM, not product fit. I am not calling this a sure thing until the signer is on the calendar.",
-          gaps: [
-            {
-              label: "Who can sign",
-              body: "No meeting on the calendar.",
-            },
-            {
-              label: "Contract",
-              body: "Legal is slow. No dated path.",
-            },
-            {
-              label: "Inside contact",
-              body: "Likes us. Cannot sell $1.4M inside the company alone.",
-            },
-            {
-              label: "Cloud SIEM",
-              body: "Not in the story. If it slips, the $1.4M changes.",
-            },
-          ],
-        },
-      },
-    ],
-    unlock: "Four gaps, three Monday questions, one paragraph for your boss.",
-    outcome:
-      "In one sitting, you know if this deal is real. Or if it is just a logo. You know before you put it in the forecast.",
-    clips: ["05-forecast-sfdc", "07-customer-exec-brief"],
-    demo: {
-      title: "Deal Desk",
-      subtitle: "Salesforce paste to a note for your boss",
-      participants: [
-        { id: "you", name: "You", role: "you" },
-        {
-          id: "desk",
-          name: "Deal Desk",
-          role: "bot",
-          persona: "Reads the deal the way you would if you had the hours",
-          color: "#007AFF",
-        },
-        {
-          id: "forecast",
-          name: "Forecast",
-          role: "bot",
-          persona: "Salesforce next steps and the note for your boss",
-          color: "#64D2FF",
-        },
-      ],
-      messages: [
-        {
-          id: "m1",
-          from: "you",
-          kind: "text",
-          body: "Paste from Salesforce. Acme $1.4M, stage 4, close this quarter. Notes say the contact loves us, legal is slow, no meeting with the person who can sign, and Cloud SIEM is not clearly in the deal.",
-        },
-        {
-          id: "m2",
-          from: "desk",
-          kind: "text",
-          body: "Four gaps. Three Monday questions. One paragraph you can take to your boss. Do not call this a sure thing yet.",
-        },
-        {
-          id: "m3",
-          from: "desk",
           kind: "draft",
-          draftLabel: "Gap list",
-          artifact: {
-            kind: "gaps",
-            title: "Acme $1.4M · stage 4",
-            items: [
-              {
-                label: "Who can sign",
-                body: "No meeting on the calendar. A contact who likes us is not the person who can sign.",
-              },
-              {
-                label: "Contract path",
-                body: "Legal flagged as slow. No named owner and no dated path.",
-              },
-              {
-                label: "Inside contact",
-                body: "Strong like, weak inside map. Cannot carry $1.4M to leadership alone.",
-              },
-              {
-                label: "Cloud SIEM",
-                body: "Cloud SIEM is not clearly in this $1.4M. If it slips, the story changes.",
-              },
-            ],
-          },
-        },
-        {
-          id: "m4",
-          from: "desk",
-          kind: "draft",
-          draftLabel: "Monday questions",
-          artifact: {
-            kind: "questions",
-            title: "For the account exec on Monday",
-            items: [
-              "Who can sign, and when do we meet them together?",
-              "Who owns legal, and what is the dated contract path?",
-              "If Cloud SIEM slips, does the $1.4M still hold?",
-            ],
-          },
-        },
-        {
-          id: "m5",
-          from: "forecast",
-          kind: "draft",
-          draftLabel: "Note for your boss",
-          artifact: {
-            kind: "forecast",
-            title: "Take this to your boss",
-            status: "Do not call this a sure thing until the signer is on the calendar",
-            body: "Acme is a real this-quarter shot at $1.4M if we get a meeting with the person who can sign in 10 days, and a dated path through legal. Your contact is strong. Forecast risk is the contract plus Cloud SIEM, not product fit. I am not calling this a sure thing until the signer is on the calendar.",
-          },
-        },
-        {
-          id: "m6",
-          from: "desk",
-          kind: "draft",
-          draftLabel: "Slack to the account exec",
-          artifact: {
-            kind: "slack",
-            title: "Monday ping",
-            channel: "#ae-Acme",
-            body: "Three questions before the forecast call. 1. Name of the person who can sign, and a meeting date. 2. Legal owner and dated contract path. 3. If Cloud SIEM slips, does $1.4M still hold? Draft only. I have not posted this.",
-          },
-        },
-        {
-          id: "m7",
-          from: "desk",
-          kind: "system",
-          body: "Nothing posted to Salesforce or Slack. Sure-thing language stays held until you tap Send.",
-        },
-      ],
-    },
-  },
-  {
-    id: "sko-enablement",
-    number: 5,
-    title: "One story the whole team says",
-    problem:
-      "You already do a kickoff talk. By Friday the story is a Slack thread. A global sales team needs one Bits AI line they can say out loud.",
-    botJob:
-      "Point the bot at a launch or a lost deal. It writes lines for the account exec, the sales engineer, and the manager, plus a Friday one-pager.",
-    storyboard: [
-      {
-        when: "Monday",
-        label: "Launch week. The Bits AI story is already a Slack thread.",
-        scene: "launch",
-      },
-      {
-        when: "Wednesday",
-        label: "One story, three jobs. Account exec, engineer, manager.",
-        scene: "notes",
-      },
-      {
-        when: "Friday 3pm",
-        label: "The pack is ready. Monday they say the same thing.",
-        scene: "deck",
-      },
-      {
-        when: "Monday morning",
-        label: "Account exec, engineer, manager. One pack for Monday.",
-        scene: "send",
-        artifact: {
-          kind: "talk-tracks",
-          title: "Say these out loud",
-          tracks: [
-            {
-              seat: "Account exec",
-              line: "You already pay for the Sev-2 in context-switching. Start APM + Logs in one team. Bits AI is the weekly habit in that team, not a platform announcement.",
-            },
-            {
-              seat: "Sales engineer",
-              line: "One demo path. Outage in, Bits AI habit, SSO + audit if security is in the room. No feature tour. MCP only if they ask how the bot talks to their tools.",
-            },
-            {
-              seat: "Manager 1:1",
-              line: "Check two things. A named inside contact. A next meeting on the calendar for Bits AI or Cloud SIEM. If both are missing, you only won a logo.",
-            },
-          ],
-        },
-      },
-    ],
-    unlock: "Three talk tracks and a Friday one-pager.",
-    outcome:
-      "One story the sales team can say this week. Bits AI does not turn into 19 different Slack posts.",
-    clips: ["08-chief-groupchat", "01-morning-inbox"],
-    demo: {
-      title: "Enablement Chief",
-      subtitle: "Bits AI launch + open source loss",
-      participants: [
-        { id: "you", name: "You", role: "you" },
-        {
-          id: "cos",
-          name: "Chief of Staff",
-          role: "bot",
-          persona: "Opens the group chat and routes the one-off",
-          color: "#E8E8ED",
-        },
-        {
-          id: "chief",
-          name: "Enablement Chief",
-          role: "bot",
-          persona: "Routes one launch story to the whole field",
-          color: "#FF2D55",
-        },
-        {
-          id: "writer",
-          name: "Talk Track",
-          role: "bot",
-          persona: "Writes what an account exec can say out loud",
-          color: "#5856D6",
-        },
-        {
-          id: "eng",
-          name: "Engineer",
-          role: "bot",
-          persona: "Names the proof path, not the catalog",
-          color: "#32ADE6",
-        },
-      ],
-      messages: [
-        {
-          id: "m1",
-          from: "you",
-          kind: "text",
-          body: "Bits AI launch this week. We lost last month because they said open source is good enough. Need a kickoff talk plus a Friday field pack.",
-        },
-        {
-          id: "m2",
-          from: "cos",
-          kind: "text",
-          body: "Group chat is live. One story, three jobs. Engineer on the open-source proof path. Talk Track on language the field can say out loud.",
-        },
-        {
-          id: "m3",
-          from: "eng",
-          kind: "handoff",
-          body: "The open-source turn is not 'we have more features.' It is one outage they already felt, then APM + Logs, then Bits AI as the weekly habit. MCP is a later proof, not the opener.",
-        },
-        {
-          id: "m4",
-          from: "writer",
-          kind: "draft",
-          draftLabel: "Three talk tracks",
-          artifact: {
-            kind: "talk-tracks",
-            title: "Say these out loud",
-            tracks: [
-              {
-                seat: "Account exec",
-                line: "You already pay for the Sev-2 in context-switching. Start APM + Logs in one team. Bits AI is the weekly habit in that team, not a platform announcement.",
-              },
-              {
-                seat: "Sales engineer",
-                line: "One demo path. Outage in, Bits AI habit, SSO + audit if security is in the room. No feature tour. MCP only if they ask how the bot talks to their tools.",
-              },
-              {
-                seat: "Manager 1:1",
-                line: "Check two things. A named inside contact. A next meeting on the calendar for Bits AI or Cloud SIEM. If both are missing, you only won a logo.",
-              },
-            ],
-          },
-        },
-        {
-          id: "m5",
-          from: "chief",
-          kind: "draft",
-          draftLabel: "Friday one-pager",
+          draftLabel: "Page for this account · not live",
           artifact: {
             kind: "one-pager",
-            title: "Bits AI field pack",
-            eyebrow: "Friday one-pager",
+            title: ACME_OUTBOUND.page.headline,
+            eyebrow: "Page for Acme",
             sections: [
               {
-                heading: "What changed",
-                body: "Bits AI is the launch. Same motion as always. APM + Logs first. Selling more products in the account is how the number moves. Keep the story on more products, not on hiring more people.",
+                heading: "What we saw",
+                body:
+                  ACME_OUTBOUND.evidence[0]?.finding ??
+                  "Public incident. The stitch is still the story.",
               },
               {
-                heading: "What to say",
-                body: "One team. Week-3 time-to-fix. Bits AI as the weekly habit. Inside contact + a security co-owner if SSO is in the way.",
+                heading: "Why this team",
+                body:
+                  ACME_OUTBOUND.hypothesis.find((item) => item.k === "Why them")
+                    ?.body ?? "VP Eng owns time-to-fix.",
               },
               {
-                heading: "What not to say",
-                body: "Do not pitch the catalog. Do not lead with MCP. Do not promise Cost or RUM in the first meeting.",
-              },
-              {
-                heading: "When they say open source is good enough",
-                body: "Prometheus and Grafana are fine until the outage crosses two tools. Then time-to-fix is a people problem. APM + Logs is how you stop stitching. Bits AI is how the team keeps the habit.",
+                heading: "How the product maps",
+                body: ACME_OUTBOUND.page.body,
               },
             ],
           },
         },
         {
-          id: "m6",
-          from: "chief",
-          kind: "draft",
-          draftLabel: "Slack to the field",
-          artifact: {
-            kind: "slack",
-            title: "Field channel",
-            channel: "#gtm-field",
-            body: "Friday pack is in the thread. Three talk tracks (account exec / sales engineer / manager) plus the open-source turn. Bits AI launch. Do not rewrite this in 19 versions. Draft only until Enablement Chief taps Send.",
-          },
-        },
-        {
-          id: "m7",
-          from: "chief",
-          kind: "routine",
-          body: "Every Friday 3pm, refresh the one-pager from that week's Gong themes. Draft only to #gtm-field. You approve the send.",
-        },
-      ],
-    },
-  },
-  {
-    id: "ramp-compression",
-    number: 6,
-    title: "Practice before a real customer",
-    problem:
-      "Enterprise sales at Datadog is a long interview loop. Pitch. Who buys. Open source is good enough. Shadowing the top account exec for a quarter is too slow for the book you want.",
-    botJob:
-      "The bot is a practice partner. New reps drill the open-source objection and leave with a first-90-day deal kit.",
-    storyboard: [
-      {
-        when: "First drill",
-        label: "New account exec. Open source is good enough is coming.",
-        scene: "drill",
-      },
-      {
-        when: "They answer",
-        label: "The first line is true and still too vague.",
-        scene: "voice",
-      },
-      {
-        when: "Coach cuts",
-        label: "The line that wins names a real outage.",
-        scene: "inspect",
-      },
-      {
-        when: "Before a live customer",
-        label: "The weak line vs the one that wins.",
-        scene: "send",
-        artifact: {
-          kind: "scorecard",
-          title: "Open source is good enough · scored",
-          score: "6 / 10",
-          weakLine:
-            "Because when you stitch six tools the time-to-fix story falls apart across teams.",
-          notes: [
-            "Kept Prometheus and Grafana in the frame.",
-            "Stitching tools is true and still generic.",
-            "No outage. No APM + Logs start. No Bits AI habit.",
-          ],
-          betterAnswer:
-            "Last quarter on-call jumped Prometheus, Grafana, and a log pile to explain one latency spike. Start APM + Logs in that team this month. Bits AI comes after that team has a week-3 number on time-to-fix, not after a product tour.",
-        },
-      },
-    ],
-    unlock: "A scored open-source drill and a first-90 kit.",
-    outcome:
-      "New reps practice first. They do not burn a Fortune 500 account on week one.",
-    clips: ["04-engineer-bugbot", "02-prospecting-pg"],
-    demo: {
-      title: "Practice Coach",
-      subtitle: "Open-source drill + first-90 kit",
-      participants: [
-        { id: "you", name: "New rep", role: "you" },
-        {
-          id: "coach",
-          name: "Practice Coach",
-          role: "bot",
-          persona: "Runs drills and builds the first-90 kit",
-          color: "#32ADE6",
-        },
-        {
-          id: "buyer",
-          name: "Skeptical Buyer",
-          role: "bot",
-          persona: "Plays the open-source-is-good-enough objection cold",
-          color: "#8E8E93",
-        },
-        {
-          id: "eng",
-          name: "Engineer",
-          role: "bot",
-          persona: "Live product answer / Bugbot",
-          color: "#32ADE6",
-        },
-        {
-          id: "prospect",
-          name: "Prospecting",
-          role: "bot",
-          persona: "Five accounts, five contacts. Gmail drafts only",
-          color: "#30D158",
-        },
-      ],
-      messages: [
-        {
-          id: "m1",
-          from: "you",
-          kind: "text",
-          body: "Drill me on open source is good enough. Then give me a first-90 kit for my open territory.",
-        },
-        {
-          id: "m2",
-          from: "buyer",
-          kind: "text",
-          body: "We already have Prometheus and Grafana. Why would I pay Datadog?",
-        },
-        {
-          id: "m3",
-          from: "you",
-          kind: "text",
-          body: "Because when you stitch six tools the time-to-fix story falls apart across teams.",
-        },
-        {
-          id: "m4",
-          from: "coach",
-          kind: "text",
-          body: "Decent. You named the pain and skipped the catalog. Tighten it. One outage they already felt, then APM + Logs in that team. After the drill, name who cares inside, who can sign, and a dated next meeting.",
-        },
-        {
-          id: "m5",
-          from: "coach",
-          kind: "draft",
-          draftLabel: "Scored drill",
-          artifact: {
-            kind: "scorecard",
-            title: "Open source is good enough · scored",
-            score: "6 / 10. Direction is right. Too vague to win a live customer.",
-            notes: [
-              "Kept Prometheus and Grafana in the frame. Good.",
-              "Stitching tools is true and still generic.",
-              "No outage. No APM + Logs start. No Bits AI habit.",
-            ],
-            betterAnswer:
-              "Last quarter on-call jumped Prometheus, Grafana, and a log pile to explain one latency spike. Start APM + Logs in that team this month. Bits AI comes after that team has a week-3 number on time-to-fix, not after a product tour.",
-          },
-        },
-        {
-          id: "m6",
-          from: "prospect",
-          kind: "draft",
-          draftLabel: "First-90-day deal kit",
-          artifact: {
-            kind: "deal-kit",
-            title: "Open territory kit",
-            weeks: [
-              {
-                label: "Week 1 to 2",
-                body: "Territory map. 10 accounts with a start plan (APM + Logs). Name a likely inside contact and the open-source objection you expect.",
-              },
-              {
-                label: "Week 3 to 6",
-                body: "Three live first meetings. Coach debrief after each. Fill in metrics, who can sign, and how they decide. No catalog pitch.",
-              },
-              {
-                label: "Week 7 to 12",
-                body: "One extra product on an existing close. Bits AI, Cloud SIEM, Cost, or RUM. Account Mapper runs the 90-day plan. Still not shadowing the top account exec for a quarter.",
-              },
-            ],
-            pack: [
-              "Talk tracks (account exec / sales engineer / manager)",
-              "Open-source objection card with the scored better answer",
-              "Inside-contact note template",
-              "Start plan sheet for the 10 accounts",
-            ],
-          },
-        },
-        {
-          id: "m7",
-          from: "coach",
+          id: "m8",
+          from: "attach",
           kind: "system",
-          body: "Practice only. Nothing went to a live account. Run the drill again before you burn a Fortune 500 customer.",
+          body: "Nothing sent. LinkedIn, Gmail, and the page stay drafts until you tap Send.",
         },
       ],
     },
-  },
+  }
 ];
 
 export function getJob(id: string): CroJob | undefined {

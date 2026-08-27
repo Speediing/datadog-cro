@@ -1,4 +1,4 @@
-import type { StoryBeat, StoryScene } from "@/data/types";
+import type { StoryBeat, StoryScene, StoryVisual } from "@/data/types";
 
 function Screen({ scene }: { scene: StoryScene }) {
   if (scene === "call") {
@@ -113,12 +113,206 @@ function Laptop({ scene }: { scene: StoryScene }) {
   );
 }
 
+function LiveVisual({ visual }: { visual: StoryVisual }) {
+  switch (visual.kind) {
+    case "live-call":
+      return (
+        <div className="story-ui story-call-ui" aria-hidden>
+          <header className="story-ui-bar">
+            <span className="story-ui-dots">
+              <i />
+              <i />
+              <i />
+            </span>
+            <strong>{visual.title}</strong>
+            <span className="story-live">Live</span>
+          </header>
+          <div className="story-call-people">
+            {visual.people.map((person, index) => (
+              <div
+                key={person.initials}
+                className={index === 1 ? "is-speaking" : undefined}
+              >
+                <span>{person.initials}</span>
+                <small>{person.name}</small>
+              </div>
+            ))}
+          </div>
+          <footer>
+            <span className="story-wave">||||||||||||</span>
+            Granola is listening
+          </footer>
+        </div>
+      );
+    case "live-transcript":
+      return (
+        <div className="story-ui story-transcript-ui" aria-hidden>
+          <header className="story-ui-bar">
+            <strong>Live transcript</strong>
+            <span>{visual.timestamp}</span>
+          </header>
+          <blockquote>
+            <strong>{visual.speaker}</strong>
+            “{visual.quote}”
+          </blockquote>
+          <footer>
+            {visual.signals.map((signal) => (
+              <span key={signal}>{signal}</span>
+            ))}
+          </footer>
+        </div>
+      );
+    case "deck-update":
+      return (
+        <div className="story-ui story-deck-ui" aria-hidden>
+          <header className="story-ui-bar">
+            <strong>Open deck</strong>
+            <span>Editing now</span>
+          </header>
+          <div className="story-mini-slide">
+            <small>{visual.eyebrow}</small>
+            <strong>{visual.headline}</strong>
+            <span>{visual.product}</span>
+          </div>
+          <footer>✓ {visual.status}</footer>
+        </div>
+      );
+    case "procurement-email":
+      return (
+        <div className="story-ui story-email-ui" aria-hidden>
+          <header className="story-ui-bar">
+            <strong>Inbox</strong>
+            <span>5:27 AM</span>
+          </header>
+          <div className="story-email-body">
+            <span className="story-avatar">JH</span>
+            <p>
+              <strong>{visual.sender}</strong>
+              <small>{visual.subject}</small>
+            </p>
+          </div>
+          <footer>
+            <strong>{visual.questions}</strong>
+            questions need answers
+          </footer>
+        </div>
+      );
+    case "answers-found":
+      return (
+        <div className="story-ui story-answers-ui" aria-hidden>
+          <header className="story-ui-bar">
+            <strong>Grok checked the sources</strong>
+            <span>{visual.status}</span>
+          </header>
+          <ul>
+            {visual.sources.map((source) => (
+              <li key={source.name}>
+                <span>✓</span>
+                <p>
+                  <strong>{source.name}</strong>
+                  <small>{source.answer}</small>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    case "reply-ready":
+      return (
+        <div className="story-ui story-reply-ui" aria-hidden>
+          <header className="story-ui-bar">
+            <strong>Reply draft</strong>
+            <span>Not sent</span>
+          </header>
+          <div className="story-reply-fields">
+            <p>
+              <span>To</span>
+              {visual.to}
+            </p>
+            <p>
+              <span>Re</span>
+              {visual.subject}
+            </p>
+            <i />
+            <i />
+            <i />
+          </div>
+          <footer>✓ {visual.status}</footer>
+        </div>
+      );
+    case "account-research":
+      return (
+        <div className="story-ui story-research-ui" aria-hidden>
+          <header className="story-ui-bar">
+            <strong>{visual.account}</strong>
+            <span>Researching</span>
+          </header>
+          <div className="story-source-orbit">
+            <strong>{visual.signal}</strong>
+            {visual.sources.map((source) => (
+              <span key={source}>{source}</span>
+            ))}
+          </div>
+          <footer>Public evidence found</footer>
+        </div>
+      );
+    case "three-why":
+      return (
+        <div className="story-ui story-why-ui" aria-hidden>
+          <header className="story-ui-bar">
+            <strong>Account hypothesis</strong>
+            <span>Built from evidence</span>
+          </header>
+          <ol>
+            {visual.items.map((item) => (
+              <li key={item.label}>
+                <span>{item.label}</span>
+                <strong>{item.answer}</strong>
+              </li>
+            ))}
+          </ol>
+        </div>
+      );
+    case "outreach-ready":
+      return (
+        <div className="story-ui story-outreach-ui" aria-hidden>
+          <header className="story-ui-bar">
+            <strong>{visual.person}</strong>
+          </header>
+          <div>
+            {visual.channels.map((channel, index) => (
+              <p key={channel}>
+                <span>{index + 1}</span>
+                <strong>{channel}</strong>
+                <small>Personalized</small>
+              </p>
+            ))}
+          </div>
+          <footer>{visual.status}</footer>
+        </div>
+      );
+    default: {
+      const exhaustiveVisual: never = visual;
+      return exhaustiveVisual;
+    }
+  }
+}
+
 export function Storyboard({ beats }: { beats: StoryBeat[] }) {
+  const hasLiveFlow = beats.some((beat) => beat.visual);
+
   return (
-    <ol className="storyboard">
+    <ol className={`storyboard${hasLiveFlow ? " is-live-flow" : ""}`}>
       {beats.map((beat) => (
-        <li key={`${beat.when}-${beat.label}`} className="story-beat">
-          <Laptop scene={beat.scene} />
+        <li
+          key={`${beat.when}-${beat.label}`}
+          className={`story-beat${beat.visual ? " has-visual" : ""}`}
+        >
+          {beat.visual ? (
+            <LiveVisual visual={beat.visual} />
+          ) : (
+            <Laptop scene={beat.scene} />
+          )}
           {beat.when ? <p className="story-when">{beat.when}</p> : null}
           <p className="story-line">{beat.label}</p>
         </li>

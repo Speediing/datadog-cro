@@ -1,13 +1,8 @@
-import { FLEET } from "@/data/fleet";
+import { FLEET, type FleetBot } from "@/data/fleet";
 
-function bot(id: string) {
-  const found = FLEET.find((item) => item.id === id);
-  if (!found) throw new Error(`Missing fleet bot ${id}`);
-  return found;
-}
-
-function initials(name: string) {
-  const parts = name.split(/\s+/).filter(Boolean);
+function initials(bot: FleetBot) {
+  if (bot.mark) return bot.mark;
+  const parts = bot.name.split(/\s+/).filter(Boolean);
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
   return `${parts[0][0] || ""}${parts[parts.length - 1][0] || ""}`.toUpperCase();
 }
@@ -21,69 +16,59 @@ function isLight(hex: string) {
 }
 
 function Box({
-  href,
-  title,
-  blurb,
-  color,
+  bot,
   chief = false,
 }: {
-  href: string;
-  title: string;
-  blurb: string;
-  color: string;
+  bot: FleetBot;
   chief?: boolean;
 }) {
-  return (
-    <a className={chief ? "org-box is-chief" : "org-box"} href={href}>
+  const className = chief ? "org-box is-chief" : "org-box";
+  const body = (
+    <>
       <span
         className="org-avatar"
         style={{
-          background: color,
-          color: isLight(color) ? "#111" : "#fff",
+          background: bot.color,
+          color: isLight(bot.color) ? "#111" : "#fff",
         }}
         aria-hidden
       >
-        {initials(title)}
+        {initials(bot)}
       </span>
-      <span className="org-name">{title}</span>
-      <span className="org-blurb">{blurb}</span>
-    </a>
+      <span className="org-name">{bot.name}</span>
+      <span className="org-blurb">{bot.blurb}</span>
+    </>
   );
+
+  if (bot.jobId) {
+    return (
+      <a className={className} href={`#${bot.jobId}`}>
+        {body}
+      </a>
+    );
+  }
+
+  return <div className={className}>{body}</div>;
 }
 
-const SPECIALISTS = [
-  { id: "room", blurb: "Turns Granola into the next pack." },
-  { id: "paper", blurb: "Reads Europe redlines overnight. Draft in the morning." },
-  { id: "attach", blurb: "90-day plan for the next products." },
-  { id: "expert", blurb: "Who is in the account and what they use." },
-  { id: "desk", blurb: "Paste the pipeline. Names the gaps." },
-  { id: "chief", blurb: "Turns a launch into field language." },
-  { id: "coach", blurb: "Practice partner. First-90 kit." },
-  { id: "eng", blurb: "Answers from the product. Bugbot when it breaks." },
-  { id: "prospect", blurb: "Five accounts, five contacts. Gmail drafts only." },
-] as const;
-
 export function RosterChart() {
-  const cos = bot("cos");
+  const seat = FLEET.find((item) => item.seat);
+  const agents = FLEET.filter((item) => !item.seat);
+
+  if (!seat) return null;
 
   return (
     <section id="roster" className="roster">
-      <h2>Your Grok Bot team</h2>
+      <h2>A background team for every sales rep</h2>
       <p className="section-lede">
-        Each bot has a job and a computer in Salesforce, Gmail, Figma, Gong.
-        They keep working after you close the laptop. Drafts stay drafts until
-        you send.
+        The work itself is the trigger. A call starts, an email lands, or an
+        account enters the list — and the right agent picks it up. They keep
+        working after the laptop closes. Drafts stay drafts until the rep sends.
       </p>
 
       <div className="org" role="tree">
         <div className="org-top">
-          <Box
-            href={`#${cos.jobId}`}
-            title={cos.name}
-            blurb="Routes work, runs group chats, handles one-offs."
-            color={cos.color}
-            chief
-          />
+          <Box bot={seat} chief />
         </div>
         <div className="org-branch">
           <div className="org-connect" aria-hidden>
@@ -91,19 +76,11 @@ export function RosterChart() {
             <i className="org-bar" />
           </div>
           <ul className="org-kids">
-            {SPECIALISTS.map((item) => {
-              const specialist = bot(item.id);
-              return (
-                <li key={item.id} className="org-kid">
-                  <Box
-                    href={`#${specialist.jobId}`}
-                    title={specialist.name}
-                    blurb={item.blurb}
-                    color={specialist.color}
-                  />
-                </li>
-              );
-            })}
+            {agents.map((agent) => (
+              <li key={agent.id} className="org-kid">
+                <Box bot={agent} />
+              </li>
+            ))}
           </ul>
         </div>
       </div>

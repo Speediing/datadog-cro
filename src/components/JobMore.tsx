@@ -14,7 +14,7 @@ export function JobMore({ job }: { job: CroJob }) {
       className="job-more"
       onToggle={(event) => setOpen(event.currentTarget.open)}
     >
-      <summary>See the bot and the video</summary>
+      <summary>Watch the agent work in the background</summary>
       {open ? (
         <div className="job-more-body">
           <JobDemo job={job} />

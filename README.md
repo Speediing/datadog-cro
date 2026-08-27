@@ -4,7 +4,7 @@ Passworded site. Grok Bot from SpaceXAI, for Datadog GTM.
 
 ## What it is
 
-Five GTM jobs on one page. Each job has a short problem statement, an interactive Grok Bot demo, and the matching Krista Letz clips under that demo. Below that: a light index of the clips and the public Grok Bot quote wall.
+Three GTM jobs on one page. Each job has a short problem statement, an interactive Grok Bot demo, and the matching Krista Letz clips under that demo. Below that: a light index of the clips and the public Grok Bot quote wall.
 
 ## Run locally
 

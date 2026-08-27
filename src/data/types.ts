@@ -11,10 +11,7 @@ export type ClipId =
 export type JobId =
   | "standardize-room"
   | "legal-redlines"
-  | "attach-engine"
-  | "deal-inspection"
-  | "sko-enablement"
-  | "ramp-compression";
+  | "attach-engine";
 
 export type ParticipantRole = "you" | "bot";
 
@@ -50,12 +47,67 @@ export type StoryScene =
   | "drill"
   | "send";
 
+export type StoryVisual =
+  | {
+      kind: "live-call";
+      title: string;
+      people: { initials: string; name: string }[];
+    }
+  | {
+      kind: "live-transcript";
+      timestamp: string;
+      speaker: string;
+      quote: string;
+      signals: string[];
+    }
+  | {
+      kind: "deck-update";
+      eyebrow: string;
+      headline: string;
+      product: string;
+      status: string;
+    }
+  | {
+      kind: "procurement-email";
+      sender: string;
+      subject: string;
+      questions: number;
+    }
+  | {
+      kind: "answers-found";
+      sources: { name: string; answer: string }[];
+      status: string;
+    }
+  | {
+      kind: "reply-ready";
+      to: string;
+      subject: string;
+      status: string;
+    }
+  | {
+      kind: "account-research";
+      account: string;
+      sources: string[];
+      signal: string;
+    }
+  | {
+      kind: "three-why";
+      items: { label: string; answer: string }[];
+    }
+  | {
+      kind: "outreach-ready";
+      person: string;
+      channels: string[];
+      status: string;
+    };
+
 export type StoryBeat = {
   label: string;
   scene: StoryScene;
   when?: string;
   slides?: SlideCard[];
   artifact?: Artifact;
+  visual?: StoryVisual;
 };
 
 export type Artifact =
@@ -83,18 +135,20 @@ export type Artifact =
       rows: string[][];
     }
   | {
-      kind: "attach-map";
+      kind: "outbound";
       title: string;
-      days: number;
-      meeting: { when: string; who: string; agenda: string };
-      lanes: {
-        product: string;
-        owner: string;
-        from: number;
-        to: number;
-        move: string;
-        punch?: boolean;
-      }[];
+      account: string;
+      hypothesis: { k: string; body: string }[];
+      evidence: { source: string; finding: string }[];
+      targets: { name: string; role: string; why: string }[];
+      page: { headline: string; body: string };
+    }
+  | {
+      kind: "linkedin";
+      title: string;
+      to: string;
+      role?: string;
+      body: string;
     }
   | {
       kind: "talk-tracks";
@@ -185,6 +239,8 @@ export type CroJob = {
   id: JobId;
   number: number;
   title: string;
+  trigger: string;
+  backgroundAction: string;
   problem: string;
   botJob: string;
   storyboard: StoryBeat[];

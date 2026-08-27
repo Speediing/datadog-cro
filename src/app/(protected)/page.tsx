@@ -1,8 +1,8 @@
+import { CompareTable } from "@/components/CompareTable";
 import { HeroTelemetry } from "@/components/HeroTelemetry";
 import { JobSection } from "@/components/JobSection";
 import { QuoteWall } from "@/components/QuoteWall";
 import { SiteNav } from "@/components/SiteNav";
-import { RosterChart } from "@/components/RosterChart";
 import { JOBS } from "@/data/jobs";
 
 export default function HomePage() {
@@ -23,19 +23,24 @@ export default function HomePage() {
           <HeroTelemetry />
           <section className="hero">
             <div>
-              <p className="eyebrow">Grok Bot for Datadog sales</p>
-              <h1>A bot that helps Datadog sales.</h1>
+              <p className="eyebrow">A proactive agent for every Datadog rep</p>
+              <h1>The agents that work while your reps sell.</h1>
               <p className="hero-intro">
-                Six jobs, from this call to the next meeting.
+                Grok Bot listens to calls, watches the inbox, and researches
+                accounts in the background. Work triggers it — not another
+                prompt.
               </p>
             </div>
-            <aside className="trial-card">
-              <div>
-                <span className="trial-day">6</span>
-                <span className="trial-total">jobs</span>
-              </div>
-              <p>From this call to the next meeting.</p>
-            </aside>
+          </section>
+
+          <section className="usecase-framing">
+            <p className="eyebrow">Three sample use cases</p>
+            <h2>
+              Grok Bot gives every seller their own fleet of always-available
+              agent teammates. Anything your sellers do today can be done
+              through Grok Bot.
+            </h2>
+            <p>These are three examples from millions — not the boundary.</p>
           </section>
 
           <div className="metric-grid">
@@ -45,8 +50,11 @@ export default function HomePage() {
                 className="metric-card"
                 href={`#${job.id}`}
               >
+                <div className="metric-card-top">
+                  <p>Sample {String(job.number).padStart(2, "0")}</p>
+                </div>
                 <h2>{job.title}</h2>
-                <p>{String(job.number).padStart(2, "0")}</p>
+                <p className="metric-trigger">Starts when {job.trigger.toLowerCase()}</p>
               </a>
             ))}
           </div>
@@ -57,8 +65,6 @@ export default function HomePage() {
             <JobSection key={job.id} job={job} />
           ))}
         </div>
-
-        <RosterChart />
       </div>
 
       <div className="orbit-break" aria-hidden>
@@ -67,6 +73,7 @@ export default function HomePage() {
       </div>
 
       <div className="report">
+        <CompareTable />
         <QuoteWall />
       </div>
 
@@ -75,6 +82,13 @@ export default function HomePage() {
           <p className="footer-title">Cursor for Datadog</p>
           <p>Grok Bot for Datadog sales</p>
         </div>
+        <address className="footer-contact">
+          <p>Datadog&apos;s existing Cursor contact</p>
+          <strong>Madeline Ingleby</strong>
+          <a href="mailto:madeline.ingleby@cursor.com">
+            madeline.ingleby@cursor.com
+          </a>
+        </address>
       </footer>
     </main>
   );

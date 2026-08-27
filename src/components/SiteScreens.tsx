@@ -28,6 +28,15 @@ function asTalks(artifact?: Artifact) {
 function asGaps(artifact?: Artifact) {
   return artifact?.kind === "gaps" ? artifact : null;
 }
+function asPacket(artifact?: Artifact) {
+  return artifact?.kind === "packet" ? artifact : null;
+}
+function asLinkedin(artifact?: Artifact) {
+  return artifact?.kind === "linkedin" ? artifact : null;
+}
+function asOutbound(artifact?: Artifact) {
+  return artifact?.kind === "outbound" ? artifact : null;
+}
 
 export function SiteScreen({
   beat,
@@ -79,6 +88,24 @@ export function SiteScreen({
       return (
         <GmailScreen account={account} artifact={asGmail(artifact)} sent={sent} />
       );
+    case "linkedin":
+      return (
+        <LinkedInScreen
+          account={account}
+          artifact={asLinkedin(artifact)}
+          sent={sent}
+        />
+      );
+    case "research":
+      return <ResearchScreen account={account} />;
+    case "page":
+      return (
+        <PageScreen
+          account={account}
+          onePager={asOnePager(artifact)}
+          outbound={asOutbound(artifact)}
+        />
+      );
     case "slack":
       return (
         <SlackScreen account={account} artifact={asSlack(artifact)} sent={sent} />
@@ -90,6 +117,7 @@ export function SiteScreen({
           onePager={asOnePager(artifact)}
           forecast={asForecast(artifact)}
           talks={asTalks(artifact)}
+          packet={asPacket(artifact)}
         />
       );
     default:
@@ -428,11 +456,13 @@ function GdocScreen({
   onePager,
   forecast,
   talks,
+  packet,
 }: {
   account: string;
   onePager: ReturnType<typeof asOnePager>;
   forecast: ReturnType<typeof asForecast>;
   talks: ReturnType<typeof asTalks>;
+  packet: ReturnType<typeof asPacket>;
 }) {
   return (
     <div className="site site-gdoc">
@@ -443,7 +473,9 @@ function GdocScreen({
             ? `${account} forecast`
             : talks
               ? "Bits AI talk tracks"
-              : onePager?.title || `${account} brief`}
+              : packet
+                ? packet.title
+                : onePager?.title || `${account} brief`}
         </span>
       </header>
       <article>
@@ -458,6 +490,12 @@ function GdocScreen({
               <b>{track.seat}.</b> {track.line}
             </p>
           ))
+        ) : packet ? (
+          packet.fields.map((field) => (
+            <p key={field.label}>
+              <b>{field.label}.</b> {field.value}
+            </p>
+          ))
         ) : onePager ? (
           onePager.sections.map((section) => (
             <p key={section.heading}>
@@ -468,6 +506,97 @@ function GdocScreen({
           <p>Working note for {account}.</p>
         )}
       </article>
+    </div>
+  );
+}
+
+function ResearchScreen({ account }: { account: string }) {
+  return (
+    <div className="site site-research">
+      <header>
+        <strong>{account}.com</strong>
+        <span>Public · last 30 days</span>
+      </header>
+      <p className="site-time">Researching the account · not a sequence</p>
+      <ul>
+        <li>
+          <span>Status</span> Sev-2, 14 days ago. 47 minutes to name the failing
+          service. Postmortem still says they jumped three tools.
+        </li>
+        <li>
+          <span>Careers</span> Staff SRE JD: experience stitching APM and logs
+          across teams. Posted this month.
+        </li>
+        <li>
+          <span>Blog</span> We outgrew homegrown dashboards. No named
+          replacement.
+        </li>
+        <li>
+          <span>Org</span> VP Eng owns time-to-fix. Platform director sits on
+          that stitch.
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+function LinkedInScreen({
+  account,
+  artifact,
+  sent,
+}: {
+  account: string;
+  artifact: ReturnType<typeof asLinkedin>;
+  sent: boolean;
+}) {
+  return (
+    <div className="site site-linkedin">
+      <header>
+        <strong>LinkedIn</strong>
+        <em>{sent ? "Sent" : "Draft · not sent"}</em>
+      </header>
+      <p>
+        <span>To</span>
+        {artifact?.to || `${account} VP Eng`}
+        {artifact?.role ? ` · ${artifact.role}` : ""}
+      </p>
+      <div>{artifact?.body || "InMail parked here until you tap Send."}</div>
+    </div>
+  );
+}
+
+function PageScreen({
+  account,
+  onePager,
+  outbound,
+}: {
+  account: string;
+  onePager: ReturnType<typeof asOnePager>;
+  outbound: ReturnType<typeof asOutbound>;
+}) {
+  const headline =
+    outbound?.page.headline || onePager?.title || `For ${account}`;
+  const body =
+    outbound?.page.body ||
+    onePager?.sections.map((section) => section.body).join(" ") ||
+    `A page for ${account}. Draft only.`;
+
+  return (
+    <div className="site site-page">
+      <header>
+        <strong>Page</strong>
+        <em>Not live</em>
+      </header>
+      <h4>{headline}</h4>
+      {onePager ? (
+        onePager.sections.map((section) => (
+          <p key={section.heading}>
+            <b>{section.heading}.</b> {section.body}
+          </p>
+        ))
+      ) : (
+        <p>{body}</p>
+      )}
     </div>
   );
 }

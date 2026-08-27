@@ -1,66 +1,72 @@
 import type { Artifact, StoryBeat } from "@/data/types";
 import { HeardSlide } from "./HeardSlide";
 
-function AttachMap({
+function OutboundPack({
   artifact,
 }: {
-  artifact: Extract<Artifact, { kind: "attach-map" }>;
+  artifact: Extract<Artifact, { kind: "outbound" }>;
 }) {
-  const days = artifact.days || 90;
-  const ticks = [0, 15, 45, 90].filter((day) => day <= days);
+  const contact = artifact.targets[0]?.name ?? "your buyer";
+  const firstName = contact.split(" ")[0];
 
   return (
-    <div className="leave leave-map">
-      <header className="leave-map-top">
-        <div>
-          <p className="leave-kicker">90-day plan</p>
-          <h3>{artifact.title}</h3>
-        </div>
-        <p className="leave-map-meet">
-          <strong>{artifact.meeting.when}</strong>
-          <span>{artifact.meeting.who}</span>
-          <span>{artifact.meeting.agenda}</span>
-        </p>
-      </header>
-      <div className="leave-ruler" aria-hidden>
-        {ticks.map((day) => (
-          <span
-            key={day}
-            style={{ left: `${(day / days) * 100}%` }}
-          >
-            Day {day}
+    <div className="leave leave-out-phone">
+      <div className="out-phone" aria-label="Sales Outbound approval chat">
+        <div className="out-phone-notch" aria-hidden />
+        <header className="out-phone-header">
+          <span className="out-phone-back" aria-hidden>
+            ‹
           </span>
-        ))}
+          <span className="out-phone-agent" aria-hidden>
+            ✦
+          </span>
+          <p>
+            <strong>Sales Outbound</strong>
+            <small>{artifact.account} · drafts ready</small>
+          </p>
+          <span className="out-phone-desktop" aria-hidden>
+            ▣
+          </span>
+        </header>
+
+        <div className="out-phone-thread">
+          <article className="out-email-card">
+            <p className="out-email-label">Draft email · 1 of 10</p>
+            <p className="out-email-subject">
+              Subject · {artifact.account}&apos;s last Sev-2
+            </p>
+            <div className="out-email-copy">
+              <p>Hi {firstName},</p>
+              <p>
+                Your status page and open Staff SRE role point to the same
+                thing: on-call still stitches APM and logs to name a Sev-2.
+              </p>
+              <p>
+                I put together the 90-second version for your platform team.
+                Worth fifteen minutes next week?
+              </p>
+              <p>Sam</p>
+            </div>
+            <footer>
+              <span>Send email</span>
+              <span>Discard</span>
+            </footer>
+          </article>
+
+          <p className="out-message is-you">
+            Send the top 10 emails. They look good.
+          </p>
+          <p className="out-message is-bot">
+            Top 10 sending. The rest stay queued.
+          </p>
+        </div>
+
+        <footer className="out-phone-composer">
+          <span aria-hidden>+</span>
+          <p>Message Sales Outbound</p>
+          <span aria-hidden>◉</span>
+        </footer>
       </div>
-      <ol className="leave-lanes">
-        {artifact.lanes.map((lane) => (
-          <li
-            key={lane.product}
-            className={lane.punch ? "is-punch" : undefined}
-          >
-            <div className="leave-lane-name">
-              <strong>{lane.product}</strong>
-              <span>{lane.owner}</span>
-            </div>
-            <div className="leave-lane-track">
-              <i
-                style={{
-                  left: `${(lane.from / days) * 100}%`,
-                  width: `${((lane.to - lane.from) / days) * 100}%`,
-                }}
-              />
-              <em
-                style={{
-                  left: `${(lane.from / days) * 100}%`,
-                  width: `${((lane.to - lane.from) / days) * 100}%`,
-                }}
-              >
-                {lane.move}
-              </em>
-            </div>
-          </li>
-        ))}
-      </ol>
     </div>
   );
 }
@@ -170,7 +176,7 @@ function RedlinePack({
     <div className="leave leave-paper">
       <header className="leave-paper-top">
         <div>
-          <p className="leave-kicker">Europe overnight</p>
+          <p className="leave-kicker">No internal chase</p>
           <h3>{artifact.title}</h3>
         </div>
         <p className="leave-paper-from">{artifact.from}</p>
@@ -183,7 +189,7 @@ function RedlinePack({
               <li key={mark.text} className={mark.take ? "is-take" : "is-hold"}>
                 <p className="leave-mark-line">{mark.text}</p>
                 <p className="leave-mark-note">
-                  <b>{mark.take ? "Take" : "Hold"}.</b> {mark.note}
+                  <b>{mark.take ? "Answer" : "Hold"}.</b> {mark.note}
                 </p>
               </li>
             ))}
@@ -223,8 +229,8 @@ export function ChapterPayoff({
     body = <HeardSlide slides={slides} size="lg" wash={wash} />;
   } else if (artifact?.kind === "redlines") {
     body = <RedlinePack artifact={artifact} />;
-  } else if (artifact?.kind === "attach-map") {
-    body = <AttachMap artifact={artifact} />;
+  } else if (artifact?.kind === "outbound") {
+    body = <OutboundPack artifact={artifact} />;
   } else if (artifact?.kind === "forecast") {
     body = <UpstairsMemo artifact={artifact} />;
   } else if (artifact?.kind === "talk-tracks") {
