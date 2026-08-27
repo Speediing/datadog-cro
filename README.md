@@ -1,10 +1,10 @@
-# Datadog CRO leave-behind
+# Grok Bot for Datadog GTM
 
-Passworded follow-up site Jason Wiker (Cursor Field Engineering) sends after the Datadog CRO conversation.
+Passworded site. Grok Bot from SpaceXAI, for Datadog GTM.
 
 ## What it is
 
-Five GTM jobs on one page. Each job has a short problem statement, an interactive Grok Bot iMessage demo, and the matching Krista Letz GTM clip as native video. Below that: the full eight-clip gallery and the public Grok Bot quote wall.
+Five GTM jobs on one page. Each job has a short problem statement, an interactive Grok Bot demo, and the matching Krista Letz GTM clip as native video. Below that: the full eight-clip gallery and the public Grok Bot quote wall.
 
 ## Run locally
 
@@ -21,12 +21,10 @@ Open [http://localhost:3000](http://localhost:3000). Default password is `land2e
 Download into `private/media/krista-clips/` from the GitHub release (served only through the passworded `/api/media/...` route):
 
 ```bash
-gh release download krista-gtm-clips-2026-08-26 \
+gh release download krista-gtm-clips-720p-2026-08-26 \
   --repo Speediing/grok-bot-quotes \
   --dir private/media/krista-clips
 ```
-
-Commit the mp4 files so Vercel can serve them.
 
 ## Deploy
 
