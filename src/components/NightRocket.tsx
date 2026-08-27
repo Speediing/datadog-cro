@@ -28,9 +28,17 @@ function FuselageMark() {
   if (!texture) return null;
 
   return (
-    <mesh position={[0, 0.1, 0.178]} rotation={[0, 0, Math.PI / 2]}>
-      <planeGeometry args={[1.28, 0.3]} />
-      <meshBasicMaterial map={texture} toneMapped={false} />
+    <mesh
+      position={[0, 0.28, 0.22]}
+      rotation={[0, 0, Math.PI / 2]}
+      renderOrder={2}
+    >
+      <planeGeometry args={[1.18, 0.3]} />
+      <meshBasicMaterial
+        map={texture}
+        toneMapped={false}
+        depthTest={false}
+      />
     </mesh>
   );
 }
@@ -69,14 +77,19 @@ function RocketBody() {
       <mesh position={[0, -0.78, 0]} material={dark}>
         <cylinderGeometry args={[0.2, 0.22, 0.28, 18]} />
       </mesh>
-      {[0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2].map((rot) => (
+      {[
+        Math.PI / 4,
+        (3 * Math.PI) / 4,
+        (5 * Math.PI) / 4,
+        (7 * Math.PI) / 4,
+      ].map((rot) => (
         <mesh
           key={rot}
-          position={[Math.sin(rot) * 0.22, -0.72, Math.cos(rot) * 0.22]}
-          rotation={[0.45, rot, 0]}
+          position={[Math.sin(rot) * 0.2, -0.84, Math.cos(rot) * 0.2]}
+          rotation={[0.5, rot, 0]}
           material={white}
         >
-          <boxGeometry args={[0.04, 0.34, 0.22]} />
+          <boxGeometry args={[0.03, 0.24, 0.16]} />
         </mesh>
       ))}
       <mesh position={[0, -1.05, 0]}>
@@ -99,7 +112,7 @@ function Flight() {
     const y = Math.sin(u * Math.PI) * 0.32;
     if (group.current) {
       group.current.position.set(x, y, 0);
-      group.current.rotation.set(0, 0.15, -Math.PI / 2 - 0.16);
+      group.current.rotation.set(0, 0, -Math.PI / 2 - 0.12);
     }
     if (plume.current) {
       const pulse = 1 + Math.sin(t * 11) * 0.12;
