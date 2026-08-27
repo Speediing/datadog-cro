@@ -202,15 +202,12 @@ export function GrokBotWindow({
   const streamRef = useRef<HTMLDivElement>(null);
   const [showComputer, setShowComputer] = useState(true);
   const [showMobileComputer, setShowMobileComputer] = useState(false);
-  const [pickedBot, setPickedBot] = useState<string | null>(null);
   const threadBots = liveThread.participants.filter((p) => p.role === "bot");
   const speakingId =
     typingFrom ||
     (current && people[current.from]?.role === "bot" ? current.from : null);
   const headerBot =
-    (pickedBot && people[pickedBot]) ||
-    (speakingId && people[speakingId]) ||
-    threadBots[0];
+    (speakingId && people[speakingId]) || threadBots[0];
   const working = Boolean(playing && !done) || Boolean(typingFrom);
   const beat =
     beatFor(
@@ -257,22 +254,6 @@ export function GrokBotWindow({
         </div>
 
         <div className="gb-cols">
-          <aside className="gb-bots" aria-label="Bots">
-            {threadBots.map((bot) => (
-              <button
-                key={bot.id}
-                type="button"
-                className={
-                  headerBot?.id === bot.id ? "gb-bot is-on" : "gb-bot"
-                }
-                onClick={() => setPickedBot(bot.id)}
-              >
-                <BotAvatar bot={bot} size="sm" />
-                <span>{bot.name}</span>
-              </button>
-            ))}
-          </aside>
-
           <section className="gb-thread">
             <div className="ios-island" aria-hidden />
             <header className="ios-header">

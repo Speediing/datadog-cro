@@ -188,6 +188,39 @@ a:hover {
   font-weight: 500;
   letter-spacing: -0.035em;
   line-height: 1.3;
+  overflow-wrap: break-word;
+}
+
+.night-rocket {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 8;
+  height: 28vh;
+  min-height: 7.5rem;
+  max-height: 14rem;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 55%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+}
+
+.night-rocket canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .night-rocket {
+    display: none;
+  }
 }
 
 .orbit-break {
@@ -352,8 +385,6 @@ a:hover {
 
 .job-value {
   margin: 0.75rem 0 0;
-  padding-left: 0.9rem;
-  border-left: 4px solid #e0b84a;
   max-width: 40rem;
   color: var(--ink);
   font-size: 1.28rem;
@@ -1312,25 +1343,19 @@ a:hover {
 .gb-cols {
   display: grid;
   flex: 1;
-  grid-template-columns: 11.5rem minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   min-height: 0;
   height: 100%;
   overflow: hidden;
 }
 
 .demo-stage.is-split .gb-cols {
-  grid-template-columns: 11.5rem minmax(0, 1fr) 19.5rem;
+  grid-template-columns: minmax(0, 1fr) 19.5rem;
 }
 
-.gb-bots {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  min-height: 0;
-  overflow: auto;
-  padding: 0.65rem 0.45rem;
-  border-right: 1px solid #e5e5ea;
-  background: #f2f2f7;
+.gb-bots,
+.site-slack aside {
+  display: none;
 }
 
 .gb-bot {
@@ -3333,9 +3358,8 @@ a:hover {
 
 .site-slack {
   display: grid;
-  grid-template-columns: 7.5rem minmax(0, 1fr);
   min-height: 100%;
-  padding: 0;
+  padding: 0.7rem;
 }
 
 .site-slack aside {
@@ -3414,7 +3438,7 @@ a:hover {
 
 @media (min-width: 801px) and (max-width: 1100px) {
   .demo-stage.is-split .gb-cols {
-    grid-template-columns: 10.25rem minmax(0, 1fr) 16.75rem;
+    grid-template-columns: minmax(0, 1fr) 16.75rem;
   }
 }
 
@@ -3422,8 +3446,8 @@ a:hover {
   .band-inner,
   .page {
     width: 100%;
-    padding: 0 max(1.5rem, env(safe-area-inset-right)) 0
-      max(1.5rem, env(safe-area-inset-left));
+    padding: 0 max(1.15rem, env(safe-area-inset-right)) 0
+      max(1.15rem, env(safe-area-inset-left));
   }
 
   .site-nav {
@@ -3444,8 +3468,8 @@ a:hover {
   }
 
   .nav-links {
-    flex-wrap: nowrap;
-    gap: 1.05rem;
+    flex-wrap: wrap;
+    gap: 0.85rem;
     justify-content: flex-start;
   }
 
@@ -3465,8 +3489,8 @@ a:hover {
 
   .hero-line {
     margin-top: 0;
-    font-size: 1.2rem;
-    max-width: 22rem;
+    font-size: 1.18rem;
+    max-width: none;
   }
 
   .hero .brand-lockup {
@@ -3517,14 +3541,34 @@ a:hover {
 
   .heard-slide {
     aspect-ratio: auto;
+    overflow: visible;
+  }
+
+  .heard-bar {
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.72rem;
+  }
+
+  .heard-main {
+    padding: 0.85rem 0.9rem 0.5rem;
   }
 
   .heard-main h3 {
-    font-size: 1.7rem;
+    font-size: 1.45rem;
   }
 
   .heard-quote {
-    font-size: 1.08rem;
+    font-size: 1.02rem;
+  }
+
+  .heard-map {
+    padding: 0.7rem 0.9rem 0.85rem;
+  }
+
+  .heard-map li {
+    font-size: 0.95rem;
   }
 
   .job-value,
@@ -3559,6 +3603,7 @@ a:hover {
     max-width: none;
     font-size: 1.4rem;
     letter-spacing: -0.035em;
+    overflow-wrap: break-word;
   }
 
   .job-problem,
@@ -3622,9 +3667,9 @@ a:hover {
   }
 
   .gb-product {
-    width: min(390px, 100%);
-    height: 720px;
-    max-height: 720px;
+    width: 100%;
+    height: 38rem;
+    max-height: 38rem;
     padding: 0.5rem;
     border: 0;
     border-radius: 2.35rem;
@@ -3782,6 +3827,65 @@ a:hover {
 
   .pc-phone .pc-page {
     min-height: 0;
+  }
+
+  .night-rocket {
+    height: 18vh;
+    min-height: 5.5rem;
+    max-height: 8.5rem;
+  }
+
+  .story-line,
+  .job-value,
+  .leave-value,
+  .leave-line,
+  .leave-memo-body,
+  .leave-win,
+  .leave-weak {
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 430px) {
+  .band-inner,
+  .page {
+    padding: 0 max(1rem, env(safe-area-inset-right)) 0
+      max(1rem, env(safe-area-inset-left));
+  }
+
+  .job {
+    padding: 2.4rem 0;
+  }
+
+  .job-title {
+    font-size: 1.28rem;
+  }
+
+  .job-value,
+  .leave-value {
+    font-size: 1rem;
+  }
+
+  .story-laptop {
+    width: min(9.5rem, 100%);
+  }
+
+  .leave-heard,
+  .leave-map,
+  .leave-memo,
+  .leave-pack,
+  .leave-answer {
+    padding: 0.75rem;
+  }
+
+  .leave h3 {
+    font-size: 1.28rem;
+  }
+
+  .gb-product {
+    height: 34rem;
+    max-height: 34rem;
+    border-radius: 1.85rem;
   }
 }
 

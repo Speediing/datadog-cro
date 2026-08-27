@@ -11,7 +11,7 @@ export default function LoginPage() {
       </div>
       <div className="login-card">
         <BrandLockup size="md" />
-        <p>Grok Bot for Datadog GTM</p>
+        <p>Grok Bot for Datadog sales</p>
         <Suspense fallback={null}>
           <LoginForm />
         </Suspense>

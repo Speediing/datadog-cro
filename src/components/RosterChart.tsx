@@ -53,13 +53,13 @@ function Box({
 
 const SPECIALISTS = [
   { id: "room", blurb: "Turns Granola into the next pack." },
-  { id: "attach", blurb: "90-day land-2-expand map." },
+  { id: "attach", blurb: "90-day plan for the next products." },
   { id: "expert", blurb: "Who is in the account and what they use." },
   { id: "desk", blurb: "Paste the pipeline. Names the gaps." },
   { id: "chief", blurb: "Turns a launch into field language." },
   { id: "coach", blurb: "Practice partner. First-90 kit." },
   { id: "eng", blurb: "Answers from the product. Bugbot when it breaks." },
-  { id: "prospect", blurb: "Five by five. Gmail drafts only." },
+  { id: "prospect", blurb: "Five accounts, five contacts. Gmail drafts only." },
 ] as const;
 
 export function RosterChart() {

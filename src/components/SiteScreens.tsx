@@ -107,26 +107,26 @@ function GranolaScreen({ account }: { account: string }) {
       <p className="site-time">Still on the call · Granola in</p>
       <ul>
         <li>
-          <span>14:12</span> Land-2 is APM + Logs in one squad. Not a platform
+          <span>14:12</span> Start with APM + Logs in one team. Not a product
           tour.
         </li>
         <li>
-          <span>14:18</span> Security objection: SSO and an audit trail before
-          any expand.
+          <span>14:18</span> Security: SSO and an audit trail before any extra
+          products.
         </li>
         <li>
-          <span>14:21</span> Soft yes on a Bits AI pilot if those two are named.
+          <span>14:21</span> Soft yes on a Bits AI trial if those two are named.
         </li>
         <li>
           <span>14:24</span> Cost mentioned once. RUM not in the room.
         </li>
         <li>
-          <span>14:28</span> Champion will take a Tuesday with security
+          <span>14:28</span> Your contact will take a Tuesday with a security
           co-owner.
         </li>
         <li>
           <span>14:31</span> Use cases named live on the demo. Sev-2 story,
-          one squad, SSO as the gate.
+          one team, SSO as the gate.
         </li>
       </ul>
     </div>
@@ -153,9 +153,9 @@ function FigmaScreen({
           {slides
             ? slides.title
             : pager
-              ? `${account} leave-behind`
+              ? `${account} one-pager`
               : packet
-                ? `${account} champion packet`
+                ? `${account} inside note`
                 : `${account} North Star`}
         </strong>
         <em>Draft</em>
@@ -199,10 +199,10 @@ function GongScreen({ account }: { account: string }) {
       <div className="gong-recap">
         <h4>Call recap</h4>
         <ul>
-          <li>Landed APM + Logs (land-2)</li>
+          <li>They have APM + Logs</li>
           <li>Security lead in the room</li>
           <li>Cost mentioned once</li>
-          <li>No economic buyer on the call</li>
+          <li>No one who can sign was on the call</li>
         </ul>
       </div>
     </div>
@@ -223,7 +223,7 @@ function SfdcAccountScreen({ account }: { account: string }) {
       </div>
       <dl className="sfdc-fields">
         <div>
-          <dt>Land</dt>
+          <dt>Has now</dt>
           <dd>APM + Logs</dd>
         </div>
         <div>
@@ -235,12 +235,12 @@ function SfdcAccountScreen({ account }: { account: string }) {
           <dd>Mentioned once</dd>
         </div>
         <div>
-          <dt>EB</dt>
-          <dd>Unconfirmed</dd>
+          <dt>Who can sign</dt>
+          <dd>Not confirmed</dd>
         </div>
       </dl>
       <table className="sfdc-related">
-        <caption>90-day attach</caption>
+        <caption>Next 90 days</caption>
         <thead>
           <tr>
             <th>Product</th>
@@ -301,7 +301,7 @@ function SfdcOppScreen({
           <dd>4 · this quarter</dd>
         </div>
         <div className={highlight ? "gap" : undefined}>
-          <dt>EB meeting</dt>
+          <dt>Signer meeting</dt>
           <dd>None on calendar</dd>
         </div>
         <div className={highlight ? "gap" : undefined}>
@@ -309,12 +309,12 @@ function SfdcOppScreen({
           <dd>Slow · no dated path</dd>
         </div>
         <div className={highlight ? "gap" : undefined}>
-          <dt>Champion</dt>
-          <dd>Loves us · weak map</dd>
+          <dt>Inside contact</dt>
+          <dd>Likes us · weak map</dd>
         </div>
         <div className={highlight ? "gap" : undefined}>
           <dt>Cloud SIEM</dt>
-          <dd>Comp unclear</dd>
+          <dd>Not in the story</dd>
         </div>
       </dl>
     </div>
@@ -332,22 +332,22 @@ function SheetsScreen({
   const rows = table
     ? table.rows
     : [
-        [account, "Champion", "EB TBD", "APM + Logs", "Tue SIEM"],
-        ["Globex", "VP Eng", "CISO", "APM + Logs", "Discovery"],
+        [account, "Inside contact", "Signer TBD", "APM + Logs", "Tue SIEM"],
+        ["Globex", "VP Eng", "CISO", "APM + Logs", "First meeting"],
         ["Initech", "SRE lead", "CTO", "APM + Logs", "Bits AI"],
-        ["Umbrella", "Sec eng", "CISO", "APM + Logs", "OSS drill"],
-        ["Hooli", "Platform", "EB TBD", "APM + Logs", "Cost later"],
+        ["Umbrella", "Sec eng", "CISO", "APM + Logs", "Open source drill"],
+        ["Hooli", "Platform", "Signer TBD", "APM + Logs", "Cost later"],
       ];
   const cols = table
     ? table.columns
-    : ["Account", "Champion", "EB", "Land-2", "Next"];
+    : ["Account", "Inside contact", "Who can sign", "Start with", "Next"];
 
   return (
     <div className="site site-sheets">
       <header>
         <span className="sheets-mark">Sheets</span>
         <strong>
-          {table ? `${account} 90-day attach` : "5 accounts x 5 prospects"}
+          {table ? `${account} next 90 days` : "5 accounts x 5 prospects"}
         </strong>
       </header>
       <table>
@@ -389,7 +389,7 @@ function GmailScreen({
       </header>
       <p>
         <span>To</span>
-        {artifact?.to || `${account} champion`}
+        {artifact?.to || `${account} contact`}
       </p>
       <p>
         <span>Subject</span>
@@ -411,19 +411,13 @@ function SlackScreen({
 }) {
   return (
     <div className="site site-slack">
-      <aside>
-        <strong>Datadog GTM</strong>
-        <span>{artifact?.channel || "#gtm-field"}</span>
-      </aside>
-      <div>
-        <header>
-          <h4>{artifact?.channel || "#gtm-field"}</h4>
-          <em>{sent ? "Sent" : "Draft · not sent"}</em>
-        </header>
-        <div className="slack-draft">
-          {artifact?.body ||
-            `Friday pack for ${account}. Draft only. Nothing posted.`}
-        </div>
+      <header>
+        <h4>{artifact?.channel || "#gtm-field"}</h4>
+        <em>{sent ? "Sent" : "Draft · not sent"}</em>
+      </header>
+      <div className="slack-draft">
+        {artifact?.body ||
+          `Friday pack for ${account}. Draft only. Nothing posted.`}
       </div>
     </div>
   );

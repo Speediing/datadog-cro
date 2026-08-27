@@ -3,8 +3,8 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Grok Bot for Datadog GTM",
-  description: "Grok Bot for Datadog GTM",
+  title: "Grok Bot for Datadog sales",
+  description: "Grok Bot for Datadog sales",
   robots: {
     index: false,
     follow: false,

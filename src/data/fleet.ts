@@ -20,14 +20,14 @@ export const FLEET: FleetBot[] = [
   {
     id: "room",
     name: "Room Ops",
-    blurb: "Granola/Gong to slides, leave-behind, champion packet",
+    blurb: "Granola notes to slides, a one-pager, and a note they can forward",
     jobId: "standardize-room",
     color: "#34C759",
   },
   {
     id: "attach",
-    name: "Attach Mapper",
-    blurb: "90-day land-2-expand map",
+    name: "Account Mapper",
+    blurb: "90-day plan for the next products",
     jobId: "attach-engine",
     color: "#FF9500",
   },
@@ -41,7 +41,7 @@ export const FLEET: FleetBot[] = [
   {
     id: "desk",
     name: "Deal Desk",
-    blurb: "Pipeline paste. EB, paper, champion gaps, upstairs paragraph",
+    blurb: "Paste the pipeline. Gaps, Monday questions, a note for your boss",
     jobId: "deal-inspection",
     color: "#007AFF",
   },
@@ -55,7 +55,7 @@ export const FLEET: FleetBot[] = [
   {
     id: "chief",
     name: "Enablement Chief",
-    blurb: "SKO and Friday one-pager",
+    blurb: "Kickoff talk and Friday one-pager",
     jobId: "sko-enablement",
     color: "#FF2D55",
     cluster: "sko",
@@ -77,7 +77,7 @@ export const FLEET: FleetBot[] = [
   },
   {
     id: "coach",
-    name: "Ramp Coach",
+    name: "Practice Coach",
     blurb: "Practice partner and first-90 kit",
     jobId: "ramp-compression",
     color: "#0A84FF",
@@ -86,7 +86,7 @@ export const FLEET: FleetBot[] = [
   {
     id: "buyer",
     name: "Skeptical Buyer",
-    blurb: "OSS-is-good-enough, cold",
+    blurb: "Open source is good enough, cold",
     jobId: "ramp-compression",
     color: "#8E8E93",
     cluster: "ramp",
@@ -94,7 +94,7 @@ export const FLEET: FleetBot[] = [
   {
     id: "prospect",
     name: "Prospecting",
-    blurb: "5x5, Gmail drafts only",
+    blurb: "Five accounts, five contacts. Gmail drafts only",
     jobId: "ramp-compression",
     color: "#30D158",
   },

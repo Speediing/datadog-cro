@@ -28,7 +28,7 @@ export const CLIPS: Record<ClipId, Clip> = {
   "03-slides-granola": clip(
     "03-slides-granola",
     "Slides from the room",
-    "Granola in. Slides writes the What we heard cards while she is still on.",
+    "Granola is in. Slides writes the What we heard cards while she is still on the call.",
   ),
   "04-engineer-bugbot": clip(
     "04-engineer-bugbot",
@@ -43,12 +43,12 @@ export const CLIPS: Record<ClipId, Clip> = {
   "06-customer-expert": clip(
     "06-customer-expert",
     "Customer expert",
-    "Candlewick: who is in the account, what they use, questions in Slack.",
+    "Who is in the account, what they use, questions in Slack.",
   ),
   "07-customer-exec-brief": clip(
     "07-customer-exec-brief",
     "Exec brief",
-    "Turns what it just watched her do into an exec brief.",
+    "Turns what it just watched her do into a short note for her boss.",
   ),
   "08-chief-groupchat": clip(
     "08-chief-groupchat",

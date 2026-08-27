@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { JobSection } from "@/components/JobSection";
 import { QuoteWall } from "@/components/QuoteWall";
 import { SiteNav } from "@/components/SiteNav";
@@ -5,9 +6,14 @@ import { BrandLockup } from "@/components/BrandLockup";
 import { RosterChart } from "@/components/RosterChart";
 import { JOBS } from "@/data/jobs";
 
+const NightRocket = dynamic(() => import("@/components/NightRocket"), {
+  ssr: false,
+});
+
 export default function HomePage() {
   return (
     <main id="top">
+      <NightRocket />
       <div className="band band-dark band-nav">
         <div className="band-inner">
           <SiteNav />
@@ -22,8 +28,8 @@ export default function HomePage() {
         <div className="band-inner">
           <BrandLockup size="md" />
           <p className="hero-line">
-            Five jobs a Grok Bot can run for Datadog GTM, from the live call to
-            the next meeting.
+            A bot that helps Datadog sales. Five jobs, from this call to the
+            next meeting.
           </p>
         </div>
       </header>

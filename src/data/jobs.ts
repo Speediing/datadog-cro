@@ -12,8 +12,8 @@ export const ACME_TAIL_SLIDES: SlideCard[] = [
     n: 5,
     kicker: "Mapped live",
     voice: "us",
-    title: "Land APM + Logs",
-    body: "Same squad that already feels the incident. That is land-2 this quarter.",
+    title: "Start with APM + Logs",
+    body: "Same team that already feels the outage. Start there this quarter.",
   },
   {
     n: 6,
@@ -27,7 +27,7 @@ export const ACME_TAIL_SLIDES: SlideCard[] = [
     kicker: "Mapped live",
     voice: "us",
     title: "SSO, then Bits AI",
-    body: "Named on this call. One squad. Bits AI after week-3 MTTR moves.",
+    body: "Named on this call. One team. Bits AI after they see a faster fix.",
   },
 ];
 
@@ -37,37 +37,36 @@ export const JOBS: CroJob[] = [
     number: 1,
     title: "The deck from this call",
     problem:
-      "The best reps already run the meeting in their head. Everyone else walks in with last quarter's deck and hopes the champion fills the gaps.",
+      "The best reps already run the meeting in their head. Everyone else walks in with last quarter's deck and hopes the inside contact fills the gaps.",
     botJob:
-      "Granola notes go in while you are still on. Room Ops writes the last slides in their words, plus the leave-behind and a champion packet.",
+      "Granola notes go in while you are still on. Room Ops writes the last slides in their words, plus a one-pager they can forward.",
     storyboard: [
       {
         when: "Minute 8",
-        label: "Still on the disco. They have not seen a slide.",
+        label: "Still on the first call. They have not seen a slide.",
         scene: "call",
       },
       {
         when: "Minute 22",
-        label: "You cut to the demo. They start naming how they actually work.",
+        label: "You switch to the product. They start saying how they actually work.",
         scene: "demo",
       },
       {
         when: "Minute 31",
-        label: "Granola is already in. You have not left the call.",
+        label: "Granola is already taking notes. You have not hung up.",
         scene: "notes",
       },
       {
         when: "Minute 35",
-        label:
-          "The tail of the deck is their use cases, mapped. Tuesday, not last quarter.",
+        label: "The last slides use their words. Next meeting, not last quarter.",
         scene: "deck",
         slides: ACME_TAIL_SLIDES,
       },
     ],
     unlock:
-      "Four slides for Tuesday. Their Sev-2 and their security bar, then how Datadog maps to each.",
+      "A recap slide in their words, plus how Datadog helps, while you are still on the call.",
     outcome:
-      "You leave with a deck they already heard themselves in. Tuesday is attach, not another disco.",
+      "You change the slides while you are still on the call. The next meeting is about SSO and a Bits AI trial in that team. Not another first meeting.",
     clips: ["03-slides-granola"],
     demo: {
       title: "Room Ops",
@@ -94,25 +93,25 @@ export const JOBS: CroJob[] = [
           id: "m1",
           from: "you",
           kind: "text",
-          body: "Still on disco. They have not seen a slide. Cutting to the demo. Stay on Granola. Do not start a new deck.",
+          body: "Still on the first call. They have not seen a slide. Switching to the product. Stay on Granola. Do not start a new deck.",
         },
         {
           id: "m2",
           from: "you",
           kind: "text",
-          body: "They just named the Sev-2 and the security bar, in their words, on this demo. Pull Granola. We are still on. Rewrite the tail of the open deck, not a recap after.",
+          body: "They just named the Sev-2 and the security bar, in their words, on this demo. Pull Granola. We are still on. Rewrite the last slides of the open deck, not a recap after.",
         },
         {
           id: "m3",
           from: "room",
           kind: "text",
-          body: "Still on. Granola 14:31. Writing the What we heard slide from this call. Their Sev-2 and security bar, then how Datadog maps. Champion can already hear themselves.",
+          body: "Still on. Granola 14:31. Writing the What we heard slide from this call. Their Sev-2 and security bar, then how Datadog maps. Your contact can already hear themselves.",
         },
         {
           id: "m4",
           from: "slides",
           kind: "draft",
-          draftLabel: "Tail of the open deck · still on",
+          draftLabel: "Last slides of the open deck · still on",
           artifact: {
             kind: "slides",
             title: "What we heard",
@@ -123,27 +122,27 @@ export const JOBS: CroJob[] = [
           id: "m5",
           from: "room",
           kind: "draft",
-          draftLabel: "Leave-behind",
+          draftLabel: "One-pager they can forward",
           artifact: {
             kind: "one-pager",
-            title: "Acme leave-behind",
+            title: "Acme one-pager",
             eyebrow: "One-pager",
             sections: [
               {
                 heading: "What we covered",
-                body: "APM + Logs as land-2. Security objection on SSO and audit. Bits AI as a one-squad pilot, not a rollout.",
+                body: "Start with APM + Logs. Security needs SSO and an audit trail. Bits AI as a one-team trial, not a company-wide rollout.",
               },
               {
                 heading: "Security path",
-                body: "SSO and audit trail named before any expand. Security lead from this call stays on the next meeting.",
+                body: "SSO and audit trail named before any extra products. The security lead from this call stays on the next meeting.",
               },
               {
-                heading: "Pilot",
-                body: "Bits AI in the same squad that lands APM + Logs. Week-3 MTTR is the gate. Expand seats only after that number.",
+                heading: "Trial",
+                body: "Bits AI in the same team that starts APM + Logs. Week-3 time-to-fix is the gate. Add seats only after that number.",
               },
               {
                 heading: "What we need from you",
-                body: "Tuesday with champion + security co-owner. Bring the paper path owner if legal will slow SSO.",
+                body: "Tuesday with your contact plus a security co-owner. Bring the contract owner if legal will slow SSO.",
               },
             ],
           },
@@ -152,7 +151,7 @@ export const JOBS: CroJob[] = [
           id: "m6",
           from: "room",
           kind: "draft",
-          draftLabel: "Champion packet",
+          draftLabel: "Note they can send inside",
           artifact: {
             kind: "packet",
             title: "Forward this inside Acme",
@@ -165,17 +164,17 @@ export const JOBS: CroJob[] = [
               {
                 label: "Why now",
                 value:
-                  "The squad already agreed to land APM + Logs. Bits AI is useful in that same week-3 window, not after a platform tour next quarter.",
+                  "The team already agreed to start APM + Logs. Bits AI is useful in that same week-3 window, not after a product tour next quarter.",
               },
               {
                 label: "Risks already named",
                 value:
-                  "SSO + audit trail. Legal may slow paper. Cost came up once and is not in this ask. RUM is not in the room.",
+                  "SSO + audit trail. Legal may slow the contract. Cost came up once and is not in this ask. RUM is not in the room.",
               },
               {
                 label: "Exact ask for next Tuesday",
                 value:
-                  "30 minutes. Champion + security co-owner. Dated SSO path. Written Bits AI pilot scope for one squad.",
+                  "30 minutes. Your contact + a security co-owner. Dated SSO path. Written Bits AI trial scope for one team.",
               },
             ],
           },
@@ -184,20 +183,20 @@ export const JOBS: CroJob[] = [
           id: "m7",
           from: "room",
           kind: "draft",
-          draftLabel: "Gmail to champion",
+          draftLabel: "Gmail to your contact",
           artifact: {
             kind: "gmail",
-            title: "Champion forward",
-            to: "Acme champion",
-            subject: "Acme / Datadog. Tuesday packet (SSO, Bits AI pilot)",
-            body: "Forwarding the internal packet from today's room. Problem is in your words. Tuesday ask is champion + security co-owner, dated SSO path, and a one-squad Bits AI pilot. Nothing else is in the ask.",
+            title: "Forward to your contact",
+            to: "Acme contact",
+            subject: "Acme / Datadog. Tuesday packet (SSO, Bits AI trial)",
+            body: "Forwarding the internal note from today's room. Problem is in your words. Tuesday ask is your contact + a security co-owner, a dated SSO path, and a one-team Bits AI trial. Nothing else is in the ask.",
           },
         },
         {
           id: "m8",
           from: "room",
           kind: "system",
-          body: "Nothing sent. Deck, leave-behind, packet, and Gmail stay drafts until you tap Send.",
+          body: "Nothing sent. Deck, one-pager, note, and Gmail stay drafts until you tap Send.",
         },
       ],
     },
@@ -205,39 +204,39 @@ export const JOBS: CroJob[] = [
   {
     id: "attach-engine",
     number: 2,
-    title: "Attach after the first meeting",
+    title: "More products in the account",
     problem:
-      "You land in two products and expand toward six to nineteen. Net retention is still in the low-120%s. Fortune 500 median ARR is small for the platform. Attach is how ACV moves.",
+      "You close APM and Logs. Then the deal stalls. Nobody owns the next product. The next meeting never gets a date.",
     botJob:
-      "After the first meeting, the bot writes a 90-day attach map: who owns Bits AI, Cloud SIEM, Cost, and RUM, and what the next meeting is.",
+      "After the first meeting, the bot writes a 90-day plan: who owns Bits AI, Cloud SIEM, Cost, and RUM, and what the next meeting is.",
     storyboard: [
       {
         when: "Just hung up",
-        label: "First meeting just ended. Land is APM + Logs.",
+        label: "First meeting just ended. They have APM and Logs.",
         scene: "call",
       },
       {
         when: "That afternoon",
-        label: "Security was in the room. Nobody has dated the expand.",
+        label: "Security was in the room. Nobody booked the next talk.",
         scene: "notes",
       },
       {
         when: "Before you close the laptop",
-        label: "The 90-day map is a draft. Tuesday is already on it.",
+        label: "The 90-day plan is a draft. Tuesday is already on it.",
         scene: "map",
       },
       {
         when: "Tuesday",
-        label: "The next meeting is dated. SIEM scope, not another tour.",
+        label: "The next meeting has a date. Cloud SIEM, not another product tour.",
         scene: "map",
         artifact: {
           kind: "attach-map",
-          title: "Acme 90-day attach",
+          title: "Acme next 90 days",
           days: 90,
           meeting: {
             when: "Tue · 30 min",
-            who: "Security lead + AE",
-            agenda: "SIEM scope. Not a product tour.",
+            who: "Security lead + you",
+            agenda: "Cloud SIEM scope. Not a product tour.",
           },
           lanes: [
             {
@@ -245,14 +244,14 @@ export const JOBS: CroJob[] = [
               owner: "Platform eng manager",
               from: 15,
               to: 45,
-              move: "Pilot in the APM + Logs squad",
+              move: "Trial in the APM + Logs team",
             },
             {
               product: "Cloud SIEM",
               owner: "Security lead from today's call",
               from: 15,
               to: 45,
-              move: "Tue 30 min scoping with AE",
+              move: "Tue 30 min scoping with you",
               punch: true,
             },
             {
@@ -260,7 +259,7 @@ export const JOBS: CroJob[] = [
               owner: "FinOps alias they mentioned",
               from: 45,
               to: 90,
-              move: "Review after land-2 proof",
+              move: "Review after APM + Logs is live",
             },
             {
               product: "RUM",
@@ -273,27 +272,27 @@ export const JOBS: CroJob[] = [
         },
       },
     ],
-    unlock: "Owners, windows, and the next invite parked as a draft.",
+    unlock: "Owners, time windows, and the next invite parked as a draft.",
     outcome:
-      "Raise ACV without adding heads. The next meeting is already dated.",
+      "Sell more Datadog products to the same company, without adding people. The next meeting already has a date.",
     clips: ["05-forecast-sfdc", "06-customer-expert"],
     demo: {
-      title: "Attach Mapper",
-      subtitle: "Land-2 to 90-day attach",
+      title: "Account Mapper",
+      subtitle: "First close to a 90-day plan",
       participants: [
         { id: "you", name: "You", role: "you" },
         {
           id: "attach",
-          name: "Attach Mapper",
+          name: "Account Mapper",
           role: "bot",
-          persona: "Owns the land-2-expand path after every first meeting",
+          persona: "Owns the next-products path after every first meeting",
           color: "#FF9500",
         },
         {
           id: "expert",
           name: "Customer Expert",
           role: "bot",
-          persona: "Names the economic buyer and product owner per line",
+          persona: "Names who can sign and who owns each product",
           color: "#AF52DE",
         },
       ],
@@ -302,49 +301,49 @@ export const JOBS: CroJob[] = [
           id: "m1",
           from: "you",
           kind: "text",
-          body: "First meeting done. Landed APM + Logs. Security lead was in the room. Cost came up once.",
+          body: "First meeting done. They have APM + Logs. Security lead was in the room. Cost came up once.",
         },
         {
           id: "m2",
           from: "attach",
           kind: "text",
-          body: "Land-2 is APM + Logs. Building the 90-day attach map. Customer Expert is naming owners per line.",
+          body: "APM + Logs is in. Building the 90-day plan. Customer Expert is naming owners per product.",
         },
         {
           id: "m3",
           from: "expert",
           kind: "handoff",
-          body: "Economic buyer is still unconfirmed. Treat the security lead from today's call as the SIEM owner, not as EB. Product owners I would confirm before week 2 are below, on the map.",
+          body: "The person who can sign was not on the call. Treat the security lead from today as the Cloud SIEM owner, not as the signer. Product owners I would confirm before week 2 are below, on the plan.",
         },
         {
           id: "m4",
           from: "attach",
           kind: "draft",
-          draftLabel: "90-day attach map",
+          draftLabel: "90-day plan",
           artifact: {
             kind: "table",
-            title: "Acme 90-day attach",
+            title: "Acme next 90 days",
             caption:
-              "Next meeting. Tue 30 min with security lead + AE. Agenda is SIEM scope, not a product tour.",
+              "Next meeting. Tue 30 min with security lead + you. Agenda is Cloud SIEM scope, not a product tour.",
             columns: ["Product", "Owner", "Window", "Next move"],
             rows: [
               [
                 "Bits AI",
                 "Platform eng manager",
                 "Day 15 to 45",
-                "Pilot in the APM + Logs squad",
+                "Trial in the APM + Logs team",
               ],
               [
                 "Cloud SIEM",
                 "Security lead from today's call",
                 "Day 15 to 45",
-                "Tue 30 min scoping with AE",
+                "Tue 30 min scoping with you",
               ],
               [
                 "Cost",
                 "FinOps alias they mentioned",
                 "Day 45 to 90",
-                "Review after land-2 proof",
+                "Review after APM + Logs is live",
               ],
               [
                 "RUM",
@@ -362,16 +361,16 @@ export const JOBS: CroJob[] = [
           draftLabel: "Owner card",
           artifact: {
             kind: "packet",
-            title: "Who owns the expand",
+            title: "Who owns the next products",
             fields: [
               {
-                label: "Economic buyer",
+                label: "Who can sign",
                 value:
-                  "Not in the room. Do not let the champion stand in. Confirm name before the SIEM meeting, or the attach map is a wish list.",
+                  "Not in the room. Do not let your contact stand in. Confirm a name before the Cloud SIEM meeting, or the plan is a wish list.",
               },
               {
                 label: "Bits AI",
-                value: "Platform eng manager. Same squad as land-2 APM + Logs.",
+                value: "Platform eng manager. Same team as APM + Logs.",
               },
               {
                 label: "Cloud SIEM",
@@ -396,16 +395,16 @@ export const JOBS: CroJob[] = [
           artifact: {
             kind: "gmail",
             title: "Next meeting",
-            to: "Acme security lead, AE",
-            subject: "Tue 30 min. Acme Cloud SIEM scope (land-2 already APM + Logs)",
-            body: "Agenda. 1. SSO + audit trail status. 2. Cloud SIEM scope for the same squad that landed APM + Logs. 3. Whether Bits AI stays a one-squad pilot. Cost and RUM are not on this agenda.",
+            to: "Acme security lead, you",
+            subject: "Tue 30 min. Acme Cloud SIEM scope (APM + Logs already in)",
+            body: "Agenda. 1. SSO + audit trail status. 2. Cloud SIEM scope for the same team that started APM + Logs. 3. Whether Bits AI stays a one-team trial. Cost and RUM are not on this agenda.",
           },
         },
         {
           id: "m7",
           from: "attach",
           kind: "routine",
-          body: "After every first-meeting Gong, run this map and park the next invite as a draft. You tap Send.",
+          body: "After every first-meeting Gong, run this plan and park the next invite as a draft. You tap Send.",
         },
       ],
     },
@@ -413,80 +412,80 @@ export const JOBS: CroJob[] = [
   {
     id: "deal-inspection",
     number: 3,
-    title: "Deal inspection at altitude",
+    title: "Check a big deal from your desk",
     problem:
-      "You cannot sit in every $1M+ deal. Gaps show up late. Forecast language upstairs stays vague.",
+      "You cannot sit in every $1M+ deal. Gaps show up late. The note you take to your boss stays vague.",
     botJob:
-      "Paste pipeline notes. The bot names EB, paper, champion, and SIEM gaps, writes Monday questions, and drafts the upstairs paragraph.",
+      "Paste pipeline notes. The bot names gaps: who can sign, the contract, your contact, and Cloud SIEM. It writes Monday questions and a note for your boss.",
     storyboard: [
       {
         when: "You open the deal",
-        label: "You paste the $1.4M. You are not getting on Monday's call.",
+        label: "You paste the $1.4M. You are not joining Monday's call.",
         scene: "inspect",
       },
       {
         when: "Twelve minutes in",
-        label: "Four gaps. No EB. Slow paper. A champion who cannot carry it.",
+        label: "Four gaps. No signer. Slow legal. A contact who cannot sell it inside.",
         scene: "notes",
       },
       {
         when: "You close the laptop",
-        label: "Commit stays held. The paragraph is for upstairs.",
+        label: "You are not calling this a sure thing. The note is for your boss.",
         scene: "send",
       },
       {
         when: "Forecast",
-        label: "The upstairs paragraph. Hold commit until EB is dated.",
+        label: "The note for your boss. Wait until the signer is on the calendar.",
         scene: "send",
         artifact: {
           kind: "forecast",
-          title: "Take this upstairs",
+          title: "Take this to your boss",
           account: "Acme",
           amount: "$1.4M · stage 4",
-          status: "Hold commit until EB is on the calendar",
-          body: "Acme is a real this-quarter shot at $1.4M if we get an EB meeting in 10 days and a dated legal path. Champion is strong. Forecast risk is paper plus Cloud SIEM attach, not product fit. I am holding commit until EB is on the calendar.",
+          status: "Do not call this a sure thing until the signer is on the calendar",
+          body: "Acme is a real this-quarter shot at $1.4M if we get a meeting with the person who can sign in 10 days, and a dated path through legal. Your contact is strong. Forecast risk is the contract plus Cloud SIEM, not product fit. I am not calling this a sure thing until the signer is on the calendar.",
           gaps: [
             {
-              label: "EB",
+              label: "Who can sign",
               body: "No meeting on the calendar.",
             },
             {
-              label: "Paper",
-              body: "Legal slow. No dated path.",
+              label: "Contract",
+              body: "Legal is slow. No dated path.",
             },
             {
-              label: "Champion",
-              body: "Strong sentiment. Weak map.",
+              label: "Inside contact",
+              body: "Likes us. Cannot sell $1.4M inside the company alone.",
             },
             {
-              label: "SIEM",
-              body: "Comp unclear. Not in the story.",
+              label: "Cloud SIEM",
+              body: "Not in the story. If it slips, the $1.4M changes.",
             },
           ],
         },
       },
     ],
-    unlock: "Four gaps, three Monday questions, one paragraph for upstairs.",
+    unlock: "Four gaps, three Monday questions, one paragraph for your boss.",
     outcome:
-      "Know in one sitting if it is real attach or a logo land, before you forecast it.",
+      "In one sitting, you know if this deal is real. Or if it is just a logo. You know before you put it in the forecast.",
     clips: ["05-forecast-sfdc", "07-customer-exec-brief"],
     demo: {
       title: "Deal Desk",
-      subtitle: "SFDC paste to upstairs paragraph",
+      subtitle: "Salesforce paste to a note for your boss",
       participants: [
         { id: "you", name: "You", role: "you" },
         {
           id: "desk",
           name: "Deal Desk",
           role: "bot",
-          persona: "Inspects the book the way you would if you had the hours",
+          persona: "Reads the deal the way you would if you had the hours",
           color: "#007AFF",
         },
         {
           id: "forecast",
           name: "Forecast",
           role: "bot",
-          persona: "SFDC next steps and the upstairs paragraph",
+          persona: "Salesforce next steps and the note for your boss",
           color: "#64D2FF",
         },
       ],
@@ -495,13 +494,13 @@ export const JOBS: CroJob[] = [
           id: "m1",
           from: "you",
           kind: "text",
-          body: "Paste from SFDC. Acme $1.4M, stage 4, close this quarter. Notes say champion loves us, legal slow, no EB meeting yet, Comp on Cloud SIEM unclear.",
+          body: "Paste from Salesforce. Acme $1.4M, stage 4, close this quarter. Notes say the contact loves us, legal is slow, no meeting with the person who can sign, and Cloud SIEM is not clearly in the deal.",
         },
         {
           id: "m2",
           from: "desk",
           kind: "text",
-          body: "Reading at your altitude. Four gaps. Three Monday questions. One paragraph you can take upstairs. Commit stays held.",
+          body: "Four gaps. Three Monday questions. One paragraph you can take to your boss. Do not call this a sure thing yet.",
         },
         {
           id: "m3",
@@ -513,20 +512,20 @@ export const JOBS: CroJob[] = [
             title: "Acme $1.4M · stage 4",
             items: [
               {
-                label: "EB",
-                body: "No meeting on the calendar. Champion sentiment is not an economic buyer.",
+                label: "Who can sign",
+                body: "No meeting on the calendar. A contact who likes us is not the person who can sign.",
               },
               {
-                label: "Paper process",
+                label: "Contract path",
                 body: "Legal flagged as slow. No named owner and no dated path.",
               },
               {
-                label: "Champion risk",
-                body: "Strong sentiment, weak political map. Cannot carry $1.4M upstairs alone.",
+                label: "Inside contact",
+                body: "Strong like, weak inside map. Cannot carry $1.4M to leadership alone.",
               },
               {
-                label: "SIEM attach",
-                body: "Comp on Cloud SIEM is unclear and is not in the forecast story. If SIEM slips, the $1.4M story changes.",
+                label: "Cloud SIEM",
+                body: "Cloud SIEM is not clearly in this $1.4M. If it slips, the story changes.",
               },
             ],
           },
@@ -538,10 +537,10 @@ export const JOBS: CroJob[] = [
           draftLabel: "Monday questions",
           artifact: {
             kind: "questions",
-            title: "For the AE on Monday",
+            title: "For the account exec on Monday",
             items: [
-              "Who is the EB, and when do we meet them together?",
-              "Who owns legal, and what is the dated paper path?",
+              "Who can sign, and when do we meet them together?",
+              "Who owns legal, and what is the dated contract path?",
               "If Cloud SIEM slips, does the $1.4M still hold?",
             ],
           },
@@ -550,31 +549,31 @@ export const JOBS: CroJob[] = [
           id: "m5",
           from: "forecast",
           kind: "draft",
-          draftLabel: "Upstairs paragraph",
+          draftLabel: "Note for your boss",
           artifact: {
             kind: "forecast",
-            title: "Take this upstairs",
-            status: "Hold commit until EB is on the calendar",
-            body: "Acme is a real this-quarter shot at $1.4M if we get an EB meeting in 10 days and a dated legal path. Champion is strong. Forecast risk is paper plus Cloud SIEM attach, not product fit. I am holding commit until EB is on the calendar.",
+            title: "Take this to your boss",
+            status: "Do not call this a sure thing until the signer is on the calendar",
+            body: "Acme is a real this-quarter shot at $1.4M if we get a meeting with the person who can sign in 10 days, and a dated path through legal. Your contact is strong. Forecast risk is the contract plus Cloud SIEM, not product fit. I am not calling this a sure thing until the signer is on the calendar.",
           },
         },
         {
           id: "m6",
           from: "desk",
           kind: "draft",
-          draftLabel: "Slack to AE",
+          draftLabel: "Slack to the account exec",
           artifact: {
             kind: "slack",
             title: "Monday ping",
             channel: "#ae-Acme",
-            body: "Three questions before forecast call. 1. EB name and meeting date. 2. Legal owner and dated paper path. 3. If Cloud SIEM slips, does $1.4M still hold? Draft only. I have not posted this.",
+            body: "Three questions before the forecast call. 1. Name of the person who can sign, and a meeting date. 2. Legal owner and dated contract path. 3. If Cloud SIEM slips, does $1.4M still hold? Draft only. I have not posted this.",
           },
         },
         {
           id: "m7",
           from: "desk",
           kind: "system",
-          body: "Nothing posted to SFDC or Slack. Commit language stays held until you tap Send.",
+          body: "Nothing posted to Salesforce or Slack. Sure-thing language stays held until you tap Send.",
         },
       ],
     },
@@ -582,46 +581,46 @@ export const JOBS: CroJob[] = [
   {
     id: "sko-enablement",
     number: 4,
-    title: "One story for SKO",
+    title: "One story the whole team says",
     problem:
-      "You already do mainstage SKO. By Friday the story is a Slack thread. A global sales org needs one Bits AI talk track.",
+      "You already do a kickoff talk. By Friday the story is a Slack thread. A global sales team needs one Bits AI line they can say out loud.",
     botJob:
-      "Point the bot at a launch or a competitive loss. It writes AE, SE, and manager lines plus a Friday one-pager.",
+      "Point the bot at a launch or a lost deal. It writes lines for the account exec, the sales engineer, and the manager, plus a Friday one-pager.",
     storyboard: [
       {
         when: "Monday",
-        label: "Launch week. Bits AI is already a Slack thread.",
+        label: "Launch week. The Bits AI story is already a Slack thread.",
         scene: "launch",
       },
       {
         when: "Wednesday",
-        label: "One story, three seats. AE, SE, manager.",
+        label: "One story, three jobs. Account exec, engineer, manager.",
         scene: "notes",
       },
       {
         when: "Friday 3pm",
-        label: "The pack is ready. Monday they say it the same way.",
+        label: "The pack is ready. Monday they say the same thing.",
         scene: "deck",
       },
       {
         when: "Monday morning",
-        label: "The field says one Bits AI story. Not 19 Slack versions.",
+        label: "Account exec, engineer, manager. One pack for Monday.",
         scene: "send",
         artifact: {
           kind: "talk-tracks",
           title: "Say these out loud",
           tracks: [
             {
-              seat: "AE",
-              line: "You already pay for the Sev-2 in context-switching. Land APM + Logs in one squad. Bits AI is the weekly habit in that squad, not a platform announcement.",
+              seat: "Account exec",
+              line: "You already pay for the Sev-2 in context-switching. Start APM + Logs in one team. Bits AI is the weekly habit in that team, not a platform announcement.",
             },
             {
-              seat: "SE",
-              line: "One demo spine. Incident in, Bits AI habit, SSO + audit if security is in the room. No feature tour. MCP only if they ask how the bot talks to their tools.",
+              seat: "Sales engineer",
+              line: "One demo path. Outage in, Bits AI habit, SSO + audit if security is in the room. No feature tour. MCP only if they ask how the bot talks to their tools.",
             },
             {
               seat: "Manager 1:1",
-              line: "Inspect two things. Named champion. Dated expand meeting for Bits AI or Cloud SIEM. If both are missing, this is a logo land, not attach.",
+              line: "Check two things. A named inside contact. A next meeting on the calendar for Bits AI or Cloud SIEM. If both are missing, you only won a logo.",
             },
           ],
         },
@@ -629,11 +628,11 @@ export const JOBS: CroJob[] = [
     ],
     unlock: "Three talk tracks and a Friday one-pager.",
     outcome:
-      "One story the field can say this week, so Bits AI does not die in 19 Slack versions.",
+      "One story the sales team can say this week. Bits AI does not turn into 19 different Slack posts.",
     clips: ["08-chief-groupchat", "01-morning-inbox"],
     demo: {
       title: "Enablement Chief",
-      subtitle: "Bits AI launch + OSS loss",
+      subtitle: "Bits AI launch + open source loss",
       participants: [
         { id: "you", name: "You", role: "you" },
         {
@@ -654,7 +653,7 @@ export const JOBS: CroJob[] = [
           id: "writer",
           name: "Talk Track",
           role: "bot",
-          persona: "Writes what an AE can say out loud",
+          persona: "Writes what an account exec can say out loud",
           color: "#5856D6",
         },
         {
@@ -670,19 +669,19 @@ export const JOBS: CroJob[] = [
           id: "m1",
           from: "you",
           kind: "text",
-          body: "Bits AI launch this week. Competitive loss last month was on OSS is good enough. Need SKO mainstage plus a Friday field pack.",
+          body: "Bits AI launch this week. We lost last month because they said open source is good enough. Need a kickoff talk plus a Friday field pack.",
         },
         {
           id: "m2",
           from: "cos",
           kind: "text",
-          body: "Group chat is live. One story, three seats. Engineer on the OSS proof path. Talk Track on language the field can say out loud.",
+          body: "Group chat is live. One story, three jobs. Engineer on the open-source proof path. Talk Track on language the field can say out loud.",
         },
         {
           id: "m3",
           from: "eng",
           kind: "handoff",
-          body: "OSS turn is not 'we have more features.' It is one incident they already felt, then land-2 APM + Logs, then Bits AI as the weekly habit. MCP is a later proof, not the opener.",
+          body: "The open-source turn is not 'we have more features.' It is one outage they already felt, then APM + Logs, then Bits AI as the weekly habit. MCP is a later proof, not the opener.",
         },
         {
           id: "m4",
@@ -694,16 +693,16 @@ export const JOBS: CroJob[] = [
             title: "Say these out loud",
             tracks: [
               {
-                seat: "AE",
-                line: "You already pay for the Sev-2 in context-switching. Land APM + Logs in one squad. Bits AI is the weekly habit in that squad, not a platform announcement.",
+                seat: "Account exec",
+                line: "You already pay for the Sev-2 in context-switching. Start APM + Logs in one team. Bits AI is the weekly habit in that team, not a platform announcement.",
               },
               {
-                seat: "SE",
-                line: "One demo spine. Incident in, Bits AI habit, SSO + audit if security is in the room. No feature tour. MCP only if they ask how the bot talks to their tools.",
+                seat: "Sales engineer",
+                line: "One demo path. Outage in, Bits AI habit, SSO + audit if security is in the room. No feature tour. MCP only if they ask how the bot talks to their tools.",
               },
               {
                 seat: "Manager 1:1",
-                line: "Inspect two things. Named champion. Dated expand meeting for Bits AI or Cloud SIEM. If both are missing, this is a logo land, not attach.",
+                line: "Check two things. A named inside contact. A next meeting on the calendar for Bits AI or Cloud SIEM. If both are missing, you only won a logo.",
               },
             ],
           },
@@ -720,19 +719,19 @@ export const JOBS: CroJob[] = [
             sections: [
               {
                 heading: "What changed",
-                body: "Bits AI is the launch. Same land-2 motion. APM + Logs first. Attach is the quota engine. Net retention is still in the low-120%s, so the story is expand, not more heads.",
+                body: "Bits AI is the launch. Same motion as always. APM + Logs first. Selling more products in the account is how the number moves. Keep the story on more products, not on hiring more people.",
               },
               {
                 heading: "What to say",
-                body: "One squad. Week-3 MTTR. Bits AI as the weekly habit. Champion + security co-owner if SSO is in the way.",
+                body: "One team. Week-3 time-to-fix. Bits AI as the weekly habit. Inside contact + a security co-owner if SSO is in the way.",
               },
               {
                 heading: "What not to say",
                 body: "Do not pitch the catalog. Do not lead with MCP. Do not promise Cost or RUM in the first meeting.",
               },
               {
-                heading: "Competitive turn on OSS",
-                body: "Prometheus and Grafana are fine until the incident crosses two tools. Then MTTR is a people problem. Land-2 is how you stop stitching. Bits AI is how the squad keeps the habit.",
+                heading: "When they say open source is good enough",
+                body: "Prometheus and Grafana are fine until the outage crosses two tools. Then time-to-fix is a people problem. APM + Logs is how you stop stitching. Bits AI is how the team keeps the habit.",
               },
             ],
           },
@@ -746,7 +745,7 @@ export const JOBS: CroJob[] = [
             kind: "slack",
             title: "Field channel",
             channel: "#gtm-field",
-            body: "Friday pack is in the thread. Three talk tracks (AE / SE / manager) plus the OSS turn. Bits AI launch. Do not rewrite this in 19 versions. Draft only until Enablement Chief taps Send.",
+            body: "Friday pack is in the thread. Three talk tracks (account exec / sales engineer / manager) plus the open-source turn. Bits AI launch. Do not rewrite this in 19 versions. Draft only until Enablement Chief taps Send.",
           },
         },
         {
@@ -761,59 +760,59 @@ export const JOBS: CroJob[] = [
   {
     id: "ramp-compression",
     number: 5,
-    title: "Ramp before a live cycle",
+    title: "Practice before a real customer",
     problem:
-      "Enterprise sales at Datadog is a long interview loop. Pitch, MEDDPICC, OSS is good enough. Shadowing the whale AE for a quarter is too slow for the book you want.",
+      "Enterprise sales at Datadog is a long interview loop. Pitch. Who buys. Open source is good enough. Shadowing the top account exec for a quarter is too slow for the book you want.",
     botJob:
-      "The bot is a practice partner. Reps drill the OSS objection and leave with a first-90-day deal kit.",
+      "The bot is a practice partner. New reps drill the open-source objection and leave with a first-90-day deal kit.",
     storyboard: [
       {
         when: "First drill",
-        label: "New AE. OSS is good enough is coming.",
+        label: "New account exec. Open source is good enough is coming.",
         scene: "drill",
       },
       {
         when: "They answer",
-        label: "The first line is true and still too abstract.",
+        label: "The first line is true and still too vague.",
         scene: "voice",
       },
       {
         when: "Coach cuts",
-        label: "The line that wins has the incident in it.",
+        label: "The line that wins names a real outage.",
         scene: "inspect",
       },
       {
-        when: "Before a live cycle",
-        label: "They get a real rep before they burn a Fortune 500 account.",
+        when: "Before a live customer",
+        label: "The weak line vs the one that wins.",
         scene: "send",
         artifact: {
           kind: "scorecard",
-          title: "OSS objection · scored",
+          title: "Open source is good enough · scored",
           score: "6 / 10",
           weakLine:
-            "Because when you stitch six tools the MTTR story falls apart across teams.",
+            "Because when you stitch six tools the time-to-fix story falls apart across teams.",
           notes: [
             "Kept Prometheus and Grafana in the frame.",
             "Stitching tools is true and still generic.",
-            "No incident. No land-2. No Bits AI habit.",
+            "No outage. No APM + Logs start. No Bits AI habit.",
           ],
           betterAnswer:
-            "Last quarter on-call jumped Prometheus, Grafana, and a log pile to explain one latency spike. Land APM + Logs in that squad this month. Bits AI attaches after that squad has a week-3 MTTR number, not after a platform tour.",
+            "Last quarter on-call jumped Prometheus, Grafana, and a log pile to explain one latency spike. Start APM + Logs in that team this month. Bits AI comes after that team has a week-3 number on time-to-fix, not after a product tour.",
         },
       },
     ],
-    unlock: "A scored OSS drill and a first-90 kit.",
+    unlock: "A scored open-source drill and a first-90 kit.",
     outcome:
-      "Reps get a real cycle before they burn a Fortune 500 account.",
+      "New reps practice first. They do not burn a Fortune 500 account on week one.",
     clips: ["04-engineer-bugbot", "02-prospecting-pg"],
     demo: {
-      title: "Ramp Coach",
-      subtitle: "OSS drill + first-90 kit",
+      title: "Practice Coach",
+      subtitle: "Open-source drill + first-90 kit",
       participants: [
-        { id: "you", name: "New AE", role: "you" },
+        { id: "you", name: "New rep", role: "you" },
         {
           id: "coach",
-          name: "Ramp Coach",
+          name: "Practice Coach",
           role: "bot",
           persona: "Runs drills and builds the first-90 kit",
           color: "#32ADE6",
@@ -822,7 +821,7 @@ export const JOBS: CroJob[] = [
           id: "buyer",
           name: "Skeptical Buyer",
           role: "bot",
-          persona: "Plays the OSS-is-good-enough objection cold",
+          persona: "Plays the open-source-is-good-enough objection cold",
           color: "#8E8E93",
         },
         {
@@ -836,7 +835,7 @@ export const JOBS: CroJob[] = [
           id: "prospect",
           name: "Prospecting",
           role: "bot",
-          persona: "5x5 sheet and Gmail drafts only",
+          persona: "Five accounts, five contacts. Gmail drafts only",
           color: "#30D158",
         },
       ],
@@ -845,7 +844,7 @@ export const JOBS: CroJob[] = [
           id: "m1",
           from: "you",
           kind: "text",
-          body: "Drill me on the OSS objection. Then give me a first-90 kit for my open territory.",
+          body: "Drill me on open source is good enough. Then give me a first-90 kit for my open territory.",
         },
         {
           id: "m2",
@@ -857,13 +856,13 @@ export const JOBS: CroJob[] = [
           id: "m3",
           from: "you",
           kind: "text",
-          body: "Because when you stitch six tools the MTTR story falls apart across teams.",
+          body: "Because when you stitch six tools the time-to-fix story falls apart across teams.",
         },
         {
           id: "m4",
           from: "coach",
           kind: "text",
-          body: "Decent. You named the pain and skipped the catalog. Tighten it. One incident they already felt, then the land-2 attach path. MEDDPICC still needs a champion and a dated next meeting after the drill.",
+          body: "Decent. You named the pain and skipped the catalog. Tighten it. One outage they already felt, then APM + Logs in that team. After the drill, name who cares inside, who can sign, and a dated next meeting.",
         },
         {
           id: "m5",
@@ -872,15 +871,15 @@ export const JOBS: CroJob[] = [
           draftLabel: "Scored drill",
           artifact: {
             kind: "scorecard",
-            title: "OSS objection · scored",
-            score: "6 / 10. Direction is right. Too abstract to win a live cycle.",
+            title: "Open source is good enough · scored",
+            score: "6 / 10. Direction is right. Too vague to win a live customer.",
             notes: [
               "Kept Prometheus and Grafana in the frame. Good.",
               "Stitching tools is true and still generic.",
-              "No incident pattern. No land-2. No Bits AI habit.",
+              "No outage. No APM + Logs start. No Bits AI habit.",
             ],
             betterAnswer:
-              "Last quarter on-call jumped Prometheus, Grafana, and a log pile to explain one latency spike. Land APM + Logs in that squad this month. Bits AI attaches after that squad has a week-3 MTTR number, not after a platform tour.",
+              "Last quarter on-call jumped Prometheus, Grafana, and a log pile to explain one latency spike. Start APM + Logs in that team this month. Bits AI comes after that team has a week-3 number on time-to-fix, not after a product tour.",
           },
         },
         {
@@ -894,22 +893,22 @@ export const JOBS: CroJob[] = [
             weeks: [
               {
                 label: "Week 1 to 2",
-                body: "Territory map. 10 accounts with a land-2 hypothesis (APM + Logs). Name a likely champion and the OSS objection you expect.",
+                body: "Territory map. 10 accounts with a start plan (APM + Logs). Name a likely inside contact and the open-source objection you expect.",
               },
               {
                 label: "Week 3 to 6",
-                body: "Three live discovery calls. Coach debrief after each. MEDDPICC filled for metrics, economic buyer, and decision process. No catalog pitch.",
+                body: "Three live first meetings. Coach debrief after each. Fill in metrics, who can sign, and how they decide. No catalog pitch.",
               },
               {
                 label: "Week 7 to 12",
-                body: "One expand motion on an existing land. Bits AI, Cloud SIEM, Cost, or RUM. Attach Mapper runs the 90-day map. Still not shadowing the whale AE for a quarter.",
+                body: "One extra product on an existing close. Bits AI, Cloud SIEM, Cost, or RUM. Account Mapper runs the 90-day plan. Still not shadowing the top account exec for a quarter.",
               },
             ],
             pack: [
-              "Talk tracks (AE / SE / manager)",
-              "OSS objection card with the scored better answer",
-              "Champion packet template",
-              "Land-2 hypothesis sheet for the 10 accounts",
+              "Talk tracks (account exec / sales engineer / manager)",
+              "Open-source objection card with the scored better answer",
+              "Inside-contact note template",
+              "Start plan sheet for the 10 accounts",
             ],
           },
         },
@@ -917,7 +916,7 @@ export const JOBS: CroJob[] = [
           id: "m7",
           from: "coach",
           kind: "system",
-          body: "Practice only. Nothing went to a live account. Run the drill again before you burn a Fortune 500 cycle.",
+          body: "Practice only. Nothing went to a live account. Run the drill again before you burn a Fortune 500 customer.",
         },
       ],
     },

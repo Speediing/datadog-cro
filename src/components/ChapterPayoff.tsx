@@ -13,7 +13,7 @@ function AttachMap({
     <div className="leave leave-map">
       <header className="leave-map-top">
         <div>
-          <p className="leave-kicker">90-day attach</p>
+          <p className="leave-kicker">90-day plan</p>
           <h3>{artifact.title}</h3>
         </div>
         <p className="leave-map-meet">
@@ -129,7 +129,7 @@ function BetterAnswer({
     <div className="leave leave-answer">
       <header className="leave-answer-top">
         <div>
-          <p className="leave-kicker">OSS drill</p>
+          <p className="leave-kicker">Open source objection</p>
           <h3>The line that wins</h3>
         </div>
         <p className="leave-score">{artifact.score}</p>
