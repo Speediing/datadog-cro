@@ -1,3 +1,4 @@
+import { HeroTelemetry } from "@/components/HeroTelemetry";
 import { JobSection } from "@/components/JobSection";
 import { QuoteWall } from "@/components/QuoteWall";
 import { SiteNav } from "@/components/SiteNav";
@@ -14,6 +15,7 @@ export default function HomePage() {
           src="/brand/watercolor-pad.png"
           alt=""
         />
+        <HeroTelemetry />
         <SiteNav />
       </div>
 

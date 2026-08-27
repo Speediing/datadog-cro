@@ -413,6 +413,29 @@ button:active:not(:focus-visible),
   object-position: center 42%;
 }
 
+.hero-telemetry {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: transparent;
+  opacity: 0;
+}
+
+.hero-telemetry.is-live {
+  opacity: 1;
+  transition: opacity 180ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-telemetry.is-live {
+    transition: none;
+  }
+}
+
 .hero {
   position: relative;
   z-index: 1;
