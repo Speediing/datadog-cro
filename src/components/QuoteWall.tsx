@@ -3,7 +3,7 @@ import { QUOTES } from "@/data/quotes";
 export function QuoteWall() {
   return (
     <section id="quotes" className="quotes">
-      <h2>Grok Bot quotes</h2>
+      <h2>Quotes</h2>
       <div className="quote-thread">
         {QUOTES.map((quote) => (
           <article

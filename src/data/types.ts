@@ -53,6 +53,7 @@ export type StoryBeat = {
   label: string;
   scene: StoryScene;
   slides?: SlideCard[];
+  artifact?: Artifact;
 };
 
 export type Artifact =

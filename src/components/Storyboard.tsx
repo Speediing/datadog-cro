@@ -1,4 +1,5 @@
-import type { SlideCard, StoryBeat, StoryScene } from "@/data/types";
+import type { Artifact, SlideCard, StoryBeat, StoryScene } from "@/data/types";
+import { ArtifactCard } from "./ArtifactCard";
 import { DeckSlides } from "./DeckSlides";
 
 function SceneIcon({ scene }: { scene: StoryScene }) {
@@ -251,50 +252,48 @@ function Join({ down = false }: { down?: boolean }) {
 }
 
 export function Storyboard({ beats }: { beats: StoryBeat[] }) {
-  const hasDeck = beats.some((beat) => Boolean(beat.slides?.length));
-  const lead = hasDeck ? beats.slice(0, -1) : beats;
-  const payoff = hasDeck ? beats[beats.length - 1] : null;
+  const lead = beats.slice(0, -1);
+  const payoff = beats[beats.length - 1];
   const payoffSlides = (payoff?.slides || []) as SlideCard[];
+  const payoffArtifact = payoff?.artifact as Artifact | undefined;
+
+  if (!payoff) return null;
 
   return (
-    <div className={hasDeck ? "storyboard has-deck" : "storyboard"}>
+    <div className="storyboard has-deck">
       <ol className="story-strip">
-        {lead.map((beat, index) => {
-          const last = !hasDeck && index === lead.length - 1;
-          return (
-            <li
-              key={`${beat.scene}-${beat.label}`}
-              className={last ? "story-cell is-end" : "story-cell"}
-            >
-              {index > 0 ? <Join /> : null}
-              <div className="story-frame">
-                <span className="story-num">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <SceneIcon scene={beat.scene} />
-                <p>{beat.label}</p>
-              </div>
-            </li>
-          );
-        })}
-      </ol>
-      {payoff ? (
-        <div className="story-cell is-payoff">
-          <Join down />
-          <div className="story-frame is-payoff">
-            <div className="story-meta">
+        {lead.map((beat, index) => (
+          <li key={`${beat.scene}-${beat.label}`} className="story-cell">
+            {index > 0 ? <Join /> : null}
+            <div className="story-frame">
               <span className="story-num">
-                {String(beats.length).padStart(2, "0")}
+                {String(index + 1).padStart(2, "0")}
               </span>
-              <SceneIcon scene={payoff.scene} />
-              <p>{payoff.label}</p>
+              <SceneIcon scene={beat.scene} />
+              <p>{beat.label}</p>
             </div>
-            {payoffSlides.length > 0 ? (
-              <DeckSlides slides={payoffSlides} size="md" />
-            ) : null}
+          </li>
+        ))}
+      </ol>
+      <div className="story-cell is-payoff">
+        <Join down />
+        <div className="story-frame is-payoff">
+          <div className="story-meta">
+            <span className="story-num">
+              {String(beats.length).padStart(2, "0")}
+            </span>
+            <SceneIcon scene={payoff.scene} />
+            <p>{payoff.label}</p>
           </div>
+          {payoffSlides.length > 0 ? (
+            <DeckSlides slides={payoffSlides} size="md" />
+          ) : payoffArtifact ? (
+            <div className="chapter-payoff">
+              <ArtifactCard artifact={payoffArtifact} />
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      </div>
     </div>
   );
 }

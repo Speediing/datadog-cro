@@ -201,7 +201,43 @@ export const JOBS: CroJob[] = [
       { label: "Security was in the room", scene: "voice" },
       { label: "90-day attach map", scene: "map" },
       { label: "Owners and next meetings", scene: "notes" },
-      { label: "Next invite, as a draft", scene: "send" },
+      {
+        label: "The 90-day attach map",
+        scene: "map",
+        artifact: {
+          kind: "table",
+          title: "Acme 90-day attach",
+          caption:
+            "Next meeting. Tue 30 min with security lead + AE. Agenda is SIEM scope.",
+          columns: ["Product", "Owner", "Window", "Next move"],
+          rows: [
+            [
+              "Bits AI",
+              "Platform eng manager",
+              "Day 15 to 45",
+              "Pilot in the APM + Logs squad",
+            ],
+            [
+              "Cloud SIEM",
+              "Security lead from today's call",
+              "Day 15 to 45",
+              "Tue 30 min scoping with AE",
+            ],
+            [
+              "Cost",
+              "FinOps alias they mentioned",
+              "Day 45 to 90",
+              "Review after land-2 proof",
+            ],
+            [
+              "RUM",
+              "Frontend guild lead (not in room)",
+              "Day 45 to 90",
+              "Intro once APM is stable",
+            ],
+          ],
+        },
+      },
     ],
     unlock: "Owners, windows, and the next invite parked as a draft.",
     outcome: "Raise ACV with the book you already have.",
@@ -352,7 +388,16 @@ export const JOBS: CroJob[] = [
       { label: "Read at altitude", scene: "notes" },
       { label: "EB, paper, champion, SIEM", scene: "map" },
       { label: "Monday questions", scene: "voice" },
-      { label: "Paragraph for upstairs", scene: "send" },
+      {
+        label: "Paragraph for upstairs",
+        scene: "send",
+        artifact: {
+          kind: "forecast",
+          title: "Take this upstairs",
+          status: "Hold commit until EB is on the calendar",
+          body: "Acme is a real this-quarter shot at $1.4M if we get an EB meeting in 10 days and a dated legal path. Champion is strong. Forecast risk is paper plus Cloud SIEM attach, not product fit. I am holding commit until EB is on the calendar.",
+        },
+      },
     ],
     unlock: "Four gaps, three Monday questions, one paragraph for upstairs.",
     outcome: "You can inspect a $1M+ deal in one sitting.",
@@ -479,7 +524,28 @@ export const JOBS: CroJob[] = [
       { label: "One story in the group chat", scene: "voice" },
       { label: "AE, SE, manager lines", scene: "notes" },
       { label: "Friday one-pager", scene: "deck" },
-      { label: "Draft to the field", scene: "send" },
+      {
+        label: "What the field says",
+        scene: "send",
+        artifact: {
+          kind: "talk-tracks",
+          title: "Say these out loud",
+          tracks: [
+            {
+              seat: "AE",
+              line: "You already pay for the Sev-2 in context-switching. Land APM + Logs in one squad. Bits AI is the weekly habit in that squad, not a platform announcement.",
+            },
+            {
+              seat: "SE",
+              line: "One demo spine. Incident in, Bits AI habit, SSO + audit if security is in the room. No feature tour. MCP only if they ask how the bot talks to their tools.",
+            },
+            {
+              seat: "Manager 1:1",
+              line: "Inspect two things. Named champion. Dated expand meeting for Bits AI or Cloud SIEM. If both are missing, this is a logo land, not attach.",
+            },
+          ],
+        },
+      },
     ],
     unlock: "Three talk tracks and a Friday one-pager.",
     outcome: "Monday the field says the same Bits AI story.",
@@ -623,8 +689,23 @@ export const JOBS: CroJob[] = [
       { label: "Drill the OSS objection", scene: "drill" },
       { label: "Buyer plays it cold", scene: "voice" },
       { label: "Coach scores it", scene: "inspect" },
-      { label: "Better answer", scene: "notes" },
-      { label: "First-90 kit", scene: "send" },
+      { label: "First-90 kit", scene: "notes" },
+      {
+        label: "The better answer",
+        scene: "send",
+        artifact: {
+          kind: "scorecard",
+          title: "OSS objection · scored",
+          score: "6 / 10. Direction is right. Too abstract to win a live cycle.",
+          notes: [
+            "Kept Prometheus and Grafana in the frame. Good.",
+            "Stitching tools is true and still generic.",
+            "No incident pattern. No land-2. No Bits AI habit.",
+          ],
+          betterAnswer:
+            "Last quarter on-call jumped Prometheus, Grafana, and a log pile to explain one latency spike. Land APM + Logs in that squad this month. Bits AI attaches after that squad has a week-3 MTTR number, not after a platform tour.",
+        },
+      },
     ],
     unlock: "A scored OSS drill and a first-90 kit.",
     outcome: "New AEs get reps before they spend a Fortune 500 cycle.",

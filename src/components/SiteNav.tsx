@@ -16,8 +16,7 @@ export function SiteNav() {
             {job.number}
           </a>
         ))}
-        <a href="#roster">Roster</a>
-        <a href="#gallery">Clips</a>
+        <a href="#roster">Team</a>
         <a href="#quotes">Quotes</a>
       </div>
     </nav>

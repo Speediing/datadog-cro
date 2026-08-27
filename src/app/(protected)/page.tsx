@@ -1,5 +1,4 @@
 import { JobSection } from "@/components/JobSection";
-import { ClipGallery } from "@/components/ClipGallery";
 import { QuoteWall } from "@/components/QuoteWall";
 import { SiteNav } from "@/components/SiteNav";
 import { BrandLockup } from "@/components/BrandLockup";
@@ -22,7 +21,10 @@ export default function HomePage() {
         </div>
         <div className="band-inner">
           <BrandLockup size="md" />
-          <p className="hero-line">Grok Bot for Datadog GTM</p>
+          <p className="hero-line">
+            Five jobs a Grok Bot can run for Datadog GTM, from the live call to
+            the next meeting.
+          </p>
         </div>
       </header>
 
@@ -51,12 +53,6 @@ export default function HomePage() {
       </div>
 
       <div className="band band-dark">
-        <div className="band-inner">
-          <ClipGallery />
-        </div>
-      </div>
-
-      <div className="band band-cream">
         <div className="band-inner">
           <QuoteWall />
         </div>

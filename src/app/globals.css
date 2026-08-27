@@ -182,11 +182,12 @@ a:hover {
 
 .hero-line {
   margin: 0.85rem 0 0;
-  color: var(--ink-soft);
-  font-size: 1.125rem;
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 1.4;
+  max-width: 28rem;
+  color: var(--ink);
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.3;
 }
 
 .orbit-break {
@@ -240,7 +241,7 @@ a:hover {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: start;
-  padding: 4.5rem 0;
+  padding: 3.25rem 0;
   border-top: 0;
   overflow: visible;
 }
@@ -274,11 +275,11 @@ a:hover {
   display: block;
   width: 100%;
   height: auto;
-  opacity: 0.72;
+  opacity: 0.34;
 }
 
 .band-cream .job-art img {
-  opacity: 0.92;
+  opacity: 0.48;
   mix-blend-mode: multiply;
 }
 
@@ -573,6 +574,107 @@ a:hover {
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.01em;
+}
+
+.job-lead {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 1.35rem;
+  max-width: 36rem;
+}
+
+.job-outcome {
+  margin: 0.55rem 0 0;
+  max-width: 34rem;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+}
+
+.job-more {
+  position: relative;
+  z-index: 1;
+  margin: 1.35rem 0 0;
+}
+
+.job-more summary {
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  list-style: none;
+}
+
+.job-more summary::-webkit-details-marker {
+  display: none;
+}
+
+.job-more summary::before {
+  content: "▸ ";
+}
+
+.job-more[open] summary::before {
+  content: "▾ ";
+}
+
+.job-more-body {
+  margin-top: 1rem;
+}
+
+.chapter-payoff {
+  min-width: 0;
+}
+
+.chapter-payoff .art {
+  margin: 0;
+  padding: 0.85rem 0.95rem;
+  border-radius: 0.35rem;
+  background: #fffdf8;
+  color: #1c1916;
+}
+
+.clip-player {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.clip-player video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 22rem;
+  border-radius: 0.4rem;
+  background: #000;
+}
+
+.clip-rates {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.clip-rates button {
+  appearance: none;
+  padding: 0.22rem 0.55rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.3rem;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 550;
+  cursor: pointer;
+}
+
+.clip-rates button.is-on {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+.band-cream .clip-rates button.is-on {
+  color: #f3ebdd;
 }
 
 .job-title {
@@ -1053,22 +1155,6 @@ a:hover {
 
 .clip-card {
   margin: 0;
-}
-
-.clip-phone {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 0.5rem;
-  background: var(--phone);
-}
-
-.clip-phone video {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  background: #000;
 }
 
 .clip-card figcaption {
@@ -1850,7 +1936,7 @@ a:hover {
 .roster {
   position: relative;
   z-index: 1;
-  padding: 4.5rem 0 4rem;
+  padding: 3rem 0 2.5rem;
   overflow: visible;
   background: transparent;
 }
@@ -2469,9 +2555,10 @@ a:hover {
 .site-clip video {
   display: block;
   width: 100%;
-  height: 100%;
-  min-height: 280px;
-  object-fit: cover;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  background: #000;
 }
 
 .site-granola header strong {
@@ -2845,7 +2932,8 @@ a:hover {
 
   .hero-line {
     margin-top: 0;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
+    max-width: 22rem;
   }
 
   .hero .brand-lockup {

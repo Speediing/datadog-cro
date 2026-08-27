@@ -50,9 +50,7 @@ export function SiteScreen({
           src={clip.file}
           controls
           playsInline
-          autoPlay
-          muted
-          loop
+          controlsList="nodownload"
           aria-label={clip.title}
         />
       </div>
