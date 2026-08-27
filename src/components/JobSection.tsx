@@ -14,6 +14,26 @@ const JOB_ART: Record<JobId, string> = {
 export function JobSection({ job }: { job: CroJob }) {
   return (
     <section id={job.id} className="job">
+      <ol className="storyboard">
+        {job.storyboard.map((beat, index) => (
+          <li key={beat} className="story-beat">
+            <b>{String(index + 1).padStart(2, "0")}</b>
+            <p>{beat}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div className="job-payoff">
+        <div className="payoff-card">
+          <p className="payoff-kicker">Unlock</p>
+          <p className="payoff-line">{job.unlock}</p>
+        </div>
+        <div className="payoff-card is-outcome">
+          <p className="payoff-kicker">Outcome</p>
+          <p className="payoff-line">{job.outcome}</p>
+        </div>
+      </div>
+
       <div className="job-copy">
         <p className="job-number">Job {job.number}</p>
         <h2 className="job-title">{job.title}</h2>

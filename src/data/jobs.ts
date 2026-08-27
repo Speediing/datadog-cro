@@ -9,6 +9,16 @@ export const JOBS: CroJob[] = [
       "Your problem is not that AEs need AI. The best reps already run the meeting in their head. Everyone else shows up with last quarter's deck and hopes the champion fills the gaps.",
     botJob:
       "Granola or Gong notes go into a Grok Bot mid-meeting. It drafts the next slides, the leave-behind, and a champion packet while you are still in the room.",
+    storyboard: [
+      "AE is on a disco call",
+      "Cuts over to a demo",
+      "Prospect shares use cases",
+      "Agent pulls Granola, still on the call",
+      "Tail of the deck updates with those use cases and how Datadog aligns",
+    ],
+    unlock: "Live deck tail",
+    outcome:
+      "Tailor and attach to a customer outcome. Personalize while you are still on the call.",
     clips: ["03-slides-granola"],
     demo: {
       title: "Room Ops",
@@ -35,22 +45,28 @@ export const JOBS: CroJob[] = [
           id: "m1",
           from: "you",
           kind: "text",
-          body: "Pull the last 20 min from Granola. We just got the security objection and a soft yes on a Bits AI pilot.",
+          body: "Disco is live. Acme is walking their stack. Cutting over to the demo now. Stay on Granola.",
         },
         {
           id: "m2",
-          from: "room",
+          from: "you",
           kind: "text",
-          body: "Transcript is in. Mapping the objection, the Bits AI pilot, and who still needs a one-pager. Drafts only.",
+          body: "They just named the use cases while I was in the product. Security path, Bits AI in one squad, Sev-2 in their words. Pull Granola. We are still on.",
         },
         {
           id: "m3",
+          from: "room",
+          kind: "text",
+          body: "Still on the call. Granola is in. Use cases go on the tail of the open deck, not a new file. Slides is rewriting the last cards live.",
+        },
+        {
+          id: "m4",
           from: "slides",
           kind: "draft",
-          draftLabel: "Next-meeting deck",
+          draftLabel: "Live deck tail",
           artifact: {
             kind: "slides",
-            title: "Acme next meeting · 6 cards",
+            title: "Acme deck · tail updated live",
             cards: [
               {
                 n: 1,
@@ -69,13 +85,13 @@ export const JOBS: CroJob[] = [
               },
               {
                 n: 4,
-                title: "Week-3 success metric",
-                body: "MTTR on that squad's Sev-2s, with Bits AI in the weekly habit. If the number does not move, we do not expand seats.",
+                title: "Use cases they just named",
+                body: "Sev-2 story across APM and logs without stitching tools. One squad that already feels the incident. Security will not let another agent in without SSO and an audit trail.",
               },
               {
                 n: 5,
-                title: "Expand only after proof",
-                body: "Seats and product attach wait on the week-3 number. Cost and RUM stay off this meeting's ask.",
+                title: "How Datadog aligns",
+                body: "Land-2 is APM + Logs in that squad. Bits AI is the weekly habit after week-3 MTTR moves. SSO + audit is the gate, named on this call, not a later intro.",
               },
               {
                 n: 6,
@@ -86,7 +102,7 @@ export const JOBS: CroJob[] = [
           },
         },
         {
-          id: "m4",
+          id: "m5",
           from: "room",
           kind: "draft",
           draftLabel: "Leave-behind",
@@ -115,7 +131,7 @@ export const JOBS: CroJob[] = [
           },
         },
         {
-          id: "m5",
+          id: "m6",
           from: "room",
           kind: "draft",
           draftLabel: "Champion packet",
@@ -147,7 +163,7 @@ export const JOBS: CroJob[] = [
           },
         },
         {
-          id: "m6",
+          id: "m7",
           from: "room",
           kind: "draft",
           draftLabel: "Gmail to champion",
@@ -160,7 +176,7 @@ export const JOBS: CroJob[] = [
           },
         },
         {
-          id: "m7",
+          id: "m8",
           from: "room",
           kind: "system",
           body: "Nothing sent. Deck, leave-behind, packet, and Gmail stay drafts until you tap Send.",
@@ -176,6 +192,15 @@ export const JOBS: CroJob[] = [
       "Datadog lands in two products and expands toward six to nineteen. Net retention is still in the low-120%s. Fortune 500 median ARR is still small relative to the platform. Heads are not the lever. Attach is.",
     botJob:
       "After every first meeting, the bot spits a 90-day attach map. Who owns Bits AI, Cloud SIEM, Cost, and RUM. What the exact next meeting is. Raise ACV without adding heads.",
+    storyboard: [
+      "First meeting lands APM + Logs",
+      "Security was in the room. Cost came up once",
+      "Bot writes the 90-day attach map",
+      "Bits AI, Cloud SIEM, Cost, RUM get owners and next meetings",
+      "Next invite parks as a draft",
+    ],
+    unlock: "Attach is the quota engine",
+    outcome: "Raise ACV without adding heads.",
     clips: ["05-forecast-sfdc", "06-customer-expert"],
     demo: {
       title: "Attach Mapper",
@@ -318,6 +343,15 @@ export const JOBS: CroJob[] = [
       "You cannot sit in every $1M+ deal. You still need the quarterback view your HP recs describe, applied to the whole book. Gaps show up late. Forecast language upstairs stays vague.",
     botJob:
       "Paste pipeline notes. Get EB gaps, paper-process risk, champion risk, Monday questions, and a one-paragraph forecast you can take upstairs.",
+    storyboard: [
+      "Paste a live $1M+ deal",
+      "Bot reads it at CRO altitude",
+      "EB, paper, champion, SIEM gaps",
+      "Monday questions for the AE",
+      "One paragraph you can take upstairs",
+    ],
+    unlock: "Real attach, or a logo land",
+    outcome: "Know in one sitting, at your altitude.",
     clips: ["05-forecast-sfdc", "07-customer-exec-brief"],
     demo: {
       title: "Deal Desk",
@@ -436,6 +470,15 @@ export const JOBS: CroJob[] = [
       "You already do mainstage SKO. The story still dies in a Slack channel by Friday. A global sales org needs one talk track, not nineteen versions of Bits AI.",
     botJob:
       "Point the bot at a launch (Bits AI, MCP, a competitive loss). Get three talk tracks and a Friday one-pager the field can actually use.",
+    storyboard: [
+      "Point the bot at a launch or a loss",
+      "Group chat routes one story",
+      "Three talk tracks. AE, SE, manager",
+      "Friday one-pager",
+      "Draft to the field. You send",
+    ],
+    unlock: "One story the whole field can say",
+    outcome: "Not 19 Slack versions.",
     clips: ["08-chief-groupchat", "01-morning-inbox"],
     demo: {
       title: "Enablement Chief",
@@ -572,6 +615,15 @@ export const JOBS: CroJob[] = [
       "Enterprise sales at Datadog is a long interview loop. Pitch, MEDDPICC, OSS is good enough. Ramp that is shadow the whale AE for a quarter is too slow for the book you want.",
     botJob:
       "Bot as practice partner plus a first-90-day deal kit. Reps get reps before they burn a live Fortune 500 cycle.",
+    storyboard: [
+      "Drill the OSS objection",
+      "Skeptical buyer plays it cold",
+      "Coach scores the answer",
+      "Better answer you can say out loud",
+      "First-90 kit. Drafts only",
+    ],
+    unlock: "Reps before a live Fortune 500 cycle",
+    outcome: "Ramp is not shadow the whale AE for a quarter.",
     clips: ["04-engineer-bugbot", "02-prospecting-pg"],
     demo: {
       title: "Ramp Coach",

@@ -60,19 +60,27 @@ export const SCREENS: Record<JobId, Record<string, ComputerBeat>> = {
       host: "granola.app",
       path: "/notes/acme-datadog",
       title: "Acme <> Datadog",
+      site: "granola",
+      tabs: [granola, figma, gmail],
+    },
+    m3: {
+      pill: "Pulling Granola, still on the call",
+      host: "granola.app",
+      path: "/notes/acme-datadog",
+      title: "Acme <> Datadog",
       site: "clip",
       clip: "03-slides-granola",
       tabs: [granola, figma, gmail],
     },
-    m3: {
-      pill: "Drafting in Figma",
+    m4: {
+      pill: "Updating the tail of the deck",
       host: "figma.com",
       path: "/file/acme-next-meeting",
       title: "Acme next meeting",
       site: "figma",
       tabs: [granola, figma, gmail],
     },
-    m4: {
+    m5: {
       pill: "Drafting the leave-behind",
       host: "figma.com",
       path: "/file/acme-leave-behind",
@@ -80,7 +88,7 @@ export const SCREENS: Record<JobId, Record<string, ComputerBeat>> = {
       site: "figma",
       tabs: [granola, figma, gmail],
     },
-    m5: {
+    m6: {
       pill: "Building champion packet",
       host: "figma.com",
       path: "/file/acme-champion-packet",
@@ -88,7 +96,7 @@ export const SCREENS: Record<JobId, Record<string, ComputerBeat>> = {
       site: "figma",
       tabs: [granola, figma, gmail],
     },
-    m6: {
+    m7: {
       pill: "Drafting in Gmail, not sent",
       host: "mail.google.com",
       path: "/mail/u/0/#drafts",
@@ -96,7 +104,7 @@ export const SCREENS: Record<JobId, Record<string, ComputerBeat>> = {
       site: "gmail",
       tabs: [granola, figma, gmail],
     },
-    m7: {
+    m8: {
       pill: "Drafting in Gmail, not sent",
       host: "mail.google.com",
       path: "/mail/u/0/#drafts",

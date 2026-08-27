@@ -26,12 +26,6 @@ export default function HomePage() {
         </div>
       </header>
 
-      <div className="band band-cream">
-        <div className="band-inner">
-          <RosterChart />
-        </div>
-      </div>
-
       <div id="jobs">
         {JOBS.map((job, index) => (
           <div
@@ -43,6 +37,12 @@ export default function HomePage() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="band band-cream">
+        <div className="band-inner">
+          <RosterChart />
+        </div>
       </div>
 
       <div className="orbit-break" aria-hidden>

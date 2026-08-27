@@ -126,6 +126,10 @@ function GranolaScreen({ account }: { account: string }) {
           <span>14:28</span> Champion will take a Tuesday with security
           co-owner.
         </li>
+        <li>
+          <span>14:31</span> Use cases named live on the demo. Sev-2 story,
+          one squad, SSO as the gate.
+        </li>
       </ul>
     </div>
   );
@@ -145,8 +149,8 @@ function FigmaScreen({
     { n: 1, title: "What we heard", body: `${account} land-2 is APM + Logs.` },
     { n: 2, title: "Security path", body: "SSO + audit trail." },
     { n: 3, title: "Bits AI pilot", body: "One squad only." },
-    { n: 4, title: "Week-3 metric", body: "MTTR on Sev-2s." },
-    { n: 5, title: "Expand after proof", body: "No seats until the number." },
+    { n: 4, title: "Use cases they just named", body: "Sev-2 story. One squad." },
+    { n: 5, title: "How Datadog aligns", body: "Land-2, then Bits AI habit." },
     { n: 6, title: "The ask", body: "Champion + security, Tuesday." },
   ];
 
@@ -156,7 +160,7 @@ function FigmaScreen({
         <span className="figma-logo">F</span>
         <strong>
           {slides
-            ? `${account} next meeting`
+            ? slides.title
             : pager
               ? `${account} leave-behind`
               : packet

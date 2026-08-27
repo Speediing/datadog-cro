@@ -136,6 +136,9 @@ export type CroJob = {
   title: string;
   problem: string;
   botJob: string;
+  storyboard: string[];
+  unlock: string;
+  outcome: string;
   clips: ClipId[];
   demo: DemoThread;
 };
