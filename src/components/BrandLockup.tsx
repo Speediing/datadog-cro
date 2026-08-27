@@ -9,10 +9,21 @@ export function BrandLockup({
     <div
       className={`brand-lockup brand-lockup-${size}${invert ? " is-invert" : ""}`}
     >
-      <span className="brand-mark" aria-hidden>
-        C
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={
+          invert
+            ? "/brand/dd_horizontal_white_clear.png"
+            : "/brand/dd_horizontal_purple.png"
+        }
+        alt="Datadog"
+        className="brand-dd"
+      />
+      <span className="brand-times" aria-hidden>
+        ×
       </span>
-      <span>Cursor for Datadog</span>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/spacexai.svg" alt="SpaceXAI" className="brand-sxai" />
     </div>
   );
 }
