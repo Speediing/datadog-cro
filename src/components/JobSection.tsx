@@ -17,25 +17,23 @@ export function JobSection({ job }: { job: CroJob }) {
   const payoff = job.storyboard[job.storyboard.length - 1];
 
   return (
-    <section id={job.id} className="job">
-      <div className="job-art" aria-hidden>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={JOB_ART[job.id]} alt="" />
-      </div>
-      <header className="job-lead">
-        <p className="job-number">Job {job.number}</p>
+    <section id={job.id} className="narrative report-section job">
+      <p className="section-number">
+        {String(job.number).padStart(2, "0")}
+      </p>
+      <div>
+        <div className="job-art" aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={JOB_ART[job.id]} alt="" />
+        </div>
         <h2 className="job-title">{job.title}</h2>
         <p className="job-value">{job.outcome}</p>
-      </header>
-      <Storyboard beats={lead} />
-      {payoff ? (
-        <ChapterPayoff
-          beat={payoff}
-          wash={JOB_ART[job.id]}
-          value={job.outcome}
-        />
-      ) : null}
-      <JobMore job={job} />
+        <Storyboard beats={lead} />
+        {payoff ? (
+          <ChapterPayoff beat={payoff} wash={JOB_ART[job.id]} />
+        ) : null}
+        <JobMore job={job} />
+      </div>
     </section>
   );
 }

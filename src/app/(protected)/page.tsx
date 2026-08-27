@@ -1,7 +1,6 @@
 import { JobSection } from "@/components/JobSection";
 import { QuoteWall } from "@/components/QuoteWall";
 import { SiteNav } from "@/components/SiteNav";
-import { BrandLockup } from "@/components/BrandLockup";
 import { RosterChart } from "@/components/RosterChart";
 import { NightRocketMount } from "@/components/NightRocketMount";
 import { JOBS } from "@/data/jobs";
@@ -9,44 +8,55 @@ import { JOBS } from "@/data/jobs";
 export default function HomePage() {
   return (
     <main id="top">
-      <div className="band band-dark band-nav">
-        <div className="band-inner">
-          <SiteNav />
-        </div>
-      </div>
-
-      <header className="hero band band-dark">
-        <div className="hero-wash" aria-hidden>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/watercolor-pad.png" alt="" />
-        </div>
+      <div className="hero-watercolor">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="hero-watercolor-image"
+          src="/brand/watercolor-pad.png"
+          alt=""
+        />
         <NightRocketMount />
-        <div className="band-inner">
-          <BrandLockup size="md" />
-          <p className="hero-line">
-            A bot that helps Datadog sales. Six jobs, from this call to the
-            next meeting.
-          </p>
-        </div>
-      </header>
-
-      <div id="jobs">
-        {JOBS.map((job, index) => (
-          <div
-            key={job.id}
-            className={index % 2 === 0 ? "band band-dark" : "band band-cream"}
-          >
-            <div className="band-inner">
-              <JobSection job={job} />
-            </div>
-          </div>
-        ))}
+        <SiteNav />
       </div>
 
-      <div className="band band-cream">
-        <div className="band-inner">
-          <RosterChart />
+      <div className="report">
+        <section className="hero">
+          <div>
+            <p className="eyebrow">Grok Bot for Datadog sales</p>
+            <h1>A bot that helps Datadog sales.</h1>
+            <p className="hero-intro">
+              Six jobs, from this call to the next meeting.
+            </p>
+          </div>
+          <aside className="trial-card">
+            <div>
+              <span className="trial-day">6</span>
+              <span className="trial-total">jobs</span>
+            </div>
+            <p>From this call to the next meeting.</p>
+          </aside>
+        </section>
+
+        <div className="metric-grid">
+          {JOBS.map((job) => (
+            <a
+              key={job.id}
+              className="metric-card"
+              href={`#${job.id}`}
+            >
+              <h2>{job.title}</h2>
+              <p>{String(job.number).padStart(2, "0")}</p>
+            </a>
+          ))}
         </div>
+
+        <div id="jobs">
+          {JOBS.map((job) => (
+            <JobSection key={job.id} job={job} />
+          ))}
+        </div>
+
+        <RosterChart />
       </div>
 
       <div className="orbit-break" aria-hidden>
@@ -54,15 +64,14 @@ export default function HomePage() {
         <img src="/brand/watercolor-orbit.png" alt="" />
       </div>
 
-      <div className="band band-dark">
-        <div className="band-inner">
-          <QuoteWall />
-        </div>
+      <div className="report">
+        <QuoteWall />
       </div>
 
-      <footer className="band band-dark site-footer">
-        <div className="band-inner">
-          <BrandLockup size="sm" />
+      <footer className="site-footer">
+        <div>
+          <p className="footer-title">Cursor for Datadog</p>
+          <p>Grok Bot for Datadog sales</p>
         </div>
       </footer>
     </main>

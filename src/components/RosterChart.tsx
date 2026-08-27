@@ -68,7 +68,7 @@ export function RosterChart() {
 
   return (
     <section id="roster" className="roster">
-      <h2>The team</h2>
+      <h2>Your Grok Bot team</h2>
       <p className="section-lede">
         Each bot has a job and a computer in Salesforce, Gmail, Figma, Gong.
         They keep working after you close the laptop. Drafts stay drafts until

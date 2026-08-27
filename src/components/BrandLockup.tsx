@@ -1,21 +1,18 @@
 export function BrandLockup({
   size = "md",
+  invert = false,
 }: {
   size?: "sm" | "md" | "lg";
+  invert?: boolean;
 }) {
   return (
-    <div className={`brand-lockup brand-lockup-${size}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/brand/dd_horizontal_white_clear.png"
-        alt="Datadog"
-        className="brand-dd"
-      />
-      <span className="brand-times" aria-hidden>
-        ×
+    <div
+      className={`brand-lockup brand-lockup-${size}${invert ? " is-invert" : ""}`}
+    >
+      <span className="brand-mark" aria-hidden>
+        C
       </span>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/brand/spacexai.svg" alt="SpaceXAI" className="brand-sxai" />
+      <span>Cursor for Datadog</span>
     </div>
   );
 }

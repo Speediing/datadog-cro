@@ -4,18 +4,15 @@ import { BrandLockup } from "@/components/BrandLockup";
 
 export default function LoginPage() {
   return (
-    <main className="login-page">
-      <div className="login-wash" aria-hidden>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/brand/watercolor-pad.png" alt="" />
-      </div>
-      <div className="login-card">
+    <main className="login-shell">
+      <section className="login-card" aria-labelledby="login-title">
         <BrandLockup size="md" />
-        <p>Grok Bot for Datadog sales</p>
+        <p className="eyebrow">Grok Bot for Datadog sales</p>
+        <h1 id="login-title">Enter the site password</h1>
         <Suspense fallback={null}>
           <LoginForm />
         </Suspense>
-      </div>
+      </section>
     </main>
   );
 }
