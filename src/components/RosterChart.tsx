@@ -47,17 +47,17 @@ function Box({
 }
 
 const ROW_ONE = [
-  { id: "room", blurb: "Granola, Figma. Next pack." },
-  { id: "attach", blurb: "Gong to a 90-day map." },
-  { id: "expert", blurb: "Account usage, exec brief." },
-  { id: "desk", blurb: "Pipeline paste. Gaps upstairs." },
+  { id: "room", blurb: "Turns Granola or Gong into the next pack." },
+  { id: "attach", blurb: "Builds the 90-day land-2-expand map." },
+  { id: "expert", blurb: "Who is in the account and what they use." },
+  { id: "desk", blurb: "Pastes the pipeline and names the gaps." },
 ] as const;
 
 const ROW_TWO = [
-  { id: "chief", blurb: "SKO story, Friday one-pager." },
-  { id: "coach", blurb: "Practice partner, first-90 kit." },
-  { id: "eng", blurb: "Live product answer, Bugbot." },
-  { id: "prospect", blurb: "5x5. Gmail drafts only." },
+  { id: "chief", blurb: "Turns a launch into what the field can say." },
+  { id: "coach", blurb: "Practice partner and the first-90 kit." },
+  { id: "eng", blurb: "Answers from the product. Bugbot when it breaks." },
+  { id: "prospect", blurb: "Five by five. Gmail drafts only." },
 ] as const;
 
 function Row({ ids }: { ids: typeof ROW_ONE | typeof ROW_TWO }) {
@@ -84,10 +84,13 @@ export function RosterChart() {
 
   return (
     <section id="roster" className="roster">
-      <h2>The bots</h2>
+      <h2>Your Grok Bot team</h2>
       <p className="section-lede">
-        One app. A Chief. Specialists with their own computers. They message
-        each other.
+        Message Bots like teammates. Each one has a job and its own computer, so
+        it can work in Salesforce, Gmail, Figma, Gong, the same tools you
+        already use. They keep going after you close the laptop, talk to each
+        other when the work overlaps, and come back when something needs your
+        sign-off. Drafts stay drafts until you send.
       </p>
 
       <div className="org" role="tree">
@@ -95,7 +98,7 @@ export function RosterChart() {
           <Box
             href={`#${cos.jobId}`}
             title={cos.name}
-            blurb="Routes, group chats, one-offs."
+            blurb="Routes work, runs group chats, handles one-offs."
             chief
           />
         </div>
@@ -112,10 +115,6 @@ export function RosterChart() {
           <Row ids={ROW_TWO} />
         </div>
       </div>
-
-      <p className="roster-note">
-        You approve drafts. Nothing auto-sends. Example Datadog GTM fleet.
-      </p>
     </section>
   );
 }

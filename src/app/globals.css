@@ -171,11 +171,9 @@ a {
   font-size: 1rem;
 }
 
-.hero-lede,
-.section-lede,
-.login-card > p {
+.section-lede {
   margin: 0;
-  max-width: 38rem;
+  max-width: 42rem;
   color: var(--ink-soft);
   font-size: 1.05rem;
   line-height: 1.55;
