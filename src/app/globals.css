@@ -573,6 +573,34 @@ a:hover {
   cursor: pointer;
 }
 
+.pc-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+  color: #8e8e93;
+  font-size: 0.72rem;
+}
+
+.pc-live i {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: #d1d1d6;
+}
+
+.pc-live.is-on {
+  color: #111;
+}
+
+.pc-live.is-on i {
+  background: #f5c518;
+}
+
+.pc-screen-bar .pc-live + button {
+  margin-left: 0.55rem;
+}
+
 .pc-screen .pc {
   min-height: 28rem;
   border: 0;
@@ -2505,14 +2533,28 @@ a:hover {
   .pc-phone {
     display: block;
     width: 100%;
-    border: 1px solid var(--line);
-    background: #111;
+    overflow: hidden;
+    border: 1px solid #d4d4d8;
+    border-radius: 0.75rem;
+    background: #fff;
+    color: #111;
   }
 
   .pc-phone .pc-screen-bar {
-    background: #161616;
-    border-bottom-color: var(--line);
-    color: #f4f4f5;
+    background: #f5f5f7;
+    border-bottom: 1px solid #e5e5ea;
+    color: #111;
+  }
+
+  .pc-phone .pc {
+    min-height: 18rem;
+    height: 20rem;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .pc-phone .pc-page {
+    min-height: 12rem;
   }
 }
 

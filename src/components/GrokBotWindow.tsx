@@ -225,6 +225,17 @@ export function GrokBotWindow({
 
   return (
     <div className={`demo-stage${showComputer ? " is-split" : ""}`}>
+      <div className="pc-screen pc-phone">
+        <div className="pc-screen-bar">
+          <strong>Computer</strong>
+          <span className={`pc-live${working ? " is-on" : ""}`}>
+            <i />
+            {working ? "Working" : beat?.pill || "Ready"}
+          </span>
+        </div>
+        <BotComputer jobId={job.id} playback={playback} />
+      </div>
+
       <div className="gb-product" aria-label="Grok Bot">
         <div className="desk-bar">
           <span className="traffic" aria-hidden>
@@ -356,7 +367,10 @@ export function GrokBotWindow({
             <div className="pc-screen pc-desk">
               <div className="pc-screen-bar">
                 <strong>Computer</strong>
-                <span>{beat?.pill}</span>
+                <span className={`pc-live${working ? " is-on" : ""}`}>
+                  <i />
+                  {working ? "Working" : beat?.pill || "Ready"}
+                </span>
                 <button type="button" onClick={() => setShowComputer(false)}>
                   Done
                 </button>
@@ -366,19 +380,6 @@ export function GrokBotWindow({
           ) : null}
         </div>
       </div>
-
-      {showComputer ? (
-        <div className="pc-screen pc-phone">
-          <div className="pc-screen-bar">
-            <strong>Computer</strong>
-            <span>{beat?.pill}</span>
-            <button type="button" onClick={() => setShowComputer(false)}>
-              Done
-            </button>
-          </div>
-          <BotComputer jobId={job.id} playback={playback} />
-        </div>
-      ) : null}
 
       <div className="demo-tools">
         <button
