@@ -1,5 +1,4 @@
 import { FLEET } from "@/data/fleet";
-import { JOBS } from "@/data/jobs";
 
 function bot(id: string) {
   const found = FLEET.find((item) => item.id === id);
@@ -7,92 +6,74 @@ function bot(id: string) {
   return found;
 }
 
-function Cell({
+function Box({
   href,
   title,
   blurb,
+  chief = false,
 }: {
   href: string;
   title: string;
   blurb: string;
+  chief?: boolean;
 }) {
   return (
-    <a className="roster-cell" href={href}>
+    <a className={chief ? "org-box is-chief" : "org-box"} href={href}>
       <strong>{title}</strong>
       <span>{blurb}</span>
     </a>
   );
 }
 
+const SPECIALISTS = [
+  { id: "room", blurb: "Granola and Gong to the next pack" },
+  { id: "attach", blurb: "90-day land-2-expand map" },
+  { id: "desk", blurb: "EB, paper, champion gaps" },
+  { id: "chief", blurb: "SKO and Friday one-pager" },
+  { id: "coach", blurb: "Practice partner and first-90 kit" },
+] as const;
+
 export function RosterChart() {
   const cos = bot("cos");
-  const line = ["room", "attach", "expert", "desk", "forecast"].map(bot);
-  const sko = FLEET.filter((item) => item.cluster === "sko");
-  const ramp = ["coach", "buyer", "eng", "prospect"].map(bot);
+  const specialists = SPECIALISTS.map((item) => ({
+    ...bot(item.id),
+    blurb: item.blurb,
+  }));
 
   return (
     <section id="roster" className="roster">
       <h2>Example roster</h2>
-      <p className="section-lede roster-lede-desk">
-        Chief of Staff at the top. Specialists underneath. SKO is a group chat.
-        Click a name to open that job.
-      </p>
-      <p className="section-lede roster-lede-phone">
-        Chief of Staff, then the five jobs. Tap a name to open that demo.
+      <p className="section-lede">
+        Chief of Staff at the top. Five specialists underneath. Click a name to
+        open that job.
       </p>
 
-      <ol className="roster-list">
-        <li>
-          <Cell href={`#${cos.jobId}`} title={cos.name} blurb={cos.blurb} />
-        </li>
-        {JOBS.map((job) => (
-          <li key={job.id}>
-            <Cell
-              href={`#${job.id}`}
-              title={job.title}
-              blurb={`Job ${job.number}`}
-            />
-          </li>
-        ))}
-      </ol>
-
-      <div className="roster-chart">
-        <div className="roster-row chief">
-          <Cell href={`#${cos.jobId}`} title={cos.name} blurb={cos.blurb} />
+      <div className="org" role="tree">
+        <div className="org-top">
+          <Box
+            href={`#${cos.jobId}`}
+            title={cos.name}
+            blurb={cos.blurb}
+            chief
+          />
         </div>
-        <div className="roster-row">
-          {line.map((item) => (
-            <Cell
-              key={item.id}
-              href={`#${item.jobId}`}
-              title={item.name}
-              blurb={item.blurb}
-            />
+        <div className="org-connect" aria-hidden>
+          <i className="org-stem" />
+          <i className="org-bar" />
+        </div>
+        <ul className="org-kids">
+          {specialists.map((item) => (
+            <li key={item.id} className="org-kid">
+              <Box
+                href={`#${item.jobId}`}
+                title={item.name}
+                blurb={item.blurb}
+              />
+            </li>
           ))}
-        </div>
-        <p className="roster-label">SKO group chat</p>
-        <div className="roster-row two">
-          {sko.map((item) => (
-            <Cell
-              key={item.id}
-              href={`#${item.jobId}`}
-              title={item.name}
-              blurb={item.blurb}
-            />
-          ))}
-        </div>
-        <p className="roster-label">Ramp</p>
-        <div className="roster-row four">
-          {ramp.map((item) => (
-            <Cell
-              key={item.id}
-              href={`#${item.jobId}`}
-              title={item.name}
-              blurb={item.blurb}
-            />
-          ))}
-        </div>
+        </ul>
       </div>
+
       <p className="roster-note">
         Grok Bot from SpaceXAI. Example fleet, not a live org.
       </p>

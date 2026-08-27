@@ -1390,90 +1390,92 @@ a {
   font-weight: 600;
 }
 
-.roster-chart {
-  margin-top: 1.25rem;
-  border-top: 1px solid var(--line);
+.org {
+  margin-top: 1.5rem;
 }
 
-.roster-row {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0;
-  border-bottom: 1px solid var(--line);
+.org-top {
+  display: flex;
+  justify-content: center;
 }
 
-.roster-row.chief {
-  grid-template-columns: 1fr;
-}
-
-.roster-row.two {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.roster-row.four {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.roster-cell {
+.org-box {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  min-width: 0;
-  padding: 0.75rem 0.85rem 0.85rem;
-  border-right: 1px solid var(--line);
+  gap: 0.22rem;
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  background: #0a0a0a;
   color: inherit;
 }
 
-.roster-row .roster-cell:last-child {
-  border-right: 0;
+.org-box.is-chief {
+  max-width: 16rem;
 }
 
-.roster-cell strong {
+.org-box strong {
   font-size: 0.92rem;
   font-weight: 600;
 }
 
-.roster-cell span {
+.org-box span {
   color: var(--ink-soft);
   font-size: 0.78rem;
   line-height: 1.35;
 }
 
-.roster-cell:hover strong {
+.org-box:hover strong {
   text-decoration: underline;
 }
 
-.roster-label {
-  margin: 1.1rem 0 0.35rem;
-  color: var(--ink-soft);
-  font-size: 0.78rem;
+.org-connect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.org-stem {
+  display: block;
+  width: 1px;
+  height: 1.15rem;
+  background: var(--line);
+}
+
+.org-bar {
+  display: block;
+  width: 80%;
+  height: 1px;
+  background: var(--line);
+}
+
+.org-kids {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.org-kid {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0 0.35rem;
+}
+
+.org-kid::before {
+  content: "";
+  align-self: center;
+  width: 1px;
+  height: 1.15rem;
+  background: var(--line);
 }
 
 .roster-note {
   margin: 1rem 0 0;
   color: var(--ink-soft);
   font-size: 0.82rem;
-}
-
-.roster-list {
-  display: none;
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--line);
-}
-
-.roster-list li {
-  border-bottom: 1px solid var(--line);
-}
-
-.roster-list .roster-cell {
-  border-right: 0;
-  padding: 0.95rem 0.1rem;
-}
-
-.roster-lede-phone {
-  display: none;
 }
 
 .gb-window {
@@ -2232,31 +2234,12 @@ a {
   .job-split,
   .job-stage,
   .gb-body,
-  .roster-row,
-  .roster-row.two,
-  .roster-row.four,
   .job-clips,
   .job-clips.count-2,
   .gallery-grid,
   .gallery-grid.compact,
   .figma-frames {
     grid-template-columns: 1fr;
-  }
-
-  .roster-cell {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-    padding: 0.9rem 0.15rem;
-  }
-
-  .roster-chart,
-  .roster-lede-desk {
-    display: none;
-  }
-
-  .roster-list,
-  .roster-lede-phone {
-    display: block;
   }
 
   .gb-titlebar {
@@ -2420,5 +2403,46 @@ a {
     background: #161616;
     border-bottom-color: var(--line);
     color: #f4f4f5;
+  }
+}
+
+@media (max-width: 960px) {
+  .org-top {
+    justify-content: stretch;
+  }
+
+  .org-box.is-chief {
+    max-width: none;
+  }
+
+  .org-connect {
+    align-items: flex-start;
+    margin-left: 1.15rem;
+  }
+
+  .org-bar {
+    display: none;
+  }
+
+  .org-kids {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-left: 1.15rem;
+    padding-left: 1.15rem;
+    border-left: 1px solid var(--line);
+  }
+
+  .org-kid {
+    position: relative;
+    padding: 0;
+  }
+
+  .org-kid::before {
+    position: absolute;
+    top: 1.15rem;
+    left: -1.15rem;
+    width: 1.15rem;
+    height: 1px;
   }
 }
