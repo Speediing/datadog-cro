@@ -4,37 +4,37 @@ export function QuoteWall() {
   return (
     <section id="quotes" className="quotes">
       <h2>Grok Bot quotes</h2>
-      <div className="quote-grid">
+      <div className="quote-thread">
         {QUOTES.map((quote) => (
           <article
             key={`${quote.handle}-${quote.date}-${quote.source}`}
-            className="quote-card"
+            className="quote-row"
           >
-            <blockquote>{quote.quote}</blockquote>
-            <footer>
+            <div className="quote-who">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={quote.avatar}
                 alt=""
-                width={40}
-                height={40}
+                width={36}
+                height={36}
                 className="quote-avatar"
               />
               <div>
                 <p className="quote-name">{quote.name}</p>
                 <p className="quote-handle">{quote.handle}</p>
               </div>
-              {quote.source ? (
-                <a
-                  href={quote.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="quote-source"
-                >
-                  Source
-                </a>
-              ) : null}
-            </footer>
+            </div>
+            <blockquote className="quote-bubble">{quote.quote}</blockquote>
+            {quote.source ? (
+              <a
+                href={quote.source}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="quote-source"
+              >
+                Source
+              </a>
+            ) : null}
           </article>
         ))}
       </div>
