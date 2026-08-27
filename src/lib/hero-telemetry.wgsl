@@ -79,7 +79,7 @@ fn fs_main(@location(0) uv: vec2f) -> @location(0) vec4f {
   let t = params.time;
 
   let breathe = 1.0 + 0.02 * sin(t * 0.85);
-  let dogP = (p - vec2f(0.30, 0.04)) / breathe;
+  let dogP = (p - vec2f(0.46, -0.12)) / breathe;
   let dDog = datadogMark(dogP);
   let fill = 1.0 - smoothstep(-0.0015, 0.004, dDog);
   let line = 1.0 - smoothstep(0.0, 0.0055, abs(dDog));
@@ -92,9 +92,10 @@ fn fs_main(@location(0) uv: vec2f) -> @location(0) vec4f {
 
   let purple = vec3f(0.388235, 0.172549, 0.650980);
   let paper = vec3f(0.960784, 0.945098, 0.909804);
-  var a = fill * 0.10 + line * 0.42 + glow * 0.12 + traces * 0.55 + spark * 0.10;
-  a *= 0.82;
-  a = clamp(a, 0.0, 0.72);
-  let col = mix(purple, paper, spark * 0.65 + line * 0.08);
+  let leftClear = smoothstep(0.34, 0.62, uv.x);
+  var a = fill * 0.08 + line * 0.28 + glow * 0.08 + traces * 0.32 + spark * 0.06;
+  a *= 0.55 * leftClear;
+  a = clamp(a, 0.0, 0.34);
+  let col = mix(purple, paper, spark * 0.45 + line * 0.05);
   return vec4f(col * a, a);
 }

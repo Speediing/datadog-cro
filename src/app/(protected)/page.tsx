@@ -15,39 +15,41 @@ export default function HomePage() {
           src="/brand/watercolor-pad.png"
           alt=""
         />
-        <HeroTelemetry />
         <SiteNav />
       </div>
 
       <div className="report">
-        <section className="hero">
-          <div>
-            <p className="eyebrow">Grok Bot for Datadog sales</p>
-            <h1>A bot that helps Datadog sales.</h1>
-            <p className="hero-intro">
-              Six jobs, from this call to the next meeting.
-            </p>
-          </div>
-          <aside className="trial-card">
+        <div className="report-hero">
+          <HeroTelemetry />
+          <section className="hero">
             <div>
-              <span className="trial-day">6</span>
-              <span className="trial-total">jobs</span>
+              <p className="eyebrow">Grok Bot for Datadog sales</p>
+              <h1>A bot that helps Datadog sales.</h1>
+              <p className="hero-intro">
+                Six jobs, from this call to the next meeting.
+              </p>
             </div>
-            <p>From this call to the next meeting.</p>
-          </aside>
-        </section>
+            <aside className="trial-card">
+              <div>
+                <span className="trial-day">6</span>
+                <span className="trial-total">jobs</span>
+              </div>
+              <p>From this call to the next meeting.</p>
+            </aside>
+          </section>
 
-        <div className="metric-grid">
-          {JOBS.map((job) => (
-            <a
-              key={job.id}
-              className="metric-card"
-              href={`#${job.id}`}
-            >
-              <h2>{job.title}</h2>
-              <p>{String(job.number).padStart(2, "0")}</p>
-            </a>
-          ))}
+          <div className="metric-grid">
+            {JOBS.map((job) => (
+              <a
+                key={job.id}
+                className="metric-card"
+                href={`#${job.id}`}
+              >
+                <h2>{job.title}</h2>
+                <p>{String(job.number).padStart(2, "0")}</p>
+              </a>
+            ))}
+          </div>
         </div>
 
         <div id="jobs">
