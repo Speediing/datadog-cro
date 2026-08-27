@@ -4,6 +4,37 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
+function FuselageMark() {
+  const texture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 2048;
+    canvas.height = 420;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    ctx.fillStyle = "#141414";
+    ctx.fillRect(0, 0, 2048, 420);
+    ctx.fillStyle = "#f7f4ee";
+    ctx.font = "700 176px Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("SpaceX  x  Datadog", 1024, 218);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    tex.needsUpdate = true;
+    return tex;
+  }, []);
+
+  if (!texture) return null;
+
+  return (
+    <mesh position={[0, 0.1, 0.178]} rotation={[0, 0, Math.PI / 2]}>
+      <planeGeometry args={[1.28, 0.3]} />
+      <meshBasicMaterial map={texture} toneMapped={false} />
+    </mesh>
+  );
+}
+
 function RocketBody() {
   const white = useMemo(
     () =>
@@ -52,6 +83,7 @@ function RocketBody() {
         <sphereGeometry args={[0.11, 12, 12]} />
         <meshBasicMaterial color="#f3d27a" />
       </mesh>
+      <FuselageMark />
     </group>
   );
 }
@@ -76,7 +108,7 @@ function Flight() {
   });
 
   return (
-    <group ref={group}>
+    <group ref={group} scale={2.15}>
       <RocketBody />
       <mesh ref={plume} position={[0, -1.42, 0]}>
         <coneGeometry args={[0.07, 0.62, 8]} />

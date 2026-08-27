@@ -9,7 +9,6 @@ import { JOBS } from "@/data/jobs";
 export default function HomePage() {
   return (
     <main id="top">
-      <NightRocketMount />
       <div className="band band-dark band-nav">
         <div className="band-inner">
           <SiteNav />
@@ -21,6 +20,7 @@ export default function HomePage() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/watercolor-pad.png" alt="" />
         </div>
+        <NightRocketMount />
         <div className="band-inner">
           <BrandLockup size="md" />
           <p className="hero-line">

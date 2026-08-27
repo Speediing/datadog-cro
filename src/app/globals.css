@@ -137,6 +137,12 @@ a:hover {
   z-index: 1;
   min-height: 16rem;
   padding: 4.5rem 0 3.25rem;
+  overflow: hidden;
+}
+
+.hero .band-inner {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-wash {
@@ -192,22 +198,10 @@ a:hover {
 }
 
 .night-rocket {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 8;
-  height: 28vh;
-  min-height: 7.5rem;
-  max-height: 14rem;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 55%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
 }
 
 .night-rocket canvas {
@@ -3827,12 +3821,6 @@ a:hover {
 
   .pc-phone .pc-page {
     min-height: 0;
-  }
-
-  .night-rocket {
-    height: 18vh;
-    min-height: 5.5rem;
-    max-height: 8.5rem;
   }
 
   .story-line,
