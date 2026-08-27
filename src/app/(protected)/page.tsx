@@ -22,9 +22,11 @@ export default function HomePage() {
 
       <RosterChart />
 
-      {JOBS.map((job) => (
-        <JobSection key={job.id} job={job} />
-      ))}
+      <div id="jobs">
+        {JOBS.map((job) => (
+          <JobSection key={job.id} job={job} />
+        ))}
+      </div>
 
       <div className="orbit-break" aria-hidden>
         {/* eslint-disable-next-line @next/next/no-img-element */}

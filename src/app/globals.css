@@ -29,10 +29,17 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   color: var(--ink);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica,
     Arial, sans-serif;
   background: var(--bg);
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
 }
 
 a {
@@ -79,6 +86,10 @@ a {
 
 .nav-links a:hover {
   color: var(--ink);
+}
+
+.nav-jobs {
+  display: none;
 }
 
 .hero {
@@ -229,7 +240,9 @@ a {
 .clip-phone video {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   background: #000;
 }
 
@@ -889,40 +902,38 @@ a {
 .brand-lockup {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.4rem;
   min-width: 0;
 }
 
 .brand-dd,
 .brand-sxai {
   display: block;
-  height: auto;
   width: auto;
+  height: auto;
+  max-width: 100%;
+  flex-shrink: 0;
   object-fit: contain;
 }
 
 .brand-lockup-sm .brand-dd {
-  height: 22px;
+  height: 20px;
 }
 
 .brand-lockup-sm .brand-sxai {
-  height: 14px;
+  height: 10px;
+  max-width: 80px;
 }
 
-.brand-lockup-md .brand-dd {
+.brand-lockup-md .brand-dd,
+.brand-lockup-lg .brand-dd {
   height: 36px;
 }
 
-.brand-lockup-md .brand-sxai {
-  height: 22px;
-}
-
-.brand-lockup-lg .brand-dd {
-  height: 52px;
-}
-
+.brand-lockup-md .brand-sxai,
 .brand-lockup-lg .brand-sxai {
-  height: 32px;
+  height: 16px;
+  max-width: 120px;
 }
 
 .brand-times {
@@ -1688,33 +1699,123 @@ a {
 @media (max-width: 1100px) {
   .gb-body {
     grid-template-columns: 1fr;
+    max-height: none;
+    min-height: 0;
   }
 
-  .gb-window .pc {
+  .gb-window {
+    min-height: 0;
+  }
+
+  .gb-chat {
     min-height: 22rem;
+  }
+
+  .gb-window .pc,
+  .pc {
+    min-height: 18rem;
     border-left: 0;
     border-top: 1px solid var(--line);
   }
 }
 
 @media (max-width: 800px) {
+  .page {
+    width: min(1360px, calc(100% - 1.5rem));
+  }
+
+  .site-nav {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem 1rem;
+  }
+
+  .nav-jobs {
+    display: inline;
+  }
+
+  .nav-job-num {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 0.85rem;
+    justify-content: flex-start;
+  }
+
+  .hero {
+    padding: 1.5rem 0 1.6rem;
+  }
+
+  .hero-wash {
+    top: -2.4rem;
+    height: 14rem;
+  }
+
+  .hero-line {
+    margin-top: 0.7rem;
+    font-size: 0.92rem;
+  }
+
+  .job {
+    padding: 2rem 0;
+  }
+
+  .job-title {
+    max-width: none;
+    font-size: 1.35rem;
+  }
+
+  .job-problem,
+  .job-bot {
+    font-size: 1rem;
+  }
+
   .job-split,
   .job-stage,
   .gb-body,
   .roster-row,
   .roster-row.two,
   .roster-row.four,
-  .job-clips {
+  .job-clips,
+  .job-clips.count-2,
+  .gallery-grid,
+  .gallery-grid.compact,
+  .quote-grid,
+  .figma-frames {
     grid-template-columns: 1fr;
   }
 
   .roster-cell {
     border-right: 0;
     border-bottom: 1px solid var(--line);
+    padding: 0.9rem 0.15rem;
   }
 
-  .site-nav {
-    align-items: flex-start;
-    flex-direction: column;
+  .gb-titlebar {
+    flex-wrap: wrap;
+  }
+
+  .gb-composer {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .gb-composer input {
+    grid-column: 1 / -1;
+  }
+
+  .login-page {
+    display: block;
+    padding: 1.25rem;
+  }
+
+  .login-card {
+    width: 100%;
+    padding-top: 2.5rem;
+  }
+
+  .orbit-break {
+    height: 8.5rem;
+    margin: 1.4rem 0 0.8rem;
   }
 }
