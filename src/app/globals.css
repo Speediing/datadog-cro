@@ -58,8 +58,8 @@ a:hover {
 .page {
   width: min(1200px, 100%);
   margin: 0 auto;
-  padding: 0 max(1.5rem, env(safe-area-inset-right)) 5rem
-    max(1.5rem, env(safe-area-inset-left));
+  padding: 0 max(2rem, env(safe-area-inset-right)) 5.5rem
+    max(2rem, env(safe-area-inset-left));
 }
 
 .site-nav {
@@ -107,7 +107,8 @@ a:hover {
 .hero {
   position: relative;
   z-index: 1;
-  padding: 2.4rem 0 2.2rem;
+  min-height: 11rem;
+  padding: 2.6rem 0 3.4rem;
 }
 
 .hero-wash {
@@ -127,27 +128,21 @@ a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 68% 28%;
-  opacity: 0.38;
+  object-position: 72% 6%;
+  opacity: 0.22;
+  filter: saturate(0.7);
 }
 
 .hero-wash::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.42) 0%,
-      rgba(0, 0, 0, 0.62) 42%,
-      #000 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.55) 0%,
-      rgba(0, 0, 0, 0.2) 55%,
-      rgba(0, 0, 0, 0.45) 100%
-    );
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.72) 46%,
+    #000 100%
+  );
 }
 
 .orbit-break {
@@ -191,8 +186,8 @@ a:hover {
 }
 
 .section-lede {
-  margin: 0;
-  max-width: 38rem;
+  margin: 0 0 0.2rem;
+  max-width: 36rem;
   color: var(--ink-soft);
   font-size: 1.05rem;
   line-height: 1.65;
@@ -1431,7 +1426,7 @@ a:hover {
 }
 
 .org {
-  margin-top: 2rem;
+  margin-top: 2.4rem;
 }
 
 .org-top {
@@ -1511,15 +1506,15 @@ a:hover {
 .org-stem {
   display: block;
   width: 1px;
-  height: 1.35rem;
-  background: #3f3f46;
+  height: 1.5rem;
+  background: #52525b;
 }
 
 .org-bar {
   display: block;
-  width: calc(75% + 0.5rem);
+  width: calc(75% + 0.55rem);
   height: 1px;
-  background: #3f3f46;
+  background: #52525b;
 }
 
 .org-kids {
@@ -1542,7 +1537,17 @@ a:hover {
   align-self: center;
   width: 1px;
   height: 1.2rem;
-  background: #3f3f46;
+  background: #52525b;
+}
+
+@media (min-width: 961px) {
+  .org-kid:nth-child(n + 5)::before {
+    display: none;
+  }
+
+  .org-kid:nth-child(n + 5) {
+    padding-top: 0.35rem;
+  }
 }
 
 .roster-note {
@@ -2255,8 +2260,8 @@ a:hover {
 @media (max-width: 800px) {
   .page {
     width: 100%;
-    padding: 0 max(1.5rem, env(safe-area-inset-right)) 5rem
-      max(1.5rem, env(safe-area-inset-left));
+    padding: 0 max(1.75rem, env(safe-area-inset-right)) 5.5rem
+      max(1.75rem, env(safe-area-inset-left));
   }
 
   .site-nav {
@@ -2287,7 +2292,8 @@ a:hover {
   }
 
   .hero {
-    padding: 1.6rem 0 1.85rem;
+    min-height: 8.5rem;
+    padding: 1.5rem 0 2.6rem;
   }
 
   .hero-wash {
@@ -2296,16 +2302,16 @@ a:hover {
   }
 
   .hero-line {
-    margin-top: 0.75rem;
-    font-size: 0.98rem;
+    margin-top: 0;
+    font-size: 1rem;
   }
 
   .hero .brand-lockup {
-    --dd-h: 24px;
+    display: none;
   }
 
   .roster {
-    padding: 2.1rem 0 2.75rem;
+    padding: 1.4rem 0 3rem;
   }
 
   .roster h2,
@@ -2520,19 +2526,20 @@ a:hover {
   }
 
   .org-branch {
-    margin: 0 0 0 1.15rem;
-    padding: 0 0 0.2rem 1.15rem;
-    border-left: 1px solid #3f3f46;
+    margin: 0.15rem 0 0.35rem 1.35rem;
+    padding: 0 0 0.35rem 1.35rem;
+    border-left: 1px solid #52525b;
   }
 
   .org-connect {
     align-items: flex-start;
-    margin-left: -1.15rem;
+    margin-left: -1.35rem;
   }
 
   .org-stem {
-    height: 1.15rem;
+    height: 1.25rem;
     margin-left: 0;
+    background: #52525b;
   }
 
   .org-wrap {
@@ -2546,11 +2553,11 @@ a:hover {
   .org-kids {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 1rem;
   }
 
   .org-kids + .org-kids {
-    margin-top: 0.85rem;
+    margin-top: 1rem;
   }
 
   .org-kid {
@@ -2560,13 +2567,14 @@ a:hover {
 
   .org-kid::before {
     position: absolute;
-    top: 1.55rem;
-    left: -1.15rem;
-    width: 1.15rem;
+    top: 1.7rem;
+    left: -1.35rem;
+    width: 1.35rem;
     height: 1px;
+    background: #52525b;
   }
 
   .org-box {
-    padding: 0.95rem 1rem;
+    padding: 1rem 1.05rem;
   }
 }

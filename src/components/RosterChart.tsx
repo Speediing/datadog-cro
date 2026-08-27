@@ -9,10 +9,7 @@ function bot(id: string) {
 function initials(name: string) {
   const parts = name.split(/\s+/).filter(Boolean);
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return parts
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() || "")
-    .join("");
+  return `${parts[0][0] || ""}${parts[parts.length - 1][0] || ""}`.toUpperCase();
 }
 
 function isLight(hex: string) {
@@ -54,39 +51,16 @@ function Box({
   );
 }
 
-const ROW_ONE = [
+const SPECIALISTS = [
   { id: "room", blurb: "Turns Granola or Gong into the next pack." },
   { id: "attach", blurb: "Builds the 90-day land-2-expand map." },
   { id: "expert", blurb: "Who is in the account and what they use." },
   { id: "desk", blurb: "Pastes the pipeline and names the gaps." },
-] as const;
-
-const ROW_TWO = [
   { id: "chief", blurb: "Turns a launch into what the field can say." },
   { id: "coach", blurb: "Practice partner and the first-90 kit." },
   { id: "eng", blurb: "Answers from the product. Bugbot when it breaks." },
   { id: "prospect", blurb: "Five by five. Gmail drafts only." },
 ] as const;
-
-function Row({ ids }: { ids: typeof ROW_ONE | typeof ROW_TWO }) {
-  return (
-    <ul className="org-kids">
-      {ids.map((item) => {
-        const specialist = bot(item.id);
-        return (
-          <li key={item.id} className="org-kid">
-            <Box
-              href={`#${specialist.jobId}`}
-              title={specialist.name}
-              blurb={item.blurb}
-              color={specialist.color}
-            />
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
 
 export function RosterChart() {
   const cos = bot("cos");
@@ -117,12 +91,21 @@ export function RosterChart() {
             <i className="org-stem" />
             <i className="org-bar" />
           </div>
-          <Row ids={ROW_ONE} />
-          <div className="org-connect org-wrap" aria-hidden>
-            <i className="org-stem" />
-            <i className="org-bar" />
-          </div>
-          <Row ids={ROW_TWO} />
+          <ul className="org-kids">
+            {SPECIALISTS.map((item) => {
+              const specialist = bot(item.id);
+              return (
+                <li key={item.id} className="org-kid">
+                  <Box
+                    href={`#${specialist.jobId}`}
+                    title={specialist.name}
+                    blurb={item.blurb}
+                    color={specialist.color}
+                  />
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </section>
