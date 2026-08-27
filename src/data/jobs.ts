@@ -112,7 +112,7 @@ export const JOBS: CroJob[] = [
           from: "attach",
           kind: "draft",
           draftLabel: "90-day attach map",
-          body: "Day 0–14: prove APM+Logs in one squad\nDay 15–45: Bits AI pilot + SIEM scoping call\nDay 45–90: Cost review with FinOps, RUM intro with frontend\nNext meeting: Tue 30 min with security lead + AE. Agenda already drafted.",
+          body: "Day 0-14: prove APM+Logs in one squad\nDay 15-45: Bits AI pilot + SIEM scoping call\nDay 45-90: Cost review with FinOps, RUM intro with frontend\nNext meeting: Tue 30 min with security lead + AE. Agenda already drafted.",
         },
         {
           id: "m5",
@@ -306,7 +306,7 @@ export const JOBS: CroJob[] = [
           from: "coach",
           kind: "draft",
           draftLabel: "First-90-day deal kit",
-          body: "Week 1–2: territory map + 10 accounts with land-2 hypothesis\nWeek 3–6: three live discovery calls with Coach debrief\nWeek 7–12: one expand motion on an existing land, with Attach Mapper\nArtifacts: talk tracks, objection cards, champion packet template.",
+          body: "Week 1-2: territory map + 10 accounts with land-2 hypothesis\nWeek 3-6: three live discovery calls with Coach debrief\nWeek 7-12: one expand motion on an existing land, with Attach Mapper\nArtifacts: talk tracks, objection cards, champion packet template.",
         },
       ],
     },

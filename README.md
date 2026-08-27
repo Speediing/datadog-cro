@@ -18,12 +18,12 @@ Open [http://localhost:3000](http://localhost:3000). Default password is `land2e
 
 ## Krista clips
 
-Download into `public/media/krista-clips/` from the GitHub release:
+Download into `private/media/krista-clips/` from the GitHub release (served only through the passworded `/api/media/...` route):
 
 ```bash
 gh release download krista-gtm-clips-2026-08-26 \
   --repo Speediing/grok-bot-quotes \
-  --dir public/media/krista-clips
+  --dir private/media/krista-clips
 ```
 
 Commit the mp4 files so Vercel can serve them.
