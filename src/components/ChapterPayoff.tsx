@@ -190,7 +190,10 @@ export function ChapterPayoff({
 
   return (
     <div className="chapter-payoff">
-      <p className="payoff-label">{beat.label}</p>
+      <p className="payoff-label">
+        {beat.when ? <span>{beat.when}</span> : null}
+        {beat.label}
+      </p>
       {body}
       {value ? <p className="leave-value">{value}</p> : null}
     </div>

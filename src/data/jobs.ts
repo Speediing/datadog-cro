@@ -42,19 +42,24 @@ export const JOBS: CroJob[] = [
       "Granola notes go in while you are still on. Room Ops writes the last slides in their words, plus the leave-behind and a champion packet.",
     storyboard: [
       {
-        label: "Still on disco. They have not seen a slide.",
+        when: "Minute 8",
+        label: "Still on the disco. They have not seen a slide.",
         scene: "call",
       },
       {
-        label: "You cut to the demo. They name how they actually work.",
+        when: "Minute 22",
+        label: "You cut to the demo. They start naming how they actually work.",
         scene: "demo",
       },
       {
-        label: "Granola is in. You have not hung up.",
+        when: "Minute 31",
+        label: "Granola is already in. You have not left the call.",
         scene: "notes",
       },
       {
-        label: "What we heard. Still on the call.",
+        when: "Minute 35",
+        label:
+          "The tail of the deck is their use cases, mapped. Tuesday, not last quarter.",
         scene: "deck",
         slides: ACME_TAIL_SLIDES,
       },
@@ -206,12 +211,24 @@ export const JOBS: CroJob[] = [
     botJob:
       "After the first meeting, the bot writes a 90-day attach map: who owns Bits AI, Cloud SIEM, Cost, and RUM, and what the next meeting is.",
     storyboard: [
-      { label: "Land APM + Logs", scene: "call" },
-      { label: "Security was in the room", scene: "voice" },
-      { label: "90-day attach map", scene: "map" },
-      { label: "Owners and next meetings", scene: "notes" },
       {
-        label: "The 90-day attach map",
+        when: "Just hung up",
+        label: "First meeting just ended. Land is APM + Logs.",
+        scene: "call",
+      },
+      {
+        when: "That afternoon",
+        label: "Security was in the room. Nobody has dated the expand.",
+        scene: "notes",
+      },
+      {
+        when: "Before you close the laptop",
+        label: "The 90-day map is a draft. Tuesday is already on it.",
+        scene: "map",
+      },
+      {
+        when: "Tuesday",
+        label: "The next meeting is dated. SIEM scope, not another tour.",
         scene: "map",
         artifact: {
           kind: "attach-map",
@@ -402,12 +419,24 @@ export const JOBS: CroJob[] = [
     botJob:
       "Paste pipeline notes. The bot names EB, paper, champion, and SIEM gaps, writes Monday questions, and drafts the upstairs paragraph.",
     storyboard: [
-      { label: "Paste a $1M+ deal", scene: "inspect" },
-      { label: "Read at altitude", scene: "notes" },
-      { label: "EB, paper, champion, SIEM", scene: "map" },
-      { label: "Monday questions", scene: "voice" },
       {
-        label: "Paragraph for upstairs",
+        when: "You open the deal",
+        label: "You paste the $1.4M. You are not getting on Monday's call.",
+        scene: "inspect",
+      },
+      {
+        when: "Twelve minutes in",
+        label: "Four gaps. No EB. Slow paper. A champion who cannot carry it.",
+        scene: "notes",
+      },
+      {
+        when: "You close the laptop",
+        label: "Commit stays held. The paragraph is for upstairs.",
+        scene: "send",
+      },
+      {
+        when: "Forecast",
+        label: "The upstairs paragraph. Hold commit until EB is dated.",
         scene: "send",
         artifact: {
           kind: "forecast",
@@ -559,12 +588,24 @@ export const JOBS: CroJob[] = [
     botJob:
       "Point the bot at a launch or a competitive loss. It writes AE, SE, and manager lines plus a Friday one-pager.",
     storyboard: [
-      { label: "Launch or a loss", scene: "launch" },
-      { label: "One story in the group chat", scene: "voice" },
-      { label: "AE, SE, manager lines", scene: "notes" },
-      { label: "Friday one-pager", scene: "deck" },
       {
-        label: "What the field says",
+        when: "Monday",
+        label: "Launch week. Bits AI is already a Slack thread.",
+        scene: "launch",
+      },
+      {
+        when: "Wednesday",
+        label: "One story, three seats. AE, SE, manager.",
+        scene: "notes",
+      },
+      {
+        when: "Friday 3pm",
+        label: "The pack is ready. Monday they say it the same way.",
+        scene: "deck",
+      },
+      {
+        when: "Monday morning",
+        label: "The field says one Bits AI story. Not 19 Slack versions.",
         scene: "send",
         artifact: {
           kind: "talk-tracks",
@@ -726,12 +767,24 @@ export const JOBS: CroJob[] = [
     botJob:
       "The bot is a practice partner. Reps drill the OSS objection and leave with a first-90-day deal kit.",
     storyboard: [
-      { label: "Drill the OSS objection", scene: "drill" },
-      { label: "Buyer plays it cold", scene: "voice" },
-      { label: "Coach scores it", scene: "inspect" },
-      { label: "First-90 kit", scene: "notes" },
       {
-        label: "The better answer",
+        when: "First drill",
+        label: "New AE. OSS is good enough is coming.",
+        scene: "drill",
+      },
+      {
+        when: "They answer",
+        label: "The first line is true and still too abstract.",
+        scene: "voice",
+      },
+      {
+        when: "Coach cuts",
+        label: "The line that wins has the incident in it.",
+        scene: "inspect",
+      },
+      {
+        when: "Before a live cycle",
+        label: "They get a real rep before they burn a Fortune 500 account.",
         scene: "send",
         artifact: {
           kind: "scorecard",

@@ -52,6 +52,7 @@ export type StoryScene =
 export type StoryBeat = {
   label: string;
   scene: StoryScene;
+  when?: string;
   slides?: SlideCard[];
   artifact?: Artifact;
 };
