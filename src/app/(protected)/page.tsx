@@ -8,31 +8,64 @@ import { JOBS } from "@/data/jobs";
 
 export default function HomePage() {
   return (
-    <main id="top" className="page">
-      <SiteNav />
+    <main id="top">
+      <div className="band band-dark band-nav">
+        <div className="band-inner">
+          <SiteNav />
+        </div>
+      </div>
 
-      <header className="hero">
+      <header className="hero band band-dark">
         <div className="hero-wash" aria-hidden>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/watercolor-pad.png" alt="" />
         </div>
-        <BrandLockup size="md" />
-        <p className="hero-line">Grok Bot for Datadog GTM</p>
+        <div className="band-inner">
+          <BrandLockup size="md" />
+          <p className="hero-line">Grok Bot for Datadog GTM</p>
+        </div>
       </header>
 
-      <RosterChart />
+      <div className="band band-cream">
+        <div className="band-inner">
+          <RosterChart />
+        </div>
+      </div>
 
       <div id="jobs">
-        {JOBS.map((job) => (
-          <JobSection key={job.id} job={job} />
+        {JOBS.map((job, index) => (
+          <div
+            key={job.id}
+            className={index % 2 === 0 ? "band band-dark" : "band band-cream"}
+          >
+            <div className="band-inner">
+              <JobSection job={job} />
+            </div>
+          </div>
         ))}
       </div>
 
-      <ClipGallery />
-      <QuoteWall />
+      <div className="orbit-break" aria-hidden>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/brand/watercolor-orbit.png" alt="" />
+      </div>
 
-      <footer className="site-footer">
-        <BrandLockup size="sm" />
+      <div className="band band-dark">
+        <div className="band-inner">
+          <ClipGallery />
+        </div>
+      </div>
+
+      <div className="band band-cream">
+        <div className="band-inner">
+          <QuoteWall />
+        </div>
+      </div>
+
+      <footer className="band band-dark site-footer">
+        <div className="band-inner">
+          <BrandLockup size="sm" />
+        </div>
       </footer>
     </main>
   );

@@ -58,25 +58,49 @@ a:hover {
   -webkit-text-decoration: none;
 }
 
+.band-inner,
 .page {
   width: min(1320px, 100%);
   margin: 0 auto;
-  padding: 0 max(1.5rem, env(safe-area-inset-right)) 6rem
+  padding: 0 max(1.5rem, env(safe-area-inset-right)) 0
     max(1.5rem, env(safe-area-inset-left));
 }
 
-.site-nav {
+.band {
+  width: 100%;
+}
+
+.band-dark {
+  background: #000;
+  color: var(--ink);
+}
+
+.band-cream {
+  --ink: #1c1916;
+  --ink-soft: #6e675e;
+  --line: rgba(28, 25, 22, 0.12);
+  --line-strong: rgba(28, 25, 22, 0.2);
+  background: #f3ebdd;
+  color: #1c1916;
+}
+
+.band-nav {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 30;
+  background: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   padding: 0.9rem 0;
   margin-bottom: 0;
-  border-bottom: 1px solid var(--line);
-  background: #000;
+  border-bottom: 0;
+  background: transparent;
 }
 
 .nav-brand {
@@ -165,6 +189,35 @@ a:hover {
   line-height: 1.4;
 }
 
+.orbit-break {
+  position: relative;
+  height: 12.5rem;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
+}
+
+.orbit-break img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 48% 58%;
+}
+
+.orbit-break::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.28) 32%,
+    rgba(0, 0, 0, 0.22) 68%,
+    #000 100%
+  );
+}
+
 .section-lede {
   margin: 0.75rem 0 0;
   max-width: 38rem;
@@ -184,8 +237,38 @@ a:hover {
 
 .job {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(11rem, 18rem);
+  column-gap: 1.75rem;
+  align-items: start;
   padding: 4.5rem 0;
-  border-top: 1px solid var(--line);
+  border-top: 0;
+}
+
+.job-copy {
+  min-width: 0;
+}
+
+.job-art {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  pointer-events: none;
+}
+
+.job-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.42;
+}
+
+.band-cream .job-art img {
+  opacity: 0.88;
+}
+
+.job-stage {
+  grid-column: 1 / -1;
 }
 
 .job-number {
@@ -1220,7 +1303,7 @@ a:hover {
 .gallery,
 .quotes {
   padding: 4.5rem 0;
-  border-top: 1px solid var(--line);
+  border-top: 0;
 }
 
 .gallery h2,
@@ -1303,7 +1386,7 @@ a:hover {
 }
 
 .site-footer {
-  padding-top: 3rem;
+  padding: 3rem 0 5.5rem;
   border-top: 1px solid var(--line);
 }
 
@@ -1463,7 +1546,7 @@ a:hover {
   z-index: 1;
   padding: 4.5rem 0 4rem;
   overflow: visible;
-  background: #000;
+  background: transparent;
 }
 
 .roster h2,
@@ -1557,6 +1640,70 @@ a:hover {
 .org-box:focus-visible .org-name {
   color: #fff;
   text-decoration: none;
+}
+
+.band-cream h2,
+.band-cream .roster h2,
+.band-cream .quotes h2,
+.band-cream .job-title,
+.band-cream .org-name,
+.band-cream .quote-name,
+.band-cream .clip-title {
+  color: #1c1916;
+}
+
+.band-cream .section-lede,
+.band-cream .job-bot,
+.band-cream .job-number,
+.band-cream .org-blurb,
+.band-cream .clip-caption,
+.band-cream .clip-used,
+.band-cream .quote-handle,
+.band-cream .quote-source {
+  color: #6e675e;
+}
+
+.band-cream .org-box {
+  background: rgba(255, 251, 245, 0.55);
+  border-color: rgba(28, 25, 22, 0.12);
+}
+
+.band-cream .org-box:hover,
+.band-cream .org-box:focus-visible {
+  background: #fffaf3;
+  border-color: rgba(28, 25, 22, 0.22);
+}
+
+.band-cream .org-box:hover .org-name,
+.band-cream .org-box:focus-visible .org-name {
+  color: #111;
+}
+
+.band-cream .org-stem,
+.band-cream .org-bar,
+.band-cream .org-kid::before {
+  background: rgba(28, 25, 22, 0.2);
+}
+
+.band-cream .demo-tools button,
+.band-cream .demo-tools input {
+  color: #1c1916;
+  border-color: rgba(28, 25, 22, 0.18);
+}
+
+.band-cream .gb-product {
+  box-shadow: 0 18px 50px rgba(28, 25, 22, 0.12);
+}
+
+.band-cream .clip-used a:hover,
+.band-cream .quote-source:hover {
+  color: #1c1916;
+}
+
+.gallery,
+.quotes {
+  padding: 4.5rem 0;
+  border-top: 0;
 }
 
 .org-connect {
@@ -2327,9 +2474,10 @@ a:hover {
 }
 
 @media (max-width: 800px) {
+  .band-inner,
   .page {
     width: 100%;
-    padding: 0 max(1.5rem, env(safe-area-inset-right)) 5.5rem
+    padding: 0 max(1.5rem, env(safe-area-inset-right)) 0
       max(1.5rem, env(safe-area-inset-left));
   }
 
@@ -2398,7 +2546,15 @@ a:hover {
   }
 
   .job {
+    display: flex;
+    flex-direction: column;
     padding: 3rem 0;
+  }
+
+  .job-art {
+    order: -1;
+    width: min(16.5rem, 78%);
+    margin: 0 0 1rem;
   }
 
   .job-title {
