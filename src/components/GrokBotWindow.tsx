@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { FLEET } from "@/data/fleet";
 import { beatFor } from "@/data/screens";
 import type { CroJob } from "@/data/types";
 import type { DemoPlayback } from "@/hooks/useDemoPlayback";
 import { DEFAULT_ACCOUNT } from "@/lib/account";
 import { ArtifactCard } from "./ArtifactCard";
 import { BotComputer } from "./BotComputer";
-import { GrokFace } from "./GrokFace";
 
 function TypingDots({ name }: { name: string }) {
   return (
@@ -51,7 +49,6 @@ export function GrokBotWindow({
 
   const streamRef = useRef<HTMLDivElement>(null);
   const threadBots = liveThread.participants.filter((p) => p.role === "bot");
-  const threadIds = new Set(threadBots.map((p) => p.id));
   const speaking =
     typingFrom ||
     (current && people[current.from]?.role === "bot" ? current.from : null);
@@ -60,20 +57,12 @@ export function GrokBotWindow({
       job.id,
       typingFrom ? messages[visibleCount]?.id : current?.id,
     ) || beatFor(job.id, messages[0]?.id);
-  const group =
-    threadBots.length > 2
-      ? liveThread.title
-      : null;
 
   useEffect(() => {
     const stream = streamRef.current;
     if (!stream) return;
     stream.scrollTo({ top: stream.scrollHeight, behavior: "smooth" });
   }, [visibleCount, typingFrom]);
-
-  const extras = threadBots.filter(
-    (bot) => !FLEET.some((item) => item.id === bot.id),
-  );
 
   return (
     <div className="gb-window" aria-label="Grok Bot">
@@ -83,9 +72,8 @@ export function GrokBotWindow({
           <i />
           <i />
         </span>
-        <GrokFace size={16} />
         <strong>Grok Bot</strong>
-        {beat ? <em className="gb-pill">{beat.pill}</em> : null}
+        <span className="gb-status">{beat?.pill}</span>
         <div className="gb-title-actions">
           <button
             type="button"
@@ -96,73 +84,22 @@ export function GrokBotWindow({
         </div>
       </div>
 
-      <div className="gb-body">
-        <aside className="gb-sidebar">
-          <div className="gb-grok">
-            <GrokFace size={28} />
-            <div>
-              <strong>Grok</strong>
-              <span>SpaceXAI</span>
-            </div>
-          </div>
-          <p className="gb-kicker">Bots</p>
-          <ul>
-            {FLEET.map((bot) => {
-              const inThread = threadIds.has(bot.id);
-              const active = speaking === bot.id;
-              return (
-                <li key={bot.id}>
-                  <a
-                    href={`#${bot.jobId}`}
-                    className={`gb-bot${inThread ? " in-thread" : ""}${active ? " is-active" : ""}`}
-                  >
-                    <i style={{ background: bot.color }} />
-                    <span>
-                      <b>{bot.name}</b>
-                      <em>{bot.blurb}</em>
-                    </span>
-                  </a>
-                </li>
-              );
-            })}
-            {extras.map((bot) => (
-              <li key={bot.id}>
-                <span
-                  className={`gb-bot in-thread${speaking === bot.id ? " is-active" : ""}`}
-                >
-                  <i style={{ background: bot.color || "#34C759" }} />
-                  <span>
-                    <b>{bot.name}</b>
-                    <em>{bot.persona}</em>
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
-          {group ? (
-            <>
-              <p className="gb-kicker">Group chats</p>
-              <div className={`gb-bot in-thread${threadBots.length > 2 ? " is-active" : ""}`}>
-                <i />
-                <span>
-                  <b>{group}</b>
-                  <em>{threadBots.map((p) => p.name).join(" · ")}</em>
-                </span>
-              </div>
-            </>
-          ) : null}
-        </aside>
+      <div className="gb-strip">
+        {threadBots.map((bot) => (
+          <span
+            key={bot.id}
+            className={speaking === bot.id ? "is-on" : undefined}
+          >
+            {bot.name}
+          </span>
+        ))}
+        <em>
+          {Math.min(visibleCount, messages.length)}/{messages.length}
+        </em>
+      </div>
 
+      <div className="gb-body">
         <section className="gb-chat">
-          <header className="gb-chat-header">
-            <div>
-              <h3>{liveThread.title}</h3>
-              <p>{liveThread.subtitle}</p>
-            </div>
-            <span className="gb-honesty">
-              {Math.min(visibleCount, messages.length)}/{messages.length}
-            </span>
-          </header>
           <div className="gb-stream" ref={streamRef} role="log" aria-live="polite">
             {visible.map((message) => {
               const who = people[message.from];
@@ -243,7 +180,7 @@ export function GrokBotWindow({
             <input
               value={draftAccount}
               onChange={(event) => setDraftAccount(event.target.value)}
-              placeholder={`Message ${liveThread.title} · account ${DEFAULT_ACCOUNT}`}
+              placeholder={`Account name · ${DEFAULT_ACCOUNT}`}
               aria-label="Swap the account in this thread"
             />
             <button type="submit">Use name</button>

@@ -125,8 +125,9 @@ export type DemoThread = {
 export type Clip = {
   id: ClipId;
   file: string;
+  poster: string;
   title: string;
-  blurb: string;
+  caption: string;
 };
 
 export type CroJob = {

@@ -1,25 +1,4 @@
 import { FLEET } from "@/data/fleet";
-import { GrokFace } from "./GrokFace";
-
-function Box({
-  href,
-  title,
-  blurb,
-  color,
-}: {
-  href: string;
-  title: string;
-  blurb: string;
-  color: string;
-}) {
-  return (
-    <a className="roster-box" href={href}>
-      <i style={{ background: color }} />
-      <strong>{title}</strong>
-      <span>{blurb}</span>
-    </a>
-  );
-}
 
 function bot(id: string) {
   const found = FLEET.find((item) => item.id === id);
@@ -27,76 +6,76 @@ function bot(id: string) {
   return found;
 }
 
+function Cell({
+  href,
+  title,
+  blurb,
+}: {
+  href: string;
+  title: string;
+  blurb: string;
+}) {
+  return (
+    <a className="roster-cell" href={href}>
+      <strong>{title}</strong>
+      <span>{blurb}</span>
+    </a>
+  );
+}
+
 export function RosterChart() {
   const cos = bot("cos");
   const line = ["room", "attach", "expert", "desk", "forecast"].map(bot);
   const sko = FLEET.filter((item) => item.cluster === "sko");
-  const bottom = ["coach", "buyer", "eng", "prospect"].map(bot);
+  const ramp = ["coach", "buyer", "eng", "prospect"].map(bot);
 
   return (
     <section id="roster" className="roster">
-      <p className="job-number">Example roster</p>
-      <h2>A Grok Bot fleet for Datadog GTM</h2>
+      <h2>Example roster</h2>
       <p className="section-lede">
-        Chief of Staff on top. Specialists underneath. SKO lives in a group
-        chat. Click a box to open that job.
+        Chief of Staff at the top. Specialists underneath. SKO is a group chat.
+        Click a name to open that job.
       </p>
 
-      <div className="roster-tree">
-        <Box
-          href={`#${cos.jobId}`}
-          title={cos.name}
-          blurb={cos.blurb}
-          color={cos.color}
-        />
-        <div className="roster-stem" aria-hidden />
-        <div className="roster-bar" aria-hidden />
+      <div className="roster-chart">
+        <div className="roster-row chief">
+          <Cell href={`#${cos.jobId}`} title={cos.name} blurb={cos.blurb} />
+        </div>
         <div className="roster-row">
-          {line.map((bot) => (
-            <div key={bot.id} className="roster-cell">
-              <div className="roster-stem short" aria-hidden />
-              <Box
-                href={`#${bot.jobId}`}
-                title={bot.name}
-                blurb={bot.blurb}
-                color={bot.color}
-              />
-            </div>
+          {line.map((item) => (
+            <Cell
+              key={item.id}
+              href={`#${item.jobId}`}
+              title={item.name}
+              blurb={item.blurb}
+            />
           ))}
         </div>
-        <div className="roster-stem" aria-hidden />
-        <div className="roster-cluster">
-          <p>SKO group chat</p>
-          <div className="roster-row tight">
-            {sko.map((bot) => (
-              <Box
-                key={bot.id}
-                href={`#${bot.jobId}`}
-                title={bot.name}
-                blurb={bot.blurb}
-                color={bot.color}
-              />
-            ))}
-          </div>
+        <p className="roster-label">SKO group chat</p>
+        <div className="roster-row two">
+          {sko.map((item) => (
+            <Cell
+              key={item.id}
+              href={`#${item.jobId}`}
+              title={item.name}
+              blurb={item.blurb}
+            />
+          ))}
         </div>
-        <div className="roster-stem" aria-hidden />
+        <p className="roster-label">Ramp</p>
         <div className="roster-row four">
-          {bottom.map((bot) => (
-            <div key={bot.id} className="roster-cell">
-              <div className="roster-stem short" aria-hidden />
-              <Box
-                href={`#${bot.jobId}`}
-                title={bot.name}
-                blurb={bot.blurb}
-                color={bot.color}
-              />
-            </div>
+          {ramp.map((item) => (
+            <Cell
+              key={item.id}
+              href={`#${item.jobId}`}
+              title={item.name}
+              blurb={item.blurb}
+            />
           ))}
         </div>
       </div>
       <p className="roster-note">
-        <GrokFace size={18} /> Grok Bot from SpaceXAI. This is an example
-        fleet, not a live org.
+        Grok Bot from SpaceXAI. Example fleet, not a live org.
       </p>
     </section>
   );

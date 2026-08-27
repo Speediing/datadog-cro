@@ -7,7 +7,7 @@ export function BrandLockup({
     <div className={`brand-lockup brand-lockup-${size}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/brand/dd_horizontal_white.png"
+        src="/brand/dd_horizontal_white_clear.png"
         alt="Datadog"
         className="brand-dd"
       />

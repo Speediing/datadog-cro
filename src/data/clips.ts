@@ -1,54 +1,60 @@
 import type { Clip, ClipId } from "./types";
 
+function clip(
+  id: ClipId,
+  title: string,
+  caption: string,
+): Clip {
+  return {
+    id,
+    file: `/api/media/krista-clips/${id}.mp4`,
+    poster: `/media/krista-clips/${id}.jpg`,
+    title,
+    caption,
+  };
+}
+
 export const CLIPS: Record<ClipId, Clip> = {
-  "01-morning-inbox": {
-    id: "01-morning-inbox",
-    file: "/api/media/krista-clips/01-morning-inbox.mp4",
-    title: "Morning inbox",
-    blurb: "Krista opens the day with a bot that triages before she does.",
-  },
-  "02-prospecting-pg": {
-    id: "02-prospecting-pg",
-    file: "/api/media/krista-clips/02-prospecting-pg.mp4",
-    title: "Prospecting",
-    blurb: "A practice loop that sounds like a real first call, not a script dump.",
-  },
-  "03-slides-granola": {
-    id: "03-slides-granola",
-    file: "/api/media/krista-clips/03-slides-granola.mp4",
-    title: "Slides from the room",
-    blurb: "Granola notes become the next deck and the leave-behind while you are still in the meeting.",
-  },
-  "04-engineer-bugbot": {
-    id: "04-engineer-bugbot",
-    file: "/api/media/krista-clips/04-engineer-bugbot.mp4",
-    title: "Practice partner",
-    blurb: "A bot that pushes back like a skeptical buyer, so ramp is not just shadowing.",
-  },
-  "05-forecast-sfdc": {
-    id: "05-forecast-sfdc",
-    file: "/api/media/krista-clips/05-forecast-sfdc.mp4",
-    title: "Forecast from the book",
-    blurb: "Pipeline notes in, Monday questions and a one-paragraph forecast out.",
-  },
-  "06-customer-expert": {
-    id: "06-customer-expert",
-    file: "/api/media/krista-clips/06-customer-expert.mp4",
-    title: "Customer expert",
-    blurb: "Who owns the next product attach, and what meeting lands it.",
-  },
-  "07-customer-exec-brief": {
-    id: "07-customer-exec-brief",
-    file: "/api/media/krista-clips/07-customer-exec-brief.mp4",
-    title: "Exec brief",
-    blurb: "The altitude view of a deal you cannot sit in every hour of.",
-  },
-  "08-chief-groupchat": {
-    id: "08-chief-groupchat",
-    file: "/api/media/krista-clips/08-chief-groupchat.mp4",
-    title: "Chief group chat",
-    blurb: "One launch story routed into talk tracks the whole org can repeat.",
-  },
+  "01-morning-inbox": clip(
+    "01-morning-inbox",
+    "Morning inbox",
+    "She sets a 7:30am weekday scan. The bot flags what needs a reply and stays quiet if the inbox is empty.",
+  ),
+  "02-prospecting-pg": clip(
+    "02-prospecting-pg",
+    "Prospecting",
+    "Five drafted emails sit in the Prospecting bot. None of them send until she says so.",
+  ),
+  "03-slides-granola": clip(
+    "03-slides-granola",
+    "Slides from the room",
+    "Granola notes in. The Slides bot writes the Northstar What we heard cards while she is still on the call.",
+  ),
+  "04-engineer-bugbot": clip(
+    "04-engineer-bugbot",
+    "Engineer",
+    "Engineer bot, wired to the repo, answers a customer setup question without her leaving the thread.",
+  ),
+  "05-forecast-sfdc": clip(
+    "05-forecast-sfdc",
+    "Forecast",
+    "She dumps the week's demo notes. Forecasting writes the next steps in the format her manager actually wants.",
+  ),
+  "06-customer-expert": clip(
+    "06-customer-expert",
+    "Customer expert",
+    "Customer Expert on Candlewick: who is in the account, what they use, and the questions sitting in Slack.",
+  ),
+  "07-customer-exec-brief": clip(
+    "07-customer-exec-brief",
+    "Exec brief",
+    "She asks Customer Expert to turn what it just watched her do into an exec brief.",
+  ),
+  "08-chief-groupchat": clip(
+    "08-chief-groupchat",
+    "Chief group chat",
+    "She opens a group channel, drops in Chief of Staff plus Slides and Engineer, and splits the work.",
+  ),
 };
 
 export const ALL_CLIPS: Clip[] = Object.values(CLIPS);
