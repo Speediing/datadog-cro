@@ -12,6 +12,10 @@ export default function HomePage() {
       <SiteNav />
 
       <header className="hero">
+        <div className="hero-wash" aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/watercolor-pad.png" alt="" />
+        </div>
         <BrandLockup size="md" />
         <p className="hero-line">Grok Bot for Datadog GTM</p>
       </header>
