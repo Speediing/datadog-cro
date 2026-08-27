@@ -627,9 +627,6 @@ export const JOBS: CroJob[] = [
           from: "coach",
           kind: "draft",
           draftLabel: "First-90-day deal kit",
-<<<<<<< HEAD
-          body: "Week 1-2: territory map + 10 accounts with land-2 hypothesis\nWeek 3-6: three live discovery calls with Coach debrief\nWeek 7-12: one expand motion on an existing land, with Attach Mapper\nArtifacts: talk tracks, objection cards, champion packet template.",
-=======
           artifact: {
             kind: "deal-kit",
             title: "Open territory kit",
@@ -660,7 +657,6 @@ export const JOBS: CroJob[] = [
           from: "coach",
           kind: "system",
           body: "Practice only. Nothing went to a live account. Run the drill again before you burn a Fortune 500 cycle.",
->>>>>>> b073bcd (Show the Grok Bot computer next to each Datadog job)
         },
       ],
     },
