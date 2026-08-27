@@ -352,7 +352,7 @@ button:active:not(:focus-visible),
 }
 
 .brand-lockup-sm {
-  --dd-h: 22px;
+  --dd-h: 24px;
 }
 
 .brand-lockup-md,
