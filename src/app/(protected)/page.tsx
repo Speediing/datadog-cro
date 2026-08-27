@@ -1,19 +1,15 @@
-import dynamic from "next/dynamic";
 import { JobSection } from "@/components/JobSection";
 import { QuoteWall } from "@/components/QuoteWall";
 import { SiteNav } from "@/components/SiteNav";
 import { BrandLockup } from "@/components/BrandLockup";
 import { RosterChart } from "@/components/RosterChart";
+import { NightRocketMount } from "@/components/NightRocketMount";
 import { JOBS } from "@/data/jobs";
-
-const NightRocket = dynamic(() => import("@/components/NightRocket"), {
-  ssr: false,
-});
 
 export default function HomePage() {
   return (
     <main id="top">
-      <NightRocket />
+      <NightRocketMount />
       <div className="band band-dark band-nav">
         <div className="band-inner">
           <SiteNav />
