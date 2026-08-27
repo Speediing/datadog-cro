@@ -53,6 +53,7 @@ function Box({
 
 const SPECIALISTS = [
   { id: "room", blurb: "Turns Granola into the next pack." },
+  { id: "paper", blurb: "Reads Europe redlines overnight. Draft in the morning." },
   { id: "attach", blurb: "90-day plan for the next products." },
   { id: "expert", blurb: "Who is in the account and what they use." },
   { id: "desk", blurb: "Paste the pipeline. Names the gaps." },

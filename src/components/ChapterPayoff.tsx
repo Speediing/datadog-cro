@@ -161,6 +161,51 @@ function BetterAnswer({
   );
 }
 
+function RedlinePack({
+  artifact,
+}: {
+  artifact: Extract<Artifact, { kind: "redlines" }>;
+}) {
+  return (
+    <div className="leave leave-paper">
+      <header className="leave-paper-top">
+        <div>
+          <p className="leave-kicker">Europe overnight</p>
+          <h3>{artifact.title}</h3>
+        </div>
+        <p className="leave-paper-from">{artifact.from}</p>
+      </header>
+      <div className="leave-paper-split">
+        <section className="leave-marks">
+          <p className="leave-kicker">{artifact.paperTitle}</p>
+          <ol>
+            {artifact.marks.map((mark) => (
+              <li key={mark.text} className={mark.take ? "is-take" : "is-hold"}>
+                <p className="leave-mark-line">{mark.text}</p>
+                <p className="leave-mark-note">
+                  <b>{mark.take ? "Take" : "Hold"}.</b> {mark.note}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
+        <section className="leave-reply">
+          <p className="leave-kicker">Draft reply · not sent</p>
+          <p className="leave-reply-meta">
+            <span>To</span>
+            {artifact.reply.to}
+          </p>
+          <p className="leave-reply-meta">
+            <span>Subject</span>
+            {artifact.reply.subject}
+          </p>
+          <p className="leave-reply-body">{artifact.reply.body}</p>
+        </section>
+      </div>
+    </div>
+  );
+}
+
 export function ChapterPayoff({
   beat,
   wash,
@@ -176,6 +221,8 @@ export function ChapterPayoff({
   let body = null;
   if (slides?.length) {
     body = <HeardSlide slides={slides} size="lg" wash={wash} />;
+  } else if (artifact?.kind === "redlines") {
+    body = <RedlinePack artifact={artifact} />;
   } else if (artifact?.kind === "attach-map") {
     body = <AttachMap artifact={artifact} />;
   } else if (artifact?.kind === "forecast") {

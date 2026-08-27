@@ -5,6 +5,7 @@ import { JobMore } from "./JobMore";
 
 const JOB_ART: Record<JobId, string> = {
   "standardize-room": "/brand/watercolor-room.png",
+  "legal-redlines": "/brand/watercolor-deal.png",
   "attach-engine": "/brand/watercolor-attach.png",
   "deal-inspection": "/brand/watercolor-deal.png",
   "sko-enablement": "/brand/watercolor-sko.png",

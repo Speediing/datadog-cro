@@ -24,7 +24,7 @@ export default function HomePage() {
         <div className="band-inner">
           <BrandLockup size="md" />
           <p className="hero-line">
-            A bot that helps Datadog sales. Five jobs, from this call to the
+            A bot that helps Datadog sales. Six jobs, from this call to the
             next meeting.
           </p>
         </div>

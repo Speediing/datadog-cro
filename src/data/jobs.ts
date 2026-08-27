@@ -202,8 +202,163 @@ export const JOBS: CroJob[] = [
     },
   },
   {
-    id: "attach-engine",
+    id: "legal-redlines",
     number: 2,
+    title: "Redlines from Europe",
+    problem:
+      "Legal sits in Europe. You do not. Redlines land while you are asleep. Normally you wait another night for someone to even read the markups, and the deal goes quiet.",
+    botJob:
+      "Grok Bot already read the email and the redlines overnight. A draft is waiting in the morning: what we can take, what we push back. Draft only. You approve.",
+    storyboard: [
+      {
+        when: "2:14am your time",
+        label: "Legal in Europe sends a marked-up paper. You are still asleep.",
+        scene: "notes",
+      },
+      {
+        when: "7:42am",
+        label: "You open the inbox. A pile of red ink landed overnight.",
+        scene: "inspect",
+      },
+      {
+        when: "Still morning",
+        label: "Grok Bot already read the redlines. A draft is waiting.",
+        scene: "send",
+      },
+      {
+        when: "Before Europe logs off",
+        label: "What we take. What we push back. You can send today.",
+        scene: "send",
+        artifact: {
+          kind: "redlines",
+          title: "Acme paper · marked up overnight",
+          paperTitle: "Acme master agreement",
+          from: "Acme legal, Europe · 2:14am your time",
+          marks: [
+            {
+              text: "Datadog may use usage data to improve the service.",
+              note: "Strike. They want this gone.",
+              take: true,
+            },
+            {
+              text: "Liability cap: 12 months of fees.",
+              note: "They want 6 months. We hold 12.",
+              take: false,
+            },
+            {
+              text: "Security review in 10 business days.",
+              note: "They want 5. We can do 10 with a named owner.",
+              take: false,
+            },
+            {
+              text: "Auto-renew unless 90 days notice.",
+              note: "They want 30. Take 60 as the middle.",
+              take: true,
+            },
+          ],
+          reply: {
+            to: "Acme legal, your contact",
+            subject: "Acme paper. What we can take today",
+            body: "Thanks for the markup. We can take the usage-data strike and meet in the middle on auto-renew at 60 days notice. We hold the 12-month liability cap. Security review stays 10 business days, with a named owner on our side. Draft only until you tap Send.",
+          },
+        },
+      },
+    ],
+    unlock:
+      "A marked-up paper from Europe plus a reply waiting in the morning.",
+    outcome:
+      "Legal sits in Europe. The draft is waiting in the morning. Time zones stop being a week of delay.",
+    clips: ["01-morning-inbox"],
+    demo: {
+      title: "Paper",
+      subtitle: "Europe redlines · draft waiting",
+      participants: [
+        { id: "you", name: "You", role: "you" },
+        {
+          id: "paper",
+          name: "Paper",
+          role: "bot",
+          persona: "Reads overnight redlines and drafts the morning reply",
+          color: "#FF375F",
+        },
+      ],
+      messages: [
+        {
+          id: "m1",
+          from: "you",
+          kind: "text",
+          body: "Legal in Europe dumped a marked-up Acme paper while I was asleep. Lots of redlines. Lots of comments. This usually waits another night just to get read.",
+        },
+        {
+          id: "m2",
+          from: "paper",
+          kind: "text",
+          body: "Already read it overnight. Fourteen comments. Four that move the deal. Draft is waiting in your morning. What we take, what we push back. Nothing sent.",
+        },
+        {
+          id: "m3",
+          from: "paper",
+          kind: "draft",
+          draftLabel: "Marked-up paper + reply",
+          artifact: {
+            kind: "redlines",
+            title: "Acme paper · marked up overnight",
+            paperTitle: "Acme master agreement",
+            from: "Acme legal, Europe · 2:14am your time",
+            marks: [
+              {
+                text: "Datadog may use usage data to improve the service.",
+                note: "Strike. They want this gone.",
+                take: true,
+              },
+              {
+                text: "Liability cap: 12 months of fees.",
+                note: "They want 6 months. We hold 12.",
+                take: false,
+              },
+              {
+                text: "Security review in 10 business days.",
+                note: "They want 5. We can do 10 with a named owner.",
+                take: false,
+              },
+              {
+                text: "Auto-renew unless 90 days notice.",
+                note: "They want 30. Take 60 as the middle.",
+                take: true,
+              },
+            ],
+            reply: {
+              to: "Acme legal, your contact",
+              subject: "Acme paper. What we can take today",
+              body: "Thanks for the markup. We can take the usage-data strike and meet in the middle on auto-renew at 60 days notice. We hold the 12-month liability cap. Security review stays 10 business days, with a named owner on our side. Draft only until you tap Send.",
+            },
+          },
+        },
+        {
+          id: "m4",
+          from: "paper",
+          kind: "draft",
+          draftLabel: "Gmail reply · not sent",
+          artifact: {
+            kind: "gmail",
+            title: "Reply to Acme legal",
+            to: "Acme legal, your contact",
+            subject: "Acme paper. What we can take today",
+            body: "Thanks for the markup. We can take the usage-data strike and meet in the middle on auto-renew at 60 days notice. We hold the 12-month liability cap. Security review stays 10 business days, with a named owner on our side. Nothing else moves today.",
+          },
+        },
+        {
+          id: "m5",
+          from: "paper",
+          kind: "system",
+          body: "Nothing sent. The reply stays a draft until you tap Send.",
+        },
+      ],
+    },
+  },
+  {
+    id: "attach-engine",
+    number: 3,
     title: "More products in the account",
     problem:
       "You close APM and Logs. Then the deal stalls. Nobody owns the next product. The next meeting never gets a date.",
@@ -411,7 +566,7 @@ export const JOBS: CroJob[] = [
   },
   {
     id: "deal-inspection",
-    number: 3,
+    number: 4,
     title: "Check a big deal from your desk",
     problem:
       "You cannot sit in every $1M+ deal. Gaps show up late. The note you take to your boss stays vague.",
@@ -580,7 +735,7 @@ export const JOBS: CroJob[] = [
   },
   {
     id: "sko-enablement",
-    number: 4,
+    number: 5,
     title: "One story the whole team says",
     problem:
       "You already do a kickoff talk. By Friday the story is a Slack thread. A global sales team needs one Bits AI line they can say out loud.",
@@ -759,7 +914,7 @@ export const JOBS: CroJob[] = [
   },
   {
     id: "ramp-compression",
-    number: 5,
+    number: 6,
     title: "Practice before a real customer",
     problem:
       "Enterprise sales at Datadog is a long interview loop. Pitch. Who buys. Open source is good enough. Shadowing the top account exec for a quarter is too slow for the book you want.",

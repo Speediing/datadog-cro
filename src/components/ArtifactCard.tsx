@@ -165,6 +165,21 @@ export function ArtifactCard({ artifact }: { artifact: Artifact }) {
           <p className="slack-body">{artifact.body}</p>
         </div>
       );
+    case "redlines":
+      return (
+        <div className="art art-doc">
+          <p className="art-kicker">{artifact.title}</p>
+          <ul>
+            {artifact.marks.map((mark) => (
+              <li key={mark.text}>
+                <p className="art-label">{mark.take ? "Take" : "Hold"}</p>
+                <p>{mark.note}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="art-caption">{artifact.reply.subject}</p>
+        </div>
+      );
     case "attach-map":
       return (
         <div className="art art-sheet">

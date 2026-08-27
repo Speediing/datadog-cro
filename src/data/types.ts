@@ -10,6 +10,7 @@ export type ClipId =
 
 export type JobId =
   | "standardize-room"
+  | "legal-redlines"
   | "attach-engine"
   | "deal-inspection"
   | "sko-enablement"
@@ -132,6 +133,14 @@ export type Artifact =
       title: string;
       weeks: { label: string; body: string }[];
       pack: string[];
+    }
+  | {
+      kind: "redlines";
+      title: string;
+      paperTitle: string;
+      from: string;
+      marks: { text: string; note: string; take: boolean }[];
+      reply: { to: string; subject: string; body: string };
     }
   | {
       kind: "gmail";

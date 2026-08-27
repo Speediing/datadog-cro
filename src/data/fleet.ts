@@ -25,6 +25,13 @@ export const FLEET: FleetBot[] = [
     color: "#34C759",
   },
   {
+    id: "paper",
+    name: "Paper",
+    blurb: "Reads Europe redlines overnight. Draft waiting in the morning",
+    jobId: "legal-redlines",
+    color: "#FF375F",
+  },
+  {
     id: "attach",
     name: "Account Mapper",
     blurb: "90-day plan for the next products",
