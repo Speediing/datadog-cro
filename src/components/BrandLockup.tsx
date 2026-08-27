@@ -14,7 +14,7 @@ export function BrandLockup({
         src={
           invert
             ? "/brand/dd_horizontal_white_clear.png"
-            : "/brand/dd_horizontal_purple.png"
+            : "/brand/dd_horizontal_purple_clear.png"
         }
         alt="Datadog"
         className="brand-dd"
