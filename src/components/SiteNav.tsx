@@ -1,10 +1,11 @@
 import { JOBS } from "@/data/jobs";
+import { BrandLockup } from "./BrandLockup";
 
 export function SiteNav() {
   return (
     <nav className="site-nav" aria-label="On this page">
       <a href="#top" className="nav-brand">
-        Grok Bot
+        <BrandLockup size="sm" />
       </a>
       <div className="nav-links">
         {JOBS.map((job) => (

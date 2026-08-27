@@ -3,11 +3,7 @@ import { QUOTES } from "@/data/quotes";
 export function QuoteWall() {
   return (
     <section id="quotes" className="quotes">
-      <h2>What people say about Grok Bot</h2>
-      <p className="section-lede">
-        Public praise, pulled from the live Grok Bot quotes wall. Social proof
-        belongs here at the end, after the jobs.
-      </p>
+      <h2>Grok Bot quotes</h2>
       <div className="quote-grid">
         {QUOTES.map((quote) => (
           <article

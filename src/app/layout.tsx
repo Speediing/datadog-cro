@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
-import { Fraunces, Source_Sans_3 } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const display = Fraunces({
-  variable: "--font-display",
-  subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
-});
-
-const sans = Source_Sans_3({
+const sans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Grok Bot · Datadog CRO follow-up",
-  description:
-    "Five GTM jobs for Datadog, with interactive Grok Bot demos and Krista GTM clips.",
+  title: "Grok Bot for Datadog GTM",
+  description: "Grok Bot for Datadog GTM",
   robots: {
     index: false,
     follow: false,
@@ -34,9 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${display.variable} ${sans.variable}`}>
-        {children}
-      </body>
+      <body className={`${sans.variable} ${sans.className}`}>{children}</body>
     </html>
   );
 }

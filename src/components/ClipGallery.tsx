@@ -5,8 +5,8 @@ export function ClipGallery() {
     <section id="gallery" className="gallery">
       <h2>Krista GTM clips</h2>
       <p className="section-lede">
-        Eight short cuts from Krista Letz&apos;s GTM Space. Native video, same
-        phone chrome as the demos. Not the full 58-minute recording.
+        Eight short cuts from Krista Letz&apos;s GTM Space. Native video. Not
+        the full 58-minute recording.
       </p>
       <div className="gallery-grid">
         {ALL_CLIPS.map((clip) => (

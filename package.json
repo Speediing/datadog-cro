@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "sync-clips": "node scripts/sync-clips.mjs",
+    "dev": "npm run sync-clips && next dev",
+    "build": "npm run sync-clips && next build",
     "start": "next start",
     "lint": "eslint"
   },

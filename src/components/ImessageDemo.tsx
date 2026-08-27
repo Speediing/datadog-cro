@@ -1,53 +1,75 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import type { DemoThread, Participant } from "@/data/types";
+import { useEffect, useRef } from "react";
+import { DEFAULT_ACCOUNT } from "@/lib/account";
+import type { DemoPlayback } from "@/hooks/useDemoPlayback";
+import { ArtifactCard } from "./ArtifactCard";
 
-function participantMap(thread: DemoThread): Record<string, Participant> {
-  return Object.fromEntries(thread.participants.map((p) => [p.id, p]));
+function TypingDots({ name }: { name: string }) {
+  return (
+    <div className="imessage-row bot">
+      <div className="imessage-meta">{name} is typing</div>
+      <div className="imessage-bubble bot typing" aria-label={`${name} is typing`}>
+        <span />
+        <span />
+        <span />
+      </div>
+    </div>
+  );
 }
 
-export function ImessageDemo({ thread }: { thread: DemoThread }) {
-  const people = useMemo(() => participantMap(thread), [thread]);
-  const [visibleCount, setVisibleCount] = useState(1);
-  const [sentDrafts, setSentDrafts] = useState<Record<string, boolean>>({});
+export function ImessageDemo({ playback }: { playback: DemoPlayback }) {
+  const {
+    liveThread,
+    people,
+    visible,
+    visibleCount,
+    messages,
+    playing,
+    done,
+    typingFrom,
+    sentDrafts,
+    draftAccount,
+    setDraftAccount,
+    setPlaying,
+    sendDraft,
+    replay,
+    applyAccount,
+  } = playback;
+  const streamRef = useRef<HTMLDivElement>(null);
+  const bots = liveThread.participants.filter((p) => p.role === "bot");
 
-  const visible = thread.messages.slice(0, visibleCount);
-  const done = visibleCount >= thread.messages.length;
+  useEffect(() => {
+    const stream = streamRef.current;
+    if (!stream) return;
+    stream.scrollTo({ top: stream.scrollHeight, behavior: "smooth" });
+  }, [visibleCount, typingFrom]);
 
-  function advance() {
-    setVisibleCount((count) => Math.min(count + 1, thread.messages.length));
-  }
-
-  function sendDraft(id: string) {
-    setSentDrafts((prev) => ({ ...prev, [id]: true }));
-  }
+  const fieldId = `account-${liveThread.title.replace(/\s+/g, "-")}`;
 
   return (
     <div className="imessage">
       <div className="imessage-notch" aria-hidden />
       <header className="imessage-header">
         <div className="imessage-avatars">
-          {thread.participants
-            .filter((p) => p.role === "bot")
-            .map((p) => (
-              <span
-                key={p.id}
-                className="imessage-avatar"
-                style={{ background: p.color || "#34C759" }}
-                title={p.persona || p.name}
-              >
-                {p.name.slice(0, 1)}
-              </span>
-            ))}
+          {bots.map((p) => (
+            <span
+              key={p.id}
+              className="imessage-avatar"
+              style={{ background: p.color || "#34C759" }}
+              title={p.persona || p.name}
+            >
+              {p.name.slice(0, 1)}
+            </span>
+          ))}
         </div>
-        <div className="imessage-title-block">
-          <p className="imessage-title">{thread.title}</p>
-          <p className="imessage-subtitle">{thread.subtitle}</p>
+        <div>
+          <p className="imessage-title">{liveThread.title}</p>
+          <p className="imessage-subtitle">{liveThread.subtitle}</p>
         </div>
       </header>
 
-      <div className="imessage-thread" role="log" aria-live="polite">
+      <div className="imessage-thread" ref={streamRef} role="log" aria-live="polite">
         {visible.map((message) => {
           const who = people[message.from];
           const isYou = who?.role === "you";
@@ -67,12 +89,21 @@ export function ImessageDemo({ thread }: { thread: DemoThread }) {
             const sent = sentDrafts[message.id];
             return (
               <div key={message.id} className="imessage-row bot">
-                <div className="imessage-meta">{who?.name || "Bot"}</div>
+                <div className="imessage-meta">
+                  {who?.name || "Bot"} · draft
+                </div>
                 <div className="imessage-bubble bot draft">
-                  <p className="draft-label">
-                    {message.draftLabel || "Draft"} · not sent
-                  </p>
-                  <pre className="draft-body">{message.body}</pre>
+                  {message.draftLabel ? (
+                    <p className="draft-label">{message.draftLabel} · not sent</p>
+                  ) : (
+                    <p className="draft-label">Draft · not sent</p>
+                  )}
+                  {message.body ? (
+                    <pre className="draft-body">{message.body}</pre>
+                  ) : null}
+                  {message.artifact ? (
+                    <ArtifactCard artifact={message.artifact} />
+                  ) : null}
                   {sent ? (
                     <p className="draft-sent">Sent. You approved this one.</p>
                   ) : (
@@ -102,37 +133,50 @@ export function ImessageDemo({ thread }: { thread: DemoThread }) {
               )}
               <div className={`imessage-bubble ${isYou ? "you" : "bot"}`}>
                 {message.body}
+                {message.artifact ? (
+                  <ArtifactCard artifact={message.artifact} />
+                ) : null}
               </div>
             </div>
           );
         })}
+        {typingFrom ? (
+          <TypingDots name={people[typingFrom]?.name || "Bot"} />
+        ) : null}
       </div>
 
       <footer className="imessage-footer">
-        {done ? (
+        <div className="imessage-controls">
           <button
             type="button"
             className="imessage-advance"
-            onClick={() => {
-              setVisibleCount(1);
-              setSentDrafts({});
-            }}
+            onClick={() => (done ? replay() : setPlaying((value) => !value))}
           >
-            Replay thread
+            {done ? "Replay" : playing ? "Pause" : "Play"}
           </button>
-        ) : (
-          <button
-            type="button"
-            className="imessage-advance"
-            onClick={advance}
-          >
-            Continue
-          </button>
-        )}
+          {!done ? (
+            <button type="button" className="imessage-replay" onClick={replay}>
+              Replay
+            </button>
+          ) : null}
+        </div>
         <span className="imessage-progress">
-          {visibleCount}/{thread.messages.length}
+          {Math.min(visibleCount, messages.length)}/{messages.length}
         </span>
       </footer>
+
+      <form className="imessage-account" onSubmit={applyAccount}>
+        <label htmlFor={fieldId}>Swap the account in this thread</label>
+        <div>
+          <input
+            id={fieldId}
+            value={draftAccount}
+            onChange={(event) => setDraftAccount(event.target.value)}
+            placeholder={DEFAULT_ACCOUNT}
+          />
+          <button type="submit">Use name</button>
+        </div>
+      </form>
     </div>
   );
 }
