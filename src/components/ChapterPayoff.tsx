@@ -1,29 +1,5 @@
-import type { Artifact, SlideCard, StoryBeat } from "@/data/types";
-import { DeckSlides } from "./DeckSlides";
-
-function MeetingDeck({
-  slides,
-  wash,
-}: {
-  slides: SlideCard[];
-  wash?: string;
-}) {
-  return (
-    <div className="leave leave-deck">
-      {wash ? (
-        <div className="leave-wash" aria-hidden>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={wash} alt="" />
-        </div>
-      ) : null}
-      <header className="leave-deck-top">
-        <strong>Acme · Tuesday</strong>
-        <span>Next meeting</span>
-      </header>
-      <DeckSlides slides={slides} size="lg" />
-    </div>
-  );
-}
+import type { Artifact, StoryBeat } from "@/data/types";
+import { HeardSlide } from "./HeardSlide";
 
 function AttachMap({
   artifact,
@@ -188,16 +164,18 @@ function BetterAnswer({
 export function ChapterPayoff({
   beat,
   wash,
+  value,
 }: {
   beat: StoryBeat;
   wash?: string;
+  value?: string;
 }) {
   const slides = beat.slides;
   const artifact = beat.artifact;
 
   let body = null;
   if (slides?.length) {
-    body = <MeetingDeck slides={slides} wash={wash} />;
+    body = <HeardSlide slides={slides} size="lg" wash={wash} />;
   } else if (artifact?.kind === "attach-map") {
     body = <AttachMap artifact={artifact} />;
   } else if (artifact?.kind === "forecast") {
@@ -214,6 +192,7 @@ export function ChapterPayoff({
     <div className="chapter-payoff">
       <p className="payoff-label">{beat.label}</p>
       {body}
+      {value ? <p className="leave-value">{value}</p> : null}
     </div>
   );
 }

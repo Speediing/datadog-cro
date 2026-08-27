@@ -2,7 +2,7 @@ import type { Artifact, DemoMessage, SlideCard } from "@/data/types";
 import type { ComputerBeat } from "@/data/screens";
 import { CLIPS } from "@/data/clips";
 import { ACME_TAIL_SLIDES } from "@/data/jobs";
-import { DeckSlides } from "./DeckSlides";
+import { HeardSlide } from "./HeardSlide";
 
 function asSlides(artifact?: Artifact) {
   return artifact?.kind === "slides" ? artifact : null;
@@ -102,11 +102,9 @@ function GranolaScreen({ account }: { account: string }) {
     <div className="site site-granola">
       <header>
         <strong>Granola</strong>
-        <span>
-          {account} / Datadog
-        </span>
+        <span>Live · last 20 min</span>
       </header>
-      <p className="site-time">Today · last 20 min</p>
+      <p className="site-time">Still on the call · Granola in</p>
       <ul>
         <li>
           <span>14:12</span> Land-2 is APM + Logs in one squad. Not a platform
@@ -182,7 +180,7 @@ function FigmaScreen({
             ))}
           </div>
         ) : (
-          <DeckSlides slides={cards} size="sm" account={account} />
+          <HeardSlide slides={cards} size="sm" />
         )}
       </div>
     </div>

@@ -24,11 +24,15 @@ export function JobSection({ job }: { job: CroJob }) {
       <header className="job-lead">
         <p className="job-number">Job {job.number}</p>
         <h2 className="job-title">{job.title}</h2>
-        <p className="job-outcome">{job.outcome}</p>
+        <p className="job-value">{job.outcome}</p>
       </header>
       <Storyboard beats={lead} />
       {payoff ? (
-        <ChapterPayoff beat={payoff} wash={JOB_ART[job.id]} />
+        <ChapterPayoff
+          beat={payoff}
+          wash={JOB_ART[job.id]}
+          value={job.outcome}
+        />
       ) : null}
       <JobMore job={job} />
     </section>

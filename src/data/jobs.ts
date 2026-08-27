@@ -3,28 +3,28 @@ import type { CroJob, SlideCard } from "./types";
 export const ACME_TAIL_SLIDES: SlideCard[] = [
   {
     n: 4,
-    kicker: "They said",
+    kicker: "They said · 4 min ago",
     voice: "them",
     title: "The Sev-2",
     body: "We cannot tell a Sev-2 story across APM and logs without stitching tools.",
   },
   {
     n: 5,
-    kicker: "Datadog",
+    kicker: "Mapped live",
     voice: "us",
     title: "Land APM + Logs",
     body: "Same squad that already feels the incident. That is land-2 this quarter.",
   },
   {
     n: 6,
-    kicker: "They said",
+    kicker: "They said · 4 min ago",
     voice: "them",
     title: "The security bar",
     body: "Security will not let another agent in without SSO and an audit trail.",
   },
   {
     n: 7,
-    kicker: "Datadog",
+    kicker: "Mapped live",
     voice: "us",
     title: "SSO, then Bits AI",
     body: "Named on this call. One squad. Bits AI after week-3 MTTR moves.",
@@ -41,23 +41,32 @@ export const JOBS: CroJob[] = [
     botJob:
       "Granola notes go in while you are still on. Room Ops writes the last slides in their words, plus the leave-behind and a champion packet.",
     storyboard: [
-      { label: "Disco call", scene: "call" },
-      { label: "Cut to the demo", scene: "demo" },
-      { label: "They name the use cases", scene: "voice" },
-      { label: "Granola, still on", scene: "notes" },
       {
-        label: "Tuesday's slides",
+        label: "Still on disco. They have not seen a slide.",
+        scene: "call",
+      },
+      {
+        label: "You cut to the demo. They name how they actually work.",
+        scene: "demo",
+      },
+      {
+        label: "Granola is in. You have not hung up.",
+        scene: "notes",
+      },
+      {
+        label: "What we heard. Still on the call.",
         scene: "deck",
         slides: ACME_TAIL_SLIDES,
       },
     ],
     unlock:
       "Four slides for Tuesday. Their Sev-2 and their security bar, then how Datadog maps to each.",
-    outcome: "The next meeting is about the incident they just named.",
+    outcome:
+      "You leave with a deck they already heard themselves in. Tuesday is attach, not another disco.",
     clips: ["03-slides-granola"],
     demo: {
       title: "Room Ops",
-      subtitle: "Granola, Slides, champion packet",
+      subtitle: "Granola live · rewriting the open deck",
       participants: [
         { id: "you", name: "You", role: "you" },
         {
@@ -80,28 +89,28 @@ export const JOBS: CroJob[] = [
           id: "m1",
           from: "you",
           kind: "text",
-          body: "Disco is live. Acme is walking their stack. Cutting over to the demo now. Stay on Granola.",
+          body: "Still on disco. They have not seen a slide. Cutting to the demo. Stay on Granola. Do not start a new deck.",
         },
         {
           id: "m2",
           from: "you",
           kind: "text",
-          body: "They just named the use cases while I was in the product. Security path, Bits AI in one squad, Sev-2 in their words. Pull Granola. We are still on.",
+          body: "They just named the Sev-2 and the security bar, in their words, on this demo. Pull Granola. We are still on. Rewrite the tail of the open deck, not a recap after.",
         },
         {
           id: "m3",
           from: "room",
           kind: "text",
-          body: "Still on the call. Granola is in. Use cases go on the tail of the open deck, not a new file. Slides is rewriting the last cards live.",
+          body: "Still on. Granola 14:31. Writing the What we heard slide from this call. Their Sev-2 and security bar, then how Datadog maps. Champion can already hear themselves.",
         },
         {
           id: "m4",
           from: "slides",
           kind: "draft",
-          draftLabel: "Live deck tail",
+          draftLabel: "Tail of the open deck · still on",
           artifact: {
             kind: "slides",
-            title: "Acme · next meeting",
+            title: "What we heard",
             cards: ACME_TAIL_SLIDES,
           },
         },
@@ -248,7 +257,8 @@ export const JOBS: CroJob[] = [
       },
     ],
     unlock: "Owners, windows, and the next invite parked as a draft.",
-    outcome: "Raise ACV with the book you already have.",
+    outcome:
+      "Raise ACV without adding heads. The next meeting is already dated.",
     clips: ["05-forecast-sfdc", "06-customer-expert"],
     demo: {
       title: "Attach Mapper",
@@ -428,7 +438,8 @@ export const JOBS: CroJob[] = [
       },
     ],
     unlock: "Four gaps, three Monday questions, one paragraph for upstairs.",
-    outcome: "You can inspect a $1M+ deal in one sitting.",
+    outcome:
+      "Know in one sitting if it is real attach or a logo land, before you forecast it.",
     clips: ["05-forecast-sfdc", "07-customer-exec-brief"],
     demo: {
       title: "Deal Desk",
@@ -576,7 +587,8 @@ export const JOBS: CroJob[] = [
       },
     ],
     unlock: "Three talk tracks and a Friday one-pager.",
-    outcome: "Monday the field says the same Bits AI story.",
+    outcome:
+      "One story the field can say this week, so Bits AI does not die in 19 Slack versions.",
     clips: ["08-chief-groupchat", "01-morning-inbox"],
     demo: {
       title: "Enablement Chief",
@@ -738,7 +750,8 @@ export const JOBS: CroJob[] = [
       },
     ],
     unlock: "A scored OSS drill and a first-90 kit.",
-    outcome: "New AEs get reps before they spend a Fortune 500 cycle.",
+    outcome:
+      "Reps get a real cycle before they burn a Fortune 500 account.",
     clips: ["04-engineer-bugbot", "02-prospecting-pg"],
     demo: {
       title: "Ramp Coach",
