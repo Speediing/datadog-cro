@@ -3,6 +3,7 @@ import { ClipGallery } from "@/components/ClipGallery";
 import { QuoteWall } from "@/components/QuoteWall";
 import { SiteNav } from "@/components/SiteNav";
 import { BrandLockup } from "@/components/BrandLockup";
+import { RosterChart } from "@/components/RosterChart";
 import { JOBS } from "@/data/jobs";
 
 export default function HomePage() {
@@ -15,6 +16,8 @@ export default function HomePage() {
         <BrandLockup size="lg" />
         <p className="hero-line">Grok Bot for Datadog GTM</p>
       </header>
+
+      <RosterChart />
 
       {JOBS.map((job) => (
         <JobSection key={job.id} job={job} />

@@ -3,8 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { CroJob } from "@/data/types";
 import { useDemoPlayback } from "@/hooks/useDemoPlayback";
-import { ImessageDemo } from "./ImessageDemo";
-import { BotComputer } from "./BotComputer";
+import { GrokBotWindow } from "./GrokBotWindow";
 
 export function JobDemo({ job }: { job: CroJob }) {
   const playback = useDemoPlayback(job.demo);
@@ -16,16 +15,15 @@ export function JobDemo({ job }: { job: CroJob }) {
     if (!el) return;
     const io = new IntersectionObserver(
       ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.28 },
+      { threshold: 0.22 },
     );
     io.observe(el);
     return () => io.disconnect();
   }, [setInView]);
 
   return (
-    <div className="job-split" ref={rootRef}>
-      <ImessageDemo playback={playback} />
-      <BotComputer jobId={job.id} playback={playback} />
+    <div className="job-demo" ref={rootRef}>
+      <GrokBotWindow job={job} playback={playback} />
     </div>
   );
 }

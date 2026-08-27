@@ -30,11 +30,7 @@ export function BotComputer({
   const url = `https://${beat.host}${beat.path || ""}`;
 
   return (
-    <div className="pc" aria-label="Grok Bot computer">
-      <div className="pc-bar">
-        <span>Grok Bot</span>
-        <span>{beat.host}</span>
-      </div>
+    <div className="pc" aria-label="Bot computer">
       <div className="pc-window">
         <div className="chrome">
           <div className="chrome-row">

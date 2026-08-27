@@ -331,6 +331,13 @@ export const JOBS: CroJob[] = [
           persona: "Inspects the book the way you would if you had the hours",
           color: "#007AFF",
         },
+        {
+          id: "forecast",
+          name: "Forecast",
+          role: "bot",
+          persona: "SFDC next steps and the upstairs paragraph",
+          color: "#64D2FF",
+        },
       ],
       messages: [
         {
@@ -390,7 +397,7 @@ export const JOBS: CroJob[] = [
         },
         {
           id: "m5",
-          from: "desk",
+          from: "forecast",
           kind: "draft",
           draftLabel: "Upstairs paragraph",
           artifact: {
@@ -436,6 +443,13 @@ export const JOBS: CroJob[] = [
       participants: [
         { id: "you", name: "You", role: "you" },
         {
+          id: "cos",
+          name: "Chief of Staff",
+          role: "bot",
+          persona: "Opens the group chat and routes the one-off",
+          color: "#E8E8ED",
+        },
+        {
           id: "chief",
           name: "Enablement Chief",
           role: "bot",
@@ -466,7 +480,7 @@ export const JOBS: CroJob[] = [
         },
         {
           id: "m2",
-          from: "chief",
+          from: "cos",
           kind: "text",
           body: "Group chat is live. One story, three seats. Engineer on the OSS proof path. Talk Track on language the field can say out loud.",
         },
@@ -578,6 +592,20 @@ export const JOBS: CroJob[] = [
           persona: "Plays the OSS-is-good-enough objection cold",
           color: "#8E8E93",
         },
+        {
+          id: "eng",
+          name: "Engineer",
+          role: "bot",
+          persona: "Live product answer / Bugbot",
+          color: "#32ADE6",
+        },
+        {
+          id: "prospect",
+          name: "Prospecting",
+          role: "bot",
+          persona: "5x5 sheet and Gmail drafts only",
+          color: "#30D158",
+        },
       ],
       messages: [
         {
@@ -624,7 +652,7 @@ export const JOBS: CroJob[] = [
         },
         {
           id: "m6",
-          from: "coach",
+          from: "prospect",
           kind: "draft",
           draftLabel: "First-90-day deal kit",
           artifact: {
