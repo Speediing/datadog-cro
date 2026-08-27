@@ -200,7 +200,7 @@ export function GrokBotWindow({
   } = playback;
 
   const streamRef = useRef<HTMLDivElement>(null);
-  const [showComputer, setShowComputer] = useState(false);
+  const [showComputer, setShowComputer] = useState(true);
   const [pickedBot, setPickedBot] = useState<string | null>(null);
   const threadBots = liveThread.participants.filter((p) => p.role === "bot");
   const speakingId =
@@ -220,7 +220,7 @@ export function GrokBotWindow({
   useEffect(() => {
     const stream = streamRef.current;
     if (!stream) return;
-    stream.scrollTo({ top: stream.scrollHeight, behavior: "smooth" });
+    stream.scrollTop = stream.scrollHeight;
   }, [visibleCount, typingFrom]);
 
   return (
